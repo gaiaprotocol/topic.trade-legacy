@@ -23,12 +23,12 @@ export default class App extends View {
   constructor() {
     super();
     BodyNode.append(
-      this.hashtagList = new HashtagList(),
-      this.leaderboard = new HashtagLeaderboard(),
-      this.activityList = new ActivityList(),
-      this.meSection = new MeSection(),
       el(
         "section.app",
+        this.hashtagList = new HashtagList(),
+        this.leaderboard = new HashtagLeaderboard(),
+        this.activityList = new ActivityList(),
+        this.meSection = new MeSection(),
         new BottomMenuTabs("topic-trade-tabs", [{
           id: "chats",
           icon: new MaterialIcon("forum"),
@@ -39,7 +39,7 @@ export default class App extends View {
           id: "activity",
           icon: new MaterialIcon("browse_activity"),
         }, {
-          id: "settings",
+          id: "me",
           icon: new MaterialIcon("settings"),
         }]),
       ),
