@@ -4,8 +4,9 @@ const { ProvidePlugin } = require('webpack');
 
 module.exports = {
     entry: {
-        'bundle': './app/dev.ts',
-        __less: './public/style/main.less'
+        'bundle': './app/testnet.ts',
+        __less: './public/style/main.less',
+        "firebase-messaging-sw": "./service-worker/firebase-messaging-sw.ts",
     },
     module: {
         rules: [
