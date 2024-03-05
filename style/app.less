@@ -1,5 +1,45 @@
 body {
-    >section.app {}
+    width  : 100%;
+    height : 100%;
+    display: flex;
 
-    >section.room {}
+    >section.app {
+        position: relative;
+        width   : 380px;
+
+        @container (width < @safe-width) {
+            width: 100%;
+        }
+    }
+
+    >section.room {
+        flex-grow       : 1;
+        border-left     : 1px solid var(--line-color);
+        background-color: red;
+
+        @container (width < @safe-width) {
+            border-left   : none;
+            position      : fixed;
+            border-radius : 0;
+            left          : 0;
+            top           : 0;
+            width         : 100%;
+            height        : 100%;
+            z-index       : 999991;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        &:empty {
+            &::before {
+                display: block;
+                content: attr(data-empty-message);
+                color  : var(--disable-color);
+                padding: 8px 12px;
+            }
+
+            @container (width < @safe-width) {
+                display: none;
+            }
+        }
+    }
 }
