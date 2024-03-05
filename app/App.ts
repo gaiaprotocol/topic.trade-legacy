@@ -34,7 +34,7 @@ export default class App extends View {
         this.leaderboard = new HashtagLeaderboard(),
         this.activityList = new ActivityList(),
         this.meSection = new MeSection(),
-        this.tabs = new BottomMenuTabs("topic-trade-tabs", [{
+        this.tabs = new BottomMenuTabs(undefined, [{
           id: "chats",
           icon: new MaterialIcon("forum"),
         }, {
