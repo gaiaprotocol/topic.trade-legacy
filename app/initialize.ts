@@ -1,4 +1,4 @@
-import { Router } from "@common-module/app";
+import { AppInitializer, Router } from "@common-module/app";
 import { SFEnv } from "fsesf";
 import App from "./App.js";
 import AppConfig from "./AppConfig.js";
@@ -9,5 +9,11 @@ export default async function initialize(config: AppConfig) {
     contractAddresses: config.contractAddresses,
   });
 
-  Router.route("*", App);
+  AppInitializer.initialize(
+    config.supabaseUrl,
+    config.supabaseAnonKey,
+    config.dev,
+  );
+
+  Router.route(["", "{topic}"], App);
 }

@@ -1,9 +1,11 @@
 import {
   BodyNode,
   BottomMenuTabs,
+  DomNode,
   el,
   MaterialIcon,
   View,
+  ViewParams,
 } from "@common-module/app";
 import {
   ActivityList,
@@ -18,9 +20,12 @@ export default class App extends View {
   private leaderboard: HashtagLeaderboard;
   private activityList: ActivityList;
   private meSection: MeSection;
-  private room: HashtagRoom;
+  private tabs: BottomMenuTabs;
 
-  constructor() {
+  private roomSection: DomNode;
+  private room: HashtagRoom | undefined;
+
+  constructor(params: ViewParams) {
     super();
     BodyNode.append(
       el(
@@ -29,7 +34,7 @@ export default class App extends View {
         this.leaderboard = new HashtagLeaderboard(),
         this.activityList = new ActivityList(),
         this.meSection = new MeSection(),
-        new BottomMenuTabs("topic-trade-tabs", [{
+        this.tabs = new BottomMenuTabs("topic-trade-tabs", [{
           id: "chats",
           icon: new MaterialIcon("forum"),
         }, {
@@ -43,9 +48,39 @@ export default class App extends View {
           icon: new MaterialIcon("settings"),
         }]),
       ),
-      el("section.room", this.room = new HashtagRoom(), {
+      this.roomSection = el("section.room", {
         "data-empty-message": "Select a topic to start messaging",
       }),
     );
+
+    this.tabs.on("select", (id: string) => {
+      [
+        this.hashtagList,
+        this.leaderboard,
+        this.activityList,
+        this.meSection,
+      ].forEach((list) => list.deactivate());
+      if (id === "chats") this.hashtagList.activate();
+      else if (id === "leaderboard") this.leaderboard.activate();
+      else if (id === "activity") this.activityList.activate();
+      else if (id === "me") this.meSection.activate();
+    }).init();
+
+    if (params.topic) {
+      this.room = new HashtagRoom(params.topic).appendTo(this.roomSection);
+    }
+  }
+
+  public changeParams(params: ViewParams): void {
+    if (params.topic) {
+      if (!this.room) {
+        this.room = new HashtagRoom(params.topic).appendTo(this.roomSection);
+      } else {
+        this.room.enter(params.topic);
+      }
+    } else {
+      this.room?.delete();
+      this.room = undefined;
+    }
   }
 }
