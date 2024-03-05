@@ -197,6 +197,12 @@ button {
   background-color: #252527;
   background-size: cover;
 }
+.activatable.component {
+  display: none;
+}
+.activatable.component.active {
+  display: block;
+}
 :root {
   --button-text-color: var(--primary-color);
   --button-hover-color: rgba(193, 168, 125, 0.2);
@@ -1449,7 +1455,7 @@ body > section.app {
 body > section.room {
   flex-grow: 1;
   border-left: 1px solid var(--line-color);
-  background-color: red;
+  background-color: var(--page-bg-color);
 }
 @container (width < 1280px) {
   body > section.room {
