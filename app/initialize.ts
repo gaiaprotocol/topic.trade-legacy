@@ -9,6 +9,7 @@ export default async function initialize(config: AppConfig) {
     chains: config.chains,
     defaultChain: config.defaultChain,
     contractAddresses: config.contractAddresses,
+    hashtagName: "topic",
   });
 
   AppInitializer.initialize(
