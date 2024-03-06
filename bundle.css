@@ -228,7 +228,7 @@ button.component {
   color: var(--button-text-color);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-@media (hover: hover) {
+@media (pointer: fine) {
   button.component:hover:not(.disabled) {
     background-color: var(--button-hover-color);
   }
@@ -237,7 +237,7 @@ button.component.contained {
   background-color: var(--contained-button-bg-color);
   color: var(--contained-button-text-color);
 }
-@media (hover: hover) {
+@media (pointer: fine) {
   button.component.contained:hover {
     background-color: var(--contained-button-hover-bg-color);
   }
@@ -247,7 +247,7 @@ button.component.outlined {
   background-color: var(--outlined-button-bg-color);
   color: var(--outlined-button-text-color);
 }
-@media (hover: hover) {
+@media (pointer: fine) {
   button.component.outlined:hover {
     background-color: var(--outlined-button-hover-bg-color);
     border-color: var(--outlined-button-hover-line-color);
@@ -412,8 +412,10 @@ button.component.disabled {
   gap: 8px;
   width: 100%;
 }
-.dropdown-menu.component > ul > li > button:hover {
-  background-color: var(--primary-color);
+@media (pointer: fine) {
+  .dropdown-menu.component > ul > li > button:hover {
+    background-color: var(--primary-color);
+  }
 }
 .snackbar.component {
   position: fixed;
@@ -483,8 +485,10 @@ button.component.disabled {
   padding: 0 10px;
   white-space: nowrap;
 }
-.tabs.component > ul > .tab:hover {
-  color: var(--primary-color);
+@media (pointer: fine) {
+  .tabs.component > ul > .tab:hover {
+    color: var(--primary-color);
+  }
 }
 .tabs.component > ul > .tab.active {
   color: var(--primary-color);
@@ -839,8 +843,10 @@ button.component.disabled {
   text-transform: capitalize;
   cursor: pointer;
 }
-.select.component > .option-container > .option:hover {
-  background-color: var(--primary-color);
+@media (pointer: fine) {
+  .select.component > .option-container > .option:hover {
+    background-color: var(--primary-color);
+  }
 }
 .select.component.open > .value {
   border: 1px solid var(--primary-color);
@@ -1368,9 +1374,11 @@ button.component.disabled {
   cursor: pointer;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-.title-bar-user-display:hover {
-  background-color: var(--outlined-button-hover-bg-color);
-  border-color: var(--outlined-button-hover-line-color);
+@media (pointer: fine) {
+  .title-bar-user-display:hover {
+    background-color: var(--outlined-button-hover-bg-color);
+    border-color: var(--outlined-button-hover-line-color);
+  }
 }
 .title-bar-user-display > .avatar {
   width: 26px;
@@ -1435,8 +1443,10 @@ button.component.disabled {
   display: block;
   padding: 8px 20px;
 }
-.user-drawer > ul.menu > li > a:hover {
-  background-color: var(--hover-color);
+@media (pointer: fine) {
+  .user-drawer > ul.menu > li > a:hover {
+    background-color: var(--hover-color);
+  }
 }
 .user-drawer > section.keys > .key-list {
   border-top: 1px solid var(--line-color);
