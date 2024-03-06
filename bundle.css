@@ -228,24 +228,30 @@ button.component {
   color: var(--button-text-color);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-button.component:hover:not(.disabled) {
-  background-color: var(--button-hover-color);
+@media (hover: hover) {
+  button.component:hover:not(.disabled) {
+    background-color: var(--button-hover-color);
+  }
 }
 button.component.contained {
   background-color: var(--contained-button-bg-color);
   color: var(--contained-button-text-color);
 }
-button.component.contained:hover {
-  background-color: var(--contained-button-hover-bg-color);
+@media (hover: hover) {
+  button.component.contained:hover {
+    background-color: var(--contained-button-hover-bg-color);
+  }
 }
 button.component.outlined {
   border: 1px solid var(--outlined-button-line-color);
   background-color: var(--outlined-button-bg-color);
   color: var(--outlined-button-text-color);
 }
-button.component.outlined:hover {
-  background-color: var(--outlined-button-hover-bg-color);
-  border-color: var(--outlined-button-hover-line-color);
+@media (hover: hover) {
+  button.component.outlined:hover {
+    background-color: var(--outlined-button-hover-bg-color);
+    border-color: var(--outlined-button-hover-line-color);
+  }
 }
 button.component.circle {
   padding: 8px;
