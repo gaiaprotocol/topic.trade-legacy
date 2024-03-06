@@ -25,7 +25,7 @@ export default class App extends View {
   private roomSection: DomNode;
   private room: HashtagRoom | undefined;
 
-  constructor(params: ViewParams) {
+  constructor(params: ViewParams, uri: string, hashtagInfo?: any) {
     super();
     BodyNode.append(
       el(
@@ -67,14 +67,22 @@ export default class App extends View {
     }).init();
 
     if (params.topic) {
-      this.room = new HashtagRoom(params.topic).appendTo(this.roomSection);
+      this.room = new HashtagRoom(params.topic, hashtagInfo).appendTo(
+        this.roomSection,
+      );
     }
   }
 
-  public changeParams(params: ViewParams): void {
+  public changeParams(
+    params: ViewParams,
+    uri: string,
+    hashtagInfo?: any,
+  ): void {
     if (params.topic) {
       if (!this.room) {
-        this.room = new HashtagRoom(params.topic).appendTo(this.roomSection);
+        this.room = new HashtagRoom(params.topic, hashtagInfo).appendTo(
+          this.roomSection,
+        );
       } else {
         this.room.enter(params.topic);
       }
