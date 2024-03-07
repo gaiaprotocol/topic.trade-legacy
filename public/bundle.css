@@ -379,33 +379,6 @@ button.component.disabled {
   border-color: var(--text-color) transparent var(--text-color) transparent;
   animation: loading-spinner-animation 1.2s linear infinite;
 }
-@keyframes list-loading-bar-loading {
-  0% {
-    left: -50%;
-  }
-  100% {
-    left: 100%;
-  }
-}
-.list-loading-bar.component {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 3px;
-  background-color: var(--loading-bar-bg-color);
-  z-index: 999997;
-  overflow: hidden;
-}
-.list-loading-bar.component::before {
-  content: '';
-  position: absolute;
-  left: -50%;
-  width: 50%;
-  height: 100%;
-  background-color: var(--loading-bar-color);
-  animation: list-loading-bar-loading 2s linear infinite;
-}
 .dropdown-menu.component {
   position: fixed;
   z-index: 999998;
@@ -611,6 +584,7 @@ button.component.disabled {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 8px;
   padding: 0 12px;
 }
 @keyframes show-drawer {
@@ -1500,7 +1474,7 @@ button.component.disabled {
   padding: 0 20px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 @container (width < 1280px) {
   .hashtag-room-title-bar {
@@ -1518,8 +1492,22 @@ button.component.disabled {
 .hashtag-room-title-bar > .image-container {
   display: flex;
 }
+.hashtag-room-title-bar > .image-container > img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
 .hashtag-room-title-bar > .info-container {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hashtag-room-title-bar > .info-container > h1 {
+  font-weight: bold;
+}
+.hashtag-room-title-bar > .info-container > .info {
+  font-size: 12px;
 }
 .hashtag-search-bar {
   padding: 10px;
@@ -1534,6 +1522,19 @@ button.component.disabled {
 }
 .hashtag-search-bar > label > input {
   flex-grow: 1;
+}
+.login-required {
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+}
+.login-required > main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
 .login-required-popup > header > h1 {
   display: flex;
