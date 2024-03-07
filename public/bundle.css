@@ -1275,7 +1275,7 @@ button.component.disabled {
 }
 .chat-message-form > main > section.rich {
   display: flex;
-  padding: 0 16px;
+  padding: 0 8px;
   align-items: center;
 }
 .chat-message-form > main > section.rich > button {
@@ -1534,6 +1534,20 @@ button.component.disabled {
 }
 .hashtag-search-bar > label > input {
   flex-grow: 1;
+}
+.login-required-popup > header > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.login-required-popup > main {
+  padding: 0 20px;
+}
+.login-required-popup > main > p {
+  word-break: break-all;
 }
 body {
   width: 100%;
