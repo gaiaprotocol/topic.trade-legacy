@@ -101,6 +101,7 @@ meter {
 :root {
   --primary-color: #C1A87D;
   --line-color: #252527;
+  --placeholder-color: rgba(255, 255, 255, 0.5);
   --page-bg-color: #121212;
   --title-text-color: #fff;
   --paragraph-text-color: #b4c2d3;
@@ -179,7 +180,7 @@ button {
   cursor: pointer;
 }
 ::placeholder {
-  color: var(--disable-color);
+  color: var(--placeholder-color);
 }
 .clearfix::after {
   content: '';
@@ -233,6 +234,9 @@ button.component {
     background-color: var(--button-hover-color);
   }
 }
+button.component:active:not(.disabled) {
+  background-color: var(--button-hover-color);
+}
 button.component.contained {
   background-color: var(--contained-button-bg-color);
   color: var(--contained-button-text-color);
@@ -241,6 +245,9 @@ button.component.contained {
   button.component.contained:hover {
     background-color: var(--contained-button-hover-bg-color);
   }
+}
+button.component.contained:active {
+  background-color: var(--contained-button-hover-bg-color);
 }
 button.component.outlined {
   border: 1px solid var(--outlined-button-line-color);
@@ -252,6 +259,10 @@ button.component.outlined {
     background-color: var(--outlined-button-hover-bg-color);
     border-color: var(--outlined-button-hover-line-color);
   }
+}
+button.component.outlined:active {
+  background-color: var(--outlined-button-hover-bg-color);
+  border-color: var(--outlined-button-hover-line-color);
 }
 button.component.circle {
   padding: 8px;
@@ -417,6 +428,9 @@ button.component.disabled {
     background-color: var(--primary-color);
   }
 }
+.dropdown-menu.component > ul > li > button:active {
+  background-color: var(--primary-color);
+}
 .snackbar.component {
   position: fixed;
   left: 0;
@@ -490,6 +504,9 @@ button.component.disabled {
     color: var(--primary-color);
   }
 }
+.tabs.component > ul > .tab:active {
+  color: var(--primary-color);
+}
 .tabs.component > ul > .tab.active {
   color: var(--primary-color);
   border-bottom: 3px solid var(--primary-color);
@@ -518,6 +535,9 @@ button.component.disabled {
 }
 .bottom-menu-tabs.component > .tab > .icon {
   font-size: 30px;
+}
+.bottom-menu-tabs.component > .tab.active {
+  color: var(--primary-color);
 }
 .exitable {
   position: fixed;
@@ -789,6 +809,10 @@ button.component.disabled {
     display: none;
   }
 }
+:root {
+  --input-border-color: var(--line-color);
+  --input-bg-color: var(--page-bg-color);
+}
 .input.component {
   display: flex;
   flex-direction: column;
@@ -797,8 +821,8 @@ button.component.disabled {
 .input.component > textarea,
 .input.component > input {
   width: 100%;
-  border: 1px solid var(--line-color);
-  background-color: var(--content-bg-color);
+  border: 1px solid var(--input-border-color);
+  background-color: var(--input-bg-color);
   padding: 8px 12px;
   border-radius: 6px;
 }
@@ -847,6 +871,9 @@ button.component.disabled {
   .select.component > .option-container > .option:hover {
     background-color: var(--primary-color);
   }
+}
+.select.component > .option-container > .option:active {
+  background-color: var(--primary-color);
 }
 .select.component.open > .value {
   border: 1px solid var(--primary-color);
@@ -1380,6 +1407,10 @@ button.component.disabled {
     border-color: var(--outlined-button-hover-line-color);
   }
 }
+.title-bar-user-display:active {
+  background-color: var(--outlined-button-hover-bg-color);
+  border-color: var(--outlined-button-hover-line-color);
+}
 .title-bar-user-display > .avatar {
   width: 26px;
   height: 26px;
@@ -1448,6 +1479,9 @@ button.component.disabled {
     background-color: var(--hover-color);
   }
 }
+.user-drawer > ul.menu > li > a:active {
+  background-color: var(--hover-color);
+}
 .user-drawer > section.keys > .key-list {
   border-top: 1px solid var(--line-color);
 }
@@ -1475,8 +1509,39 @@ button.component.disabled {
     display: flex;
   }
 }
+.hashtag-room-title-bar > .image-container {
+  display: flex;
+}
 .hashtag-room-title-bar > .info-container {
   flex-grow: 1;
+}
+.hashtag-search-bar {
+  padding: 10px;
+}
+.hashtag-search-bar > label {
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  background-color: var(--input-bg-color);
+  display: flex;
+  gap: 6px;
+  padding: 4px 6px;
+}
+.hashtag-search-bar > label > input {
+  flex-grow: 1;
+}
+.login-required-popup > header > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.login-required-popup > main {
+  padding: 0 20px;
+}
+.login-required-popup > main > p {
+  word-break: break-all;
 }
 body {
   width: 100%;
