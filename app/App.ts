@@ -84,7 +84,7 @@ export default class App extends View {
           this.roomSection,
         );
       } else {
-        this.room.enter(params.topic);
+        this.room.enter(params.topic, hashtagInfo);
       }
     } else {
       this.room?.delete();
