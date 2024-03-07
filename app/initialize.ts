@@ -6,7 +6,12 @@ import {
   Router,
   SplashLoader,
 } from "@common-module/app";
-import { inject_fsesf_msg, SFEnv, SFSignedUserManager } from "fsesf";
+import {
+  inject_fsesf_msg,
+  SFEnv,
+  SFOnlineUserManager,
+  SFSignedUserManager,
+} from "fsesf";
 import App from "./App.js";
 import AppConfig from "./AppConfig.js";
 
@@ -32,6 +37,8 @@ export default async function initialize(config: AppConfig) {
   await SplashLoader.load(el("img", { src: "/images/logo-transparent.png" }), [
     SFSignedUserManager.fetchUserOnInit(),
   ]);
+
+  SFOnlineUserManager.init();
 
   Router.route(["", "{topic}"], App);
 
