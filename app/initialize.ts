@@ -2,7 +2,6 @@ import {
   AppInitializer,
   AuthUtil,
   el,
-  MaterialIconSystem,
   Router,
   SplashLoader,
 } from "@common-module/app";
@@ -17,9 +16,9 @@ import AppConfig from "./AppConfig.js";
 
 export default async function initialize(config: AppConfig) {
   inject_fsesf_msg();
-  MaterialIconSystem.launch();
 
   SFEnv.init({
+    dev: config.dev,
     serviceName: "topic.trade",
     messageForWalletLinking: "Link Wallet to topic.trade",
     chains: config.chains,
