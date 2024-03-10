@@ -930,9 +930,6 @@ button.component.disabled {
 .alert.component > main {
   padding: 0 20px;
 }
-.alert.component > main > p {
-  word-break: break-all;
-}
 .error-alert.component > header > h1 {
   display: flex;
   align-items: center;
@@ -943,9 +940,6 @@ button.component.disabled {
 }
 .error-alert.component > main {
   padding: 0 20px;
-}
-.error-alert.component > main > p {
-  word-break: break-all;
 }
 .confirm.component > header > h1 {
   display: flex;
@@ -958,9 +952,6 @@ button.component.disabled {
 .confirm.component > main {
   padding: 0 20px;
 }
-.confirm.component > main > p {
-  word-break: break-all;
-}
 .prompt.component > header > h1 {
   display: flex;
   align-items: center;
@@ -971,9 +962,6 @@ button.component.disabled {
 }
 .prompt.component > main {
   padding: 0 20px;
-}
-.prompt.component > main > p {
-  word-break: break-all;
 }
 .warning-message-box.component {
   display: flex;
@@ -1107,7 +1095,6 @@ button.component.disabled {
 }
 .post-content-display.social-component .message {
   margin-top: 6px;
-  word-break: break-all;
 }
 .post-thread.social-component > .post-display,
 .post-thread.social-component > .post-form {
@@ -1159,9 +1146,6 @@ button.component.disabled {
   background-color: #fff;
   color: #0A0A0A;
   padding: 6px 10px;
-}
-.chat-message-display > .message {
-  word-break: break-all;
 }
 .chat-message-display > .rich-display {
   margin-top: 4px;
@@ -1308,6 +1292,87 @@ button.component.disabled {
   width: 32px;
   height: 32px;
   border-radius: 16px;
+}
+.x-account-email-required-popup > header > h1 {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.x-account-email-required-popup > main {
+  padding: 0 20px;
+}
+.x-account-email-required-popup > main > ol {
+  list-style-type: decimal;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.x-account-email-required-popup > main > ol > li {
+  margin-bottom: 20px;
+  line-height: 1.5em;
+}
+.x-account-email-required-popup > main > ol > li > img {
+  margin-top: 10px;
+  display: block;
+  max-width: 100%;
+  border-radius: 8px;
+}
+.pwa-install-popup > header > h1 {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.pwa-install-popup > main {
+  padding: 0 20px;
+}
+.pwa-install-popup > main > ol {
+  list-style-type: decimal;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.pwa-install-popup > main > ol > li {
+  margin-bottom: 20px;
+  line-height: 1.5em;
+}
+.pwa-install-popup > main > ol > li > img {
+  margin-top: 10px;
+  display: block;
+  max-width: 280px;
+  border-radius: 8px;
+}
+.push-setting-popup > header > h1 {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.push-setting-popup > main {
+  padding: 0 20px;
+}
+.push-setting-popup > main > ol {
+  list-style-type: decimal;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.push-setting-popup > main > ol > li {
+  margin-bottom: 20px;
+  line-height: 1.5em;
+}
+.push-setting-popup > main > ol > li > img {
+  margin-top: 10px;
+  display: block;
+  max-width: 280px;
+  border-radius: 8px;
 }
 .layout {
   height: 100%;
@@ -1562,9 +1627,6 @@ button.component.disabled {
 }
 .login-required-popup > main {
   padding: 0 20px;
-}
-.login-required-popup > main > p {
-  word-break: break-all;
 }
 body {
   width: 100%;
