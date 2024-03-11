@@ -13,6 +13,7 @@ import {
   HashtagList,
   HashtagRoom,
   MeSection,
+  SFEnv,
 } from "fsesf";
 
 export default class App extends View {
@@ -34,7 +35,7 @@ export default class App extends View {
         this.leaderboard = new HashtagLeaderboard(),
         this.activityList = new ActivityList(),
         this.meSection = new MeSection(),
-        this.tabs = new BottomMenuTabs("test", [{
+        this.tabs = new BottomMenuTabs(SFEnv.dev ? "test" : undefined, [{
           id: "chats",
           icon: new MaterialIcon("forum"),
         }, {

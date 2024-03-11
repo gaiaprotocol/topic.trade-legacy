@@ -1,3 +1,6 @@
+/*!***********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../app-module/style/reset.css ***!
+  \***********************************************************************************************************/
 /***
     The new CSS reset - version 1.8.4 (last updated 14.2.2023)
     GitHub page: https://github.com/elad2412/the-new-css-reset
@@ -98,6 +101,9 @@ meter {
 :where(dialog:modal) {
     all: revert;
 }
+/*!*********************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/less-loader/dist/cjs.js!./public/style/main.less ***!
+  \*********************************************************************************************************************************************/
 :root {
   --primary-color: #C1A87D;
   --line-color: #252527;
@@ -1617,16 +1623,70 @@ button.component.disabled {
   }
   to {
     opacity: 1;
-    height: 70px;
+    height: 58px;
   }
 }
 .hashtag-list-item {
   cursor: pointer;
-  height: 70px;
+  height: 58px;
   border-bottom: 1px solid var(--line-color);
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .hashtag-list-item.new {
   animation: new-hashtag-list-item 0.3s ease-out;
+}
+.hashtag-list-item > .image-container {
+  display: flex;
+}
+.hashtag-list-item > .image-container > img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+.hashtag-list-item > .info-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hashtag-list-item > .info-container > .info {
+  display: flex;
+  align-items: center;
+}
+.hashtag-list-item > .info-container > .info > h3 {
+  flex-grow: 1;
+  font-weight: bold;
+}
+.hashtag-list-item > .info-container > .info > .price {
+  font-size: 12px;
+}
+.hashtag-list-item > .info-container > .last-message {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hashtag-list-item > .info-container > .last-message > .sender {
+  color: var(--title-text-color);
+}
+.hashtag-list-item > .info-container > .last-message > .message {
+  flex-grow: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 0;
+}
+.hashtag-list-item > .info-container > .last-message > .new-message-count {
+  background-color: var(--contained-button-bg-color);
+  color: var(--contained-button-text-color);
+  padding: 2px 4px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+.hashtag-list-item > .info-container > .last-message > .sent-at {
+  font-size: 12px;
 }
 .login-required {
   border-radius: 16px;
