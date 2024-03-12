@@ -1551,6 +1551,17 @@ button.component.disabled {
 .user-drawer > section.keys > .key-list:empty {
   display: none;
 }
+.hashtag-room {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.hashtag-room > .hashtag-message-list {
+  height: 0px;
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding: 20px;
+}
 .hashtag-room-title-bar {
   height: 50px;
   border-bottom: 1px solid var(--line-color);
@@ -1682,6 +1693,102 @@ button.component.disabled {
 .hashtag-list-item > .info-container > .last-message > .sent-at {
   font-size: 12px;
 }
+.hashtag-message-form > main {
+  border-top: 1px solid var(--line-color);
+  min-height: 50px;
+  display: flex;
+}
+.hashtag-message-form > main > section.rich {
+  display: flex;
+  padding: 0 8px;
+  align-items: center;
+}
+.hashtag-message-form > main > section.rich > button {
+  cursor: pointer;
+}
+.hashtag-message-form > main > form {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 20px;
+}
+.hashtag-message-form > main > form > .input-container {
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: text;
+}
+.hashtag-message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.hashtag-message-list-item {
+  display: flex;
+  gap: 6px;
+}
+.hashtag-message-list-item > .author-avatar {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #252527;
+  background-size: cover;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+}
+.hashtag-message-list-item > main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hashtag-message-list-item > main > header {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.hashtag-message-list-item > main > header > .author {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.hashtag-message-list-item > main > header > .author > .name {
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.hashtag-message-list-item > main > header > .date {
+  color: #595959;
+  font-size: 12px;
+}
+.hashtag-message-list-item > main > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: start;
+}
+:root {
+  --waiting-message-color: rgba(255, 255, 255, 0.5);
+}
+.hashtag-message-display {
+  border-radius: 6px;
+  background-color: #fff;
+  color: #0A0A0A;
+  padding: 6px 10px;
+}
+.hashtag-message-display.waiting {
+  color: var(--waiting-message-color);
+}
+.hashtag-message-display > .rich-display {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  max-width: 240px;
+  max-height: 240px;
+}
 .login-required {
   border-radius: 16px;
   padding: 16px;
@@ -1719,6 +1826,14 @@ body > section.app {
   body > section.app {
     width: 100%;
   }
+}
+body > section.app > .app-tab > h1 {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--line-color);
+  font-weight: bold;
 }
 body > section.room {
   flex-grow: 1;

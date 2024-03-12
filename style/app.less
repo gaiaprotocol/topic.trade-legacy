@@ -10,6 +10,17 @@ body {
         @container (width < @safe-width) {
             width: 100%;
         }
+
+        >.app-tab {
+            >h1 {
+                height         : 50px;
+                display        : flex;
+                align-items    : center;
+                justify-content: center;
+                border-bottom  : 1px solid var(--line-color);
+                font-weight    : bold;
+            }
+        }
     }
 
     >section.room {
