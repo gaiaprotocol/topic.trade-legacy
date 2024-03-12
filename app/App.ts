@@ -7,20 +7,17 @@ import {
   View,
   ViewParams,
 } from "@common-module/app";
-import {
-  ActivityList,
-  HashtagLeaderboard,
-  HashtagList,
-  HashtagRoom,
-  MeSection,
-  SFEnv,
-} from "fsesf";
+import { HashtagRoom, SFEnv } from "fsesf";
+import ActivityTab from "./tabs/ActivityTab.js";
+import ChatsTab from "./tabs/ChatsTab.js";
+import LeaderboardTab from "./tabs/LeaderboardTab.js";
+import SettingsTab from "./tabs/SettingsTab.js";
 
 export default class App extends View {
-  private hashtagList: HashtagList;
-  private leaderboard: HashtagLeaderboard;
-  private activityList: ActivityList;
-  private meSection: MeSection;
+  private chatsTab: ChatsTab;
+  private leaderboardTab: LeaderboardTab;
+  private activityTab: ActivityTab;
+  private settingsTab: SettingsTab;
   private tabs: BottomMenuTabs;
 
   private roomSection: DomNode;
@@ -31,10 +28,10 @@ export default class App extends View {
     BodyNode.append(
       el(
         "section.app",
-        this.hashtagList = new HashtagList(),
-        this.leaderboard = new HashtagLeaderboard(),
-        this.activityList = new ActivityList(),
-        this.meSection = new MeSection(),
+        this.chatsTab = new ChatsTab(),
+        this.leaderboardTab = new LeaderboardTab(),
+        this.activityTab = new ActivityTab(),
+        this.settingsTab = new SettingsTab(),
         this.tabs = new BottomMenuTabs(SFEnv.dev ? "test" : undefined, [{
           id: "chats",
           icon: new MaterialIcon("forum"),
@@ -45,7 +42,7 @@ export default class App extends View {
           id: "activity",
           icon: new MaterialIcon("browse_activity"),
         }, {
-          id: "me",
+          id: "settings",
           icon: new MaterialIcon("settings"),
         }]),
       ),
@@ -56,15 +53,15 @@ export default class App extends View {
 
     this.tabs.on("select", (id: string) => {
       [
-        this.hashtagList,
-        this.leaderboard,
-        this.activityList,
-        this.meSection,
+        this.chatsTab,
+        this.leaderboardTab,
+        this.activityTab,
+        this.settingsTab,
       ].forEach((list) => list.deactivate());
-      if (id === "chats") this.hashtagList.activate();
-      else if (id === "leaderboard") this.leaderboard.activate();
-      else if (id === "activity") this.activityList.activate();
-      else if (id === "me") this.meSection.activate();
+      if (id === "chats") this.chatsTab.activate();
+      else if (id === "leaderboard") this.leaderboardTab.activate();
+      else if (id === "activity") this.activityTab.activate();
+      else if (id === "settings") this.settingsTab.activate();
     }).init();
 
     if (params.topic) {

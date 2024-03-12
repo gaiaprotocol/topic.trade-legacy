@@ -1223,7 +1223,7 @@ button.component.disabled {
 }
 .chat-message-form > main {
   border-top: 1px solid var(--line-color);
-  min-height: 56px;
+  min-height: 50px;
   display: flex;
 }
 .chat-message-form > main > section.rich {
@@ -1557,6 +1557,17 @@ button.component.disabled {
 .user-drawer > section.keys > .key-list:empty {
   display: none;
 }
+.hashtag-room {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.hashtag-room > .hashtag-message-list {
+  height: 0px;
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding: 20px;
+}
 .hashtag-room-title-bar {
   height: 50px;
   border-bottom: 1px solid var(--line-color);
@@ -1688,6 +1699,11 @@ button.component.disabled {
 .hashtag-list-item > .info-container > .last-message > .sent-at {
   font-size: 12px;
 }
+.hashtag-message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
 .login-required {
   border-radius: 16px;
   padding: 16px;
@@ -1725,6 +1741,14 @@ body > section.app {
   body > section.app {
     width: 100%;
   }
+}
+body > section.app > .app-tab > h1 {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--line-color);
+  font-weight: bold;
 }
 body > section.room {
   flex-grow: 1;
