@@ -1639,6 +1639,18 @@ button.component.disabled {
   display: flex;
   align-items: center;
   gap: 10px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+@media (pointer: fine) {
+  .hashtag-list-item:hover {
+    background-color: var(--button-hover-color);
+  }
+}
+.hashtag-list-item:active {
+  background-color: var(--button-hover-color);
+}
+.hashtag-list-item.active {
+  background-color: var(--button-hover-color);
 }
 .hashtag-list-item.new {
   animation: new-hashtag-list-item 0.3s ease-out;
