@@ -1582,6 +1582,7 @@ button.component.disabled {
 }
 .hashtag-room-title-bar > .image-container {
   display: flex;
+  cursor: pointer;
 }
 .hashtag-room-title-bar > .image-container > img {
   width: 36px;
@@ -1589,16 +1590,19 @@ button.component.disabled {
   border-radius: 50%;
 }
 .hashtag-room-title-bar > .info-container {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  cursor: pointer;
 }
 .hashtag-room-title-bar > .info-container > h1 {
   font-weight: bold;
 }
 .hashtag-room-title-bar > .info-container > .info {
   font-size: 12px;
+}
+.hashtag-room-title-bar > .menu {
+  margin-left: auto;
 }
 .hashtag-search-bar {
   padding: 10px;
