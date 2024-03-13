@@ -485,9 +485,6 @@ button.component.disabled {
   border-bottom: 3px solid var(--primary-color);
 }
 .bottom-menu-tabs.component {
-  position: absolute;
-  left: 0;
-  bottom: 0;
   width: 100%;
   height: calc(50px + env(safe-area-inset-bottom));
   padding-bottom: env(safe-area-inset-bottom);
@@ -1733,6 +1730,9 @@ button.component.disabled {
   justify-content: center;
   cursor: text;
 }
+.hashtag-message-form > main > form > .input-container > .message-input {
+  word-break: break-all;
+}
 .hashtag-message-list {
   display: flex;
   flex-direction: column;
@@ -1783,17 +1783,26 @@ button.component.disabled {
   gap: 6px;
   align-items: start;
 }
+@keyframes new-hashtag-message-display {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 :root {
   --waiting-message-color: rgba(255, 255, 255, 0.5);
 }
 .hashtag-message-display {
   border-radius: 6px;
-  background-color: #fff;
-  color: #0A0A0A;
-  padding: 6px 10px;
+  word-break: break-all;
 }
 .hashtag-message-display.waiting {
   color: var(--waiting-message-color);
+}
+.hashtag-message-display.new {
+  animation: new-hashtag-message-display 0.3s ease-out;
 }
 .hashtag-message-display > .rich-display {
   margin-top: 4px;
@@ -1831,13 +1840,24 @@ body {
   display: flex;
 }
 body > section.app {
+  flex-shrink: 0;
   position: relative;
   width: 380px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 @container (width < 1280px) {
   body > section.app {
     width: 100%;
   }
+}
+body > section.app > .app-tab {
+  flex-grow: 1;
+  flex-direction: column;
+}
+body > section.app > .app-tab.active {
+  display: flex;
 }
 body > section.app > .app-tab > h1 {
   height: 50px;
@@ -1846,6 +1866,11 @@ body > section.app > .app-tab > h1 {
   justify-content: center;
   border-bottom: 1px solid var(--line-color);
   font-weight: bold;
+}
+body > section.app > .app-tab > main {
+  flex-grow: 1;
+  height: 0;
+  overflow-y: auto;
 }
 body > section.room {
   flex-grow: 1;

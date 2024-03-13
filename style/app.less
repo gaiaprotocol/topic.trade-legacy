@@ -4,14 +4,25 @@ body {
     display: flex;
 
     >section.app {
-        position: relative;
-        width   : 380px;
+        flex-shrink   : 0;
+        position      : relative;
+        width         : 380px;
+        display       : flex;
+        flex-direction: column;
+        height        : 100%;
 
         @container (width < @safe-width) {
             width: 100%;
         }
 
         >.app-tab {
+            flex-grow     : 1;
+            flex-direction: column;
+
+            &.active {
+                display: flex;
+            }
+
             >h1 {
                 height         : 50px;
                 display        : flex;
@@ -19,6 +30,12 @@ body {
                 justify-content: center;
                 border-bottom  : 1px solid var(--line-color);
                 font-weight    : bold;
+            }
+
+            >main {
+                flex-grow : 1;
+                height    : 0;
+                overflow-y: auto;
             }
         }
     }
