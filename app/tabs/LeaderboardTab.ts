@@ -6,7 +6,7 @@ export default class LeaderboardTab extends Activatable {
     super(".app-tab.leaderboard-tab");
     this.append(
       el("h1", "Leaderboard"),
-      new HashtagLeaderboard(),
+      el("main", new HashtagLeaderboard()),
     );
   }
 }

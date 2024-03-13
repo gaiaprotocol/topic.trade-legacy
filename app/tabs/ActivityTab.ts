@@ -6,7 +6,7 @@ export default class ActivityTab extends Activatable {
     super(".app-tab.activity-tab");
     this.append(
       el("h1", "Activities"),
-      new ActivityList(),
+      el("main", new ActivityList()),
     );
   }
 }

@@ -8,7 +8,7 @@ export default class ChatsTab extends Activatable {
     super(".app-tab.chats-tab");
     this.append(
       el("h1", "Chats"),
-      this.hashtagList = new HashtagList(),
+      el("main", this.hashtagList = new HashtagList()),
     );
   }
 

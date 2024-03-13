@@ -25,6 +25,7 @@ export default async function initialize(config: AppConfig) {
     defaultChain: config.defaultChain,
     contractAddresses: config.contractAddresses,
     hashtagOptions: { name: "topic", baseUri: "" },
+    defaultAssetPrice: 68750000000000n,
   });
 
   AppInitializer.initialize(
