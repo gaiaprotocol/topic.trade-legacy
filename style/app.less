@@ -28,8 +28,18 @@ body {
                 display        : flex;
                 align-items    : center;
                 justify-content: center;
-                border-bottom  : 1px solid var(--line-color);
                 font-weight    : bold;
+            }
+
+            >.hashtag-search-bar {
+                padding      : 0 10px 10px;
+                border-bottom: 1px solid var(--line-color);
+            }
+
+            &:not(:has(.hashtag-search-bar)) {
+                >h1 {
+                    border-bottom: 1px solid var(--line-color);
+                }
             }
 
             >main {
