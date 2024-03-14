@@ -10,7 +10,9 @@ import {
   SFEnv,
   SFOnlineUserManager,
   SFSignedUserManager,
+  WalletConnectManager,
 } from "fsesf";
+import { base, baseSepolia } from "viem/chains";
 import App from "./App.js";
 import AppConfig from "./AppConfig.js";
 
@@ -33,6 +35,11 @@ export default async function initialize(config: AppConfig) {
     config.supabaseAnonKey,
     config.dev,
   );
+
+  WalletConnectManager.init(config.walletConnectProjectId, [
+    base,
+    baseSepolia,
+  ]);
 
   await SplashLoader.load(el("img", { src: "/images/logo-transparent.png" }), [
     SFSignedUserManager.fetchUserOnInit(),

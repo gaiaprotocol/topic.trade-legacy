@@ -21,4 +21,6 @@ await initialize({
       [ContractType.HashtagTrade]: "",
     },
   },
+
+  walletConnectProjectId: "7fd590b8ac5e9f5f2e4cd99a07a54783",
 });

@@ -11,4 +11,6 @@ export default interface AppConfig {
   contractAddresses: {
     [chainId: number]: { [contractType: number]: string };
   };
+
+  walletConnectProjectId: string;
 }
