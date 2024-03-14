@@ -1981,6 +1981,7 @@ body > section.app > .app-tab > main {
   flex-grow: 1;
   height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 body > section.room {
   flex-grow: 1;
