@@ -198,6 +198,16 @@ button {
   background-color: #252527;
   background-size: cover;
 }
+.avatar.loading {
+  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
+  background-size: 120px 100%;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-content-animation;
+  animation-timing-function: linear;
+}
 .activatable.component {
   display: none;
 }
@@ -372,6 +382,30 @@ button.component.disabled {
   border: 2px solid var(--text-color);
   border-color: var(--text-color) transparent var(--text-color) transparent;
   animation: loading-spinner-animation 1.2s linear infinite;
+}
+@keyframes loading-content-animation {
+  0% {
+    background-position: -120px 0;
+  }
+  100% {
+    background-position: 120px 0;
+  }
+}
+.loading-content.component:after {
+  content: " ";
+  display: block;
+  width: 60px;
+  min-height: 16px;
+  height: 100%;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
+  background-size: 120px 100%;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-content-animation;
+  animation-timing-function: linear;
 }
 .dropdown-menu.component {
   position: fixed;
@@ -993,6 +1027,16 @@ button.component.disabled {
   background-size: cover;
   cursor: pointer;
 }
+.post-display.social-component .author-avatar.loading {
+  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
+  background-size: 120px 100%;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-content-animation;
+  animation-timing-function: linear;
+}
 .post-display.social-component .author {
   display: flex;
   align-items: center;
@@ -1072,6 +1116,16 @@ button.component.disabled {
   background-size: cover;
   cursor: pointer;
 }
+.post-content-display.social-component .author-avatar.loading {
+  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
+  background-size: 120px 100%;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-content-animation;
+  animation-timing-function: linear;
+}
 .post-content-display.social-component .author {
   padding-top: 4px;
   display: flex;
@@ -1109,6 +1163,16 @@ button.component.disabled {
   border-radius: 50%;
   background-color: #252527;
   background-size: cover;
+}
+.post-form.social-component > main > .author-avatar.loading {
+  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
+  background-size: 120px 100%;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-content-animation;
+  animation-timing-function: linear;
 }
 .post-form.social-component > main > form {
   flex-grow: 1;
@@ -1170,6 +1234,16 @@ button.component.disabled {
   width: 34px;
   height: 34px;
   cursor: pointer;
+}
+.chat-message-list-item > .author-avatar.loading {
+  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
+  background-size: 120px 100%;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-content-animation;
+  animation-timing-function: linear;
 }
 .chat-message-list-item > main {
   display: flex;
@@ -1758,6 +1832,16 @@ button.component.disabled {
   height: 34px;
   cursor: pointer;
 }
+.hashtag-message-list-item > .author-avatar.loading {
+  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
+  background-size: 120px 100%;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-content-animation;
+  animation-timing-function: linear;
+}
 .hashtag-message-list-item > main {
   display: flex;
   flex-direction: column;
@@ -1838,6 +1922,21 @@ button.component.disabled {
 }
 .login-required-popup > main {
   padding: 0 20px;
+}
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.profile-section > .avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 16px;
+}
+.profile-section > .name {
+  font-size: 18px;
+  font-weight: bold;
 }
 body {
   width: 100%;
