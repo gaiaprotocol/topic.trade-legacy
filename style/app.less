@@ -69,6 +69,10 @@ body {
         }
 
         &:empty {
+            display        : flex;
+            align-items    : center;
+            justify-content: center;
+
             &::before {
                 display: block;
                 content: attr(data-empty-message);

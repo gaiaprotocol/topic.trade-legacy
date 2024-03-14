@@ -1781,6 +1781,23 @@ button.component.disabled {
 .hashtag-list-item > .info-container > .last-message > .sent-at {
   font-size: 12px;
 }
+.hashtag-info-modal > header > .title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hashtag-info-modal > header > .title > .image-container {
+  display: flex;
+}
+.hashtag-info-modal > header > .title > .image-container > img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+.hashtag-info-modal > header > .title > .hashtag {
+  font-size: 18px;
+  font-weight: bold;
+}
 .hashtag-message-form > main {
   border-top: 1px solid var(--line-color);
   min-height: 50px;
@@ -2000,6 +2017,11 @@ body > section.room {
     z-index: 999991;
     padding-bottom: env(safe-area-inset-bottom);
   }
+}
+body > section.room:empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 body > section.room:empty::before {
   display: block;
