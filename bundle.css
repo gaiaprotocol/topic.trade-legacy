@@ -105,6 +105,7 @@ meter {
   --page-bg-color: #121212;
   --title-text-color: #fff;
   --paragraph-text-color: #b4c2d3;
+  --page-font-size: 14px;
   --overlay-color: rgba(0, 0, 0, 0.5);
   --modal-bg-color: #1E1E1E;
   /* old
@@ -157,7 +158,7 @@ body {
   container-type: inline-size;
   color: var(--paragraph-text-color);
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: var(--page-font-size);
 }
 h1,
 h2,
@@ -373,14 +374,17 @@ button.component.disabled {
     transform: rotate(360deg);
   }
 }
+:root {
+  --loading-spinner-color: var(--primary-color);
+}
 .loading-spinner.component:after {
   content: " ";
   display: block;
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 2px solid var(--text-color);
-  border-color: var(--text-color) transparent var(--text-color) transparent;
+  border: 2px solid var(--loading-spinner-color);
+  border-color: var(--loading-spinner-color) transparent var(--loading-spinner-color) transparent;
   animation: loading-spinner-animation 1.2s linear infinite;
 }
 @keyframes loading-content-animation {
@@ -819,9 +823,11 @@ button.component.disabled {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  font-size: 12px;
 }
 .input.component > textarea,
 .input.component > input {
+  font-size: var(--page-font-size);
   width: 100%;
   border: 1px solid var(--input-border-color);
   background-color: var(--input-bg-color);
@@ -1918,6 +1924,20 @@ button.component.disabled {
   max-width: 240px;
   max-height: 240px;
 }
+.me-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background-color: red;
+}
+.me-panel > .signed-user {
+  background-color: green;
+}
+.me-panel > button.component {
+  justify-content: flex-start;
+  border-radius: 0;
+  background-color: blue;
+}
 .login-required {
   border-radius: 16px;
   padding: 16px;
@@ -1941,6 +1961,30 @@ button.component.disabled {
 }
 .login-required-popup > main {
   padding: 0 20px;
+}
+.link-wallet-popup > header > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.link-wallet-popup > main {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.link-wallet-popup > main > .wallet-address {
+  width: 100%;
+  border: 1px solid var(--input-border-color);
+  background-color: var(--input-bg-color);
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .user-info-modal > main {
   padding: 20px 0;
