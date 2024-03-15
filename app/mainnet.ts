@@ -10,6 +10,7 @@ await initialize({
 
   chains: {
     8453: {
+      name: "base",
       chainId: 8453,
       rpc: "https://mainnet.base.org",
       symbol: "ETH",

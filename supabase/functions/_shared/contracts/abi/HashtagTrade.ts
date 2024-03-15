@@ -23,25 +23,32 @@ import type {
   TypedContractMethod,
 } from "./common.ts";
 
-export interface CreatorKeysInterface extends Interface {
+export interface HashtagTradeInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "buyKeys"
-      | "creatorFeePercent"
+      | "batchClaimHolderFees"
+      | "batchClaimableHolderFees"
+      | "buy"
+      | "calculateAdditionalTokenOwnerFee"
+      | "claimHolderFee"
+      | "claimableHolderFee"
       | "getBuyPrice"
       | "getBuyPriceAfterFee"
       | "getPrice"
       | "getSellPrice"
       | "getSellPriceAfterFee"
+      | "hashtags"
+      | "holderFeePercent"
+      | "holders"
       | "initialize"
-      | "keysBalance"
-      | "keysSupply"
+      | "oracleAddress"
       | "owner"
       | "protocolFeeDestination"
       | "protocolFeePercent"
       | "renounceOwnership"
-      | "sellKeys"
-      | "setCreatorFeePercent"
+      | "sell"
+      | "setHolderFeePercent"
+      | "setOracleAddress"
       | "setProtocolFeeDestination"
       | "setProtocolFeePercent"
       | "transferOwnership"
@@ -49,29 +56,47 @@ export interface CreatorKeysInterface extends Interface {
 
   getEvent(
     nameOrSignatureOrTopic:
+      | "ClaimHolderFee"
       | "Initialized"
       | "OwnershipTransferred"
-      | "SetCreatorFeePercent"
+      | "SetHolderFeePercent"
+      | "SetOracleAddress"
       | "SetProtocolFeeDestination"
       | "SetProtocolFeePercent"
       | "Trade"
   ): EventFragment;
 
   encodeFunctionData(
-    functionFragment: "buyKeys",
-    values: [AddressLike, BigNumberish]
+    functionFragment: "batchClaimHolderFees",
+    values: [BytesLike[]]
   ): string;
   encodeFunctionData(
-    functionFragment: "creatorFeePercent",
-    values?: undefined
+    functionFragment: "batchClaimableHolderFees",
+    values: [BytesLike[], AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "buy",
+    values: [BytesLike, BigNumberish, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "calculateAdditionalTokenOwnerFee",
+    values: [BigNumberish, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "claimHolderFee",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "claimableHolderFee",
+    values: [BytesLike, AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getBuyPrice",
-    values: [AddressLike, BigNumberish]
+    values: [BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getBuyPriceAfterFee",
-    values: [AddressLike, BigNumberish]
+    values: [BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getPrice",
@@ -79,23 +104,28 @@ export interface CreatorKeysInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getSellPrice",
-    values: [AddressLike, BigNumberish]
+    values: [BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getSellPriceAfterFee",
-    values: [AddressLike, BigNumberish]
+    values: [BytesLike, BigNumberish]
+  ): string;
+  encodeFunctionData(functionFragment: "hashtags", values: [BytesLike]): string;
+  encodeFunctionData(
+    functionFragment: "holderFeePercent",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "holders",
+    values: [BytesLike, AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "initialize",
     values: [BigNumberish, AddressLike, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "keysBalance",
-    values: [AddressLike, AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "keysSupply",
-    values: [AddressLike]
+    functionFragment: "oracleAddress",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -111,12 +141,16 @@ export interface CreatorKeysInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "sellKeys",
-    values: [AddressLike, BigNumberish]
+    functionFragment: "sell",
+    values: [BytesLike, BigNumberish, BytesLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "setCreatorFeePercent",
+    functionFragment: "setHolderFeePercent",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setOracleAddress",
+    values: [AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "setProtocolFeeDestination",
@@ -131,9 +165,25 @@ export interface CreatorKeysInterface extends Interface {
     values: [AddressLike]
   ): string;
 
-  decodeFunctionResult(functionFragment: "buyKeys", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "creatorFeePercent",
+    functionFragment: "batchClaimHolderFees",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "batchClaimableHolderFees",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "calculateAdditionalTokenOwnerFee",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "claimHolderFee",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "claimableHolderFee",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -153,12 +203,17 @@ export interface CreatorKeysInterface extends Interface {
     functionFragment: "getSellPriceAfterFee",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "hashtags", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "keysBalance",
+    functionFragment: "holderFeePercent",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "keysSupply", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "holders", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "oracleAddress",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "protocolFeeDestination",
@@ -172,9 +227,13 @@ export interface CreatorKeysInterface extends Interface {
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "sellKeys", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "sell", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "setCreatorFeePercent",
+    functionFragment: "setHolderFeePercent",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setOracleAddress",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -189,6 +248,24 @@ export interface CreatorKeysInterface extends Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+}
+
+export namespace ClaimHolderFeeEvent {
+  export type InputTuple = [
+    holder: AddressLike,
+    hashtag: BytesLike,
+    fee: BigNumberish
+  ];
+  export type OutputTuple = [holder: string, hashtag: string, fee: bigint];
+  export interface OutputObject {
+    holder: string;
+    hashtag: string;
+    fee: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
 }
 
 export namespace InitializedEvent {
@@ -216,11 +293,23 @@ export namespace OwnershipTransferredEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace SetCreatorFeePercentEvent {
+export namespace SetHolderFeePercentEvent {
   export type InputTuple = [percent: BigNumberish];
   export type OutputTuple = [percent: bigint];
   export interface OutputObject {
     percent: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace SetOracleAddressEvent {
+  export type InputTuple = [oracle: AddressLike];
+  export type OutputTuple = [oracle: string];
+  export interface OutputObject {
+    oracle: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -255,32 +344,35 @@ export namespace SetProtocolFeePercentEvent {
 export namespace TradeEvent {
   export type InputTuple = [
     trader: AddressLike,
-    creator: AddressLike,
+    hashtag: BytesLike,
     isBuy: boolean,
     amount: BigNumberish,
     price: BigNumberish,
     protocolFee: BigNumberish,
-    creatorFee: BigNumberish,
+    holderFee: BigNumberish,
+    additionalFee: BigNumberish,
     supply: BigNumberish
   ];
   export type OutputTuple = [
     trader: string,
-    creator: string,
+    hashtag: string,
     isBuy: boolean,
     amount: bigint,
     price: bigint,
     protocolFee: bigint,
-    creatorFee: bigint,
+    holderFee: bigint,
+    additionalFee: bigint,
     supply: bigint
   ];
   export interface OutputObject {
     trader: string;
-    creator: string;
+    hashtag: string;
     isBuy: boolean;
     amount: bigint;
     price: bigint;
     protocolFee: bigint;
-    creatorFee: bigint;
+    holderFee: bigint;
+    additionalFee: bigint;
     supply: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
@@ -289,11 +381,11 @@ export namespace TradeEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export interface CreatorKeys extends BaseContract {
-  connect(runner?: ContractRunner | null): CreatorKeys;
+export interface HashtagTrade extends BaseContract {
+  connect(runner?: ContractRunner | null): HashtagTrade;
   waitForDeployment(): Promise<this>;
 
-  interface: CreatorKeysInterface;
+  interface: HashtagTradeInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
@@ -332,22 +424,50 @@ export interface CreatorKeys extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  buyKeys: TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+  batchClaimHolderFees: TypedContractMethod<
+    [_hashtags: BytesLike[]],
+    [void],
+    "nonpayable"
+  >;
+
+  batchClaimableHolderFees: TypedContractMethod<
+    [_hashtags: BytesLike[], holder: AddressLike],
+    [bigint[]],
+    "view"
+  >;
+
+  buy: TypedContractMethod<
+    [hashtag: BytesLike, amount: BigNumberish, oracleSignature: BytesLike],
     [void],
     "payable"
   >;
 
-  creatorFeePercent: TypedContractMethod<[], [bigint], "view">;
+  calculateAdditionalTokenOwnerFee: TypedContractMethod<
+    [price: BigNumberish, oracleSignature: BytesLike],
+    [bigint],
+    "view"
+  >;
+
+  claimHolderFee: TypedContractMethod<
+    [hashtag: BytesLike],
+    [void],
+    "nonpayable"
+  >;
+
+  claimableHolderFee: TypedContractMethod<
+    [hashtag: BytesLike, holder: AddressLike],
+    [bigint],
+    "view"
+  >;
 
   getBuyPrice: TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+    [hashtag: BytesLike, amount: BigNumberish],
     [bigint],
     "view"
   >;
 
   getBuyPriceAfterFee: TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+    [hashtag: BytesLike, amount: BigNumberish],
     [bigint],
     "view"
   >;
@@ -359,14 +479,28 @@ export interface CreatorKeys extends BaseContract {
   >;
 
   getSellPrice: TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+    [hashtag: BytesLike, amount: BigNumberish],
     [bigint],
     "view"
   >;
 
   getSellPriceAfterFee: TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+    [hashtag: BytesLike, amount: BigNumberish],
     [bigint],
+    "view"
+  >;
+
+  hashtags: TypedContractMethod<
+    [arg0: BytesLike],
+    [[bigint, bigint] & { supply: bigint; accFeePerUnit: bigint }],
+    "view"
+  >;
+
+  holderFeePercent: TypedContractMethod<[], [bigint], "view">;
+
+  holders: TypedContractMethod<
+    [arg0: BytesLike, arg1: AddressLike],
+    [[bigint, bigint] & { balance: bigint; feeDebt: bigint }],
     "view"
   >;
 
@@ -375,19 +509,13 @@ export interface CreatorKeys extends BaseContract {
       _baseDivider: BigNumberish,
       _protocolFeeDestination: AddressLike,
       _protocolFeePercent: BigNumberish,
-      _creatorFeePercent: BigNumberish
+      _holderFeePercent: BigNumberish
     ],
     [void],
     "nonpayable"
   >;
 
-  keysBalance: TypedContractMethod<
-    [arg0: AddressLike, arg1: AddressLike],
-    [bigint],
-    "view"
-  >;
-
-  keysSupply: TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
+  oracleAddress: TypedContractMethod<[], [string], "view">;
 
   owner: TypedContractMethod<[], [string], "view">;
 
@@ -397,14 +525,20 @@ export interface CreatorKeys extends BaseContract {
 
   renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
 
-  sellKeys: TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+  sell: TypedContractMethod<
+    [hashtag: BytesLike, amount: BigNumberish, oracleSignature: BytesLike],
     [void],
     "nonpayable"
   >;
 
-  setCreatorFeePercent: TypedContractMethod<
+  setHolderFeePercent: TypedContractMethod<
     [_feePercent: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  setOracleAddress: TypedContractMethod<
+    [_oracle: AddressLike],
     [void],
     "nonpayable"
   >;
@@ -432,26 +566,50 @@ export interface CreatorKeys extends BaseContract {
   ): T;
 
   getFunction(
-    nameOrSignature: "buyKeys"
+    nameOrSignature: "batchClaimHolderFees"
+  ): TypedContractMethod<[_hashtags: BytesLike[]], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "batchClaimableHolderFees"
   ): TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+    [_hashtags: BytesLike[], holder: AddressLike],
+    [bigint[]],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "buy"
+  ): TypedContractMethod<
+    [hashtag: BytesLike, amount: BigNumberish, oracleSignature: BytesLike],
     [void],
     "payable"
   >;
   getFunction(
-    nameOrSignature: "creatorFeePercent"
-  ): TypedContractMethod<[], [bigint], "view">;
+    nameOrSignature: "calculateAdditionalTokenOwnerFee"
+  ): TypedContractMethod<
+    [price: BigNumberish, oracleSignature: BytesLike],
+    [bigint],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "claimHolderFee"
+  ): TypedContractMethod<[hashtag: BytesLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "claimableHolderFee"
+  ): TypedContractMethod<
+    [hashtag: BytesLike, holder: AddressLike],
+    [bigint],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "getBuyPrice"
   ): TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+    [hashtag: BytesLike, amount: BigNumberish],
     [bigint],
     "view"
   >;
   getFunction(
     nameOrSignature: "getBuyPriceAfterFee"
   ): TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+    [hashtag: BytesLike, amount: BigNumberish],
     [bigint],
     "view"
   >;
@@ -465,15 +623,32 @@ export interface CreatorKeys extends BaseContract {
   getFunction(
     nameOrSignature: "getSellPrice"
   ): TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+    [hashtag: BytesLike, amount: BigNumberish],
     [bigint],
     "view"
   >;
   getFunction(
     nameOrSignature: "getSellPriceAfterFee"
   ): TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+    [hashtag: BytesLike, amount: BigNumberish],
     [bigint],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "hashtags"
+  ): TypedContractMethod<
+    [arg0: BytesLike],
+    [[bigint, bigint] & { supply: bigint; accFeePerUnit: bigint }],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "holderFeePercent"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "holders"
+  ): TypedContractMethod<
+    [arg0: BytesLike, arg1: AddressLike],
+    [[bigint, bigint] & { balance: bigint; feeDebt: bigint }],
     "view"
   >;
   getFunction(
@@ -483,21 +658,14 @@ export interface CreatorKeys extends BaseContract {
       _baseDivider: BigNumberish,
       _protocolFeeDestination: AddressLike,
       _protocolFeePercent: BigNumberish,
-      _creatorFeePercent: BigNumberish
+      _holderFeePercent: BigNumberish
     ],
     [void],
     "nonpayable"
   >;
   getFunction(
-    nameOrSignature: "keysBalance"
-  ): TypedContractMethod<
-    [arg0: AddressLike, arg1: AddressLike],
-    [bigint],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "keysSupply"
-  ): TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
+    nameOrSignature: "oracleAddress"
+  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
@@ -511,15 +679,18 @@ export interface CreatorKeys extends BaseContract {
     nameOrSignature: "renounceOwnership"
   ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "sellKeys"
+    nameOrSignature: "sell"
   ): TypedContractMethod<
-    [creator: AddressLike, amount: BigNumberish],
+    [hashtag: BytesLike, amount: BigNumberish, oracleSignature: BytesLike],
     [void],
     "nonpayable"
   >;
   getFunction(
-    nameOrSignature: "setCreatorFeePercent"
+    nameOrSignature: "setHolderFeePercent"
   ): TypedContractMethod<[_feePercent: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "setOracleAddress"
+  ): TypedContractMethod<[_oracle: AddressLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "setProtocolFeeDestination"
   ): TypedContractMethod<[_feeDestination: AddressLike], [void], "nonpayable">;
@@ -530,6 +701,13 @@ export interface CreatorKeys extends BaseContract {
     nameOrSignature: "transferOwnership"
   ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
 
+  getEvent(
+    key: "ClaimHolderFee"
+  ): TypedContractEvent<
+    ClaimHolderFeeEvent.InputTuple,
+    ClaimHolderFeeEvent.OutputTuple,
+    ClaimHolderFeeEvent.OutputObject
+  >;
   getEvent(
     key: "Initialized"
   ): TypedContractEvent<
@@ -545,11 +723,18 @@ export interface CreatorKeys extends BaseContract {
     OwnershipTransferredEvent.OutputObject
   >;
   getEvent(
-    key: "SetCreatorFeePercent"
+    key: "SetHolderFeePercent"
   ): TypedContractEvent<
-    SetCreatorFeePercentEvent.InputTuple,
-    SetCreatorFeePercentEvent.OutputTuple,
-    SetCreatorFeePercentEvent.OutputObject
+    SetHolderFeePercentEvent.InputTuple,
+    SetHolderFeePercentEvent.OutputTuple,
+    SetHolderFeePercentEvent.OutputObject
+  >;
+  getEvent(
+    key: "SetOracleAddress"
+  ): TypedContractEvent<
+    SetOracleAddressEvent.InputTuple,
+    SetOracleAddressEvent.OutputTuple,
+    SetOracleAddressEvent.OutputObject
   >;
   getEvent(
     key: "SetProtocolFeeDestination"
@@ -574,6 +759,17 @@ export interface CreatorKeys extends BaseContract {
   >;
 
   filters: {
+    "ClaimHolderFee(address,bytes32,uint256)": TypedContractEvent<
+      ClaimHolderFeeEvent.InputTuple,
+      ClaimHolderFeeEvent.OutputTuple,
+      ClaimHolderFeeEvent.OutputObject
+    >;
+    ClaimHolderFee: TypedContractEvent<
+      ClaimHolderFeeEvent.InputTuple,
+      ClaimHolderFeeEvent.OutputTuple,
+      ClaimHolderFeeEvent.OutputObject
+    >;
+
     "Initialized(uint8)": TypedContractEvent<
       InitializedEvent.InputTuple,
       InitializedEvent.OutputTuple,
@@ -596,15 +792,26 @@ export interface CreatorKeys extends BaseContract {
       OwnershipTransferredEvent.OutputObject
     >;
 
-    "SetCreatorFeePercent(uint256)": TypedContractEvent<
-      SetCreatorFeePercentEvent.InputTuple,
-      SetCreatorFeePercentEvent.OutputTuple,
-      SetCreatorFeePercentEvent.OutputObject
+    "SetHolderFeePercent(uint256)": TypedContractEvent<
+      SetHolderFeePercentEvent.InputTuple,
+      SetHolderFeePercentEvent.OutputTuple,
+      SetHolderFeePercentEvent.OutputObject
     >;
-    SetCreatorFeePercent: TypedContractEvent<
-      SetCreatorFeePercentEvent.InputTuple,
-      SetCreatorFeePercentEvent.OutputTuple,
-      SetCreatorFeePercentEvent.OutputObject
+    SetHolderFeePercent: TypedContractEvent<
+      SetHolderFeePercentEvent.InputTuple,
+      SetHolderFeePercentEvent.OutputTuple,
+      SetHolderFeePercentEvent.OutputObject
+    >;
+
+    "SetOracleAddress(address)": TypedContractEvent<
+      SetOracleAddressEvent.InputTuple,
+      SetOracleAddressEvent.OutputTuple,
+      SetOracleAddressEvent.OutputObject
+    >;
+    SetOracleAddress: TypedContractEvent<
+      SetOracleAddressEvent.InputTuple,
+      SetOracleAddressEvent.OutputTuple,
+      SetOracleAddressEvent.OutputObject
     >;
 
     "SetProtocolFeeDestination(address)": TypedContractEvent<
@@ -629,7 +836,7 @@ export interface CreatorKeys extends BaseContract {
       SetProtocolFeePercentEvent.OutputObject
     >;
 
-    "Trade(address,address,bool,uint256,uint256,uint256,uint256,uint256)": TypedContractEvent<
+    "Trade(address,bytes32,bool,uint256,uint256,uint256,uint256,uint256,uint256)": TypedContractEvent<
       TradeEvent.InputTuple,
       TradeEvent.OutputTuple,
       TradeEvent.OutputObject

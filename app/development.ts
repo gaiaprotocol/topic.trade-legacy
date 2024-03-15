@@ -10,6 +10,7 @@ await initialize({
 
   chains: {
     84532: {
+      name: "base",
       chainId: 84532,
       rpc: "https://sepolia.base.org",
       symbol: "ETH",
