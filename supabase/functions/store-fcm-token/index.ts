@@ -2,7 +2,7 @@ import { serveWithOptions } from "../_shared/cors.ts";
 import { subscribeFcmTopic } from "../_shared/fcm.ts";
 import supabase, { getSignedUser } from "../_shared/supabase.ts";
 
-const TOPICS = ["notice"];
+const TOPICS = ["notices"];
 
 serveWithOptions(async (req) => {
   const { fcmToken } = await req.json();

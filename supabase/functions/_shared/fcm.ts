@@ -75,12 +75,13 @@ export async function subscribeFcmTopic(token: string, topic: string) {
   if (isDevMode) console.log("accessToken", accessToken);
 
   const res = await fetch(
-    `https://iid.googleapis.com/v1/web/iid/${token}/rel/topics/${topic}`,
+    `https://iid.googleapis.com/iid/v1/${token}/rel/topics/${topic}`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
+        access_token_auth: true,
       },
     },
   );
