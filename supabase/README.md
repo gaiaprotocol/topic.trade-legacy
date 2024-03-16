@@ -14,6 +14,7 @@ supabase secrets set --env-file ./supabase/.env
 supabase functions deploy store-user-avatar
 supabase functions deploy new-wallet-linking-nonce
 supabase functions deploy link-wallet-to-user
+supabase functions deploy store-fcm-token
 supabase functions deploy track-contract-events
 ```
 
