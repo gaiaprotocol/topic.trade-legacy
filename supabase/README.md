@@ -16,6 +16,7 @@ supabase functions deploy new-wallet-linking-nonce
 supabase functions deploy link-wallet-to-user
 supabase functions deploy store-fcm-token
 supabase functions deploy track-contract-events
+supabase functions deploy insert-contract-event-webhook --no-verify-jwt
 ```
 
 ## 데이터베이스 구조 백업

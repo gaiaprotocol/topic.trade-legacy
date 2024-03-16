@@ -23,10 +23,19 @@ export default async function initialize(config: AppConfig) {
   SFEnv.init({
     dev: config.dev,
     serviceName: "topic.trade",
+    overviewUrl:
+      "https://gaiaprotocol.notion.site/What-is-topic-trade-8c67f745819946369b42ca371caec79d?pvs=4",
+    socialUrls: {
+      github: "https://github.com/gaiaprotocol/topictrade",
+      //TODO: x: "https://x.com/...",
+      //TODO: discord: "https://discord.gg/...",
+    },
     messageForWalletLinking: "Link Wallet to topic.trade",
+
     chains: config.chains,
     defaultChain: config.defaultChain,
     contractAddresses: config.contractAddresses,
+
     hashtagOptions: { name: "topic", baseUri: "" },
     defaultAssetPrice: 68750000000000n,
   });

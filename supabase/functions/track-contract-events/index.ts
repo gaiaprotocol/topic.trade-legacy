@@ -58,9 +58,11 @@ serveWithOptions(async (req) => {
     if (eventName === "TicketCreated") {
       data.wallet_address = args[1];
       data.asset_id = args[0];
+    } else if (eventName === "TicketDeleted") {
+      data.asset_id = args[0];
     } else if (eventName === "Trade" || eventName === "ClaimHolderFee") {
       data.wallet_address = args[0];
-      data.asset_id = contractType === "hashtags-trade"
+      data.asset_id = contractType === "hashtag-trade"
         ? ethers.decodeBytes32String(args[1])
         : args[1];
     }

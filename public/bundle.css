@@ -1483,6 +1483,10 @@ button.component.disabled {
   max-width: 280px;
   border-radius: 8px;
 }
+:root {
+  --rising-color: #00A67E;
+  --falling-color: #FB6565;
+}
 .layout {
   height: 100%;
 }
@@ -1689,6 +1693,12 @@ button.component.disabled {
 .hashtag-room-title-bar > .info-container > .info {
   font-size: 12px;
 }
+.hashtag-room-title-bar > .info-container > .info > .price.up {
+  color: var(--rising-color);
+}
+.hashtag-room-title-bar > .info-container > .info > .price.down {
+  color: var(--falling-color);
+}
 .hashtag-room-title-bar > .menu {
   margin-left: auto;
 }
@@ -1769,6 +1779,12 @@ button.component.disabled {
 }
 .hashtag-list-item > .info-container > .info > .price {
   font-size: 12px;
+}
+.hashtag-list-item > .info-container > .info > .price.up {
+  color: var(--rising-color);
+}
+.hashtag-list-item > .info-container > .info > .price.down {
+  color: var(--falling-color);
 }
 .hashtag-list-item > .info-container > .last-message {
   display: flex;
