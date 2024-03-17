@@ -239,6 +239,7 @@ button.component {
   text-transform: capitalize;
   color: var(--button-text-color);
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  white-space: nowrap;
 }
 @media (pointer: fine) {
   button.component:hover:not(.disabled) {
@@ -411,13 +412,17 @@ button.component.disabled {
   animation-name: loading-content-animation;
   animation-timing-function: linear;
 }
+:root {
+  --dropdown-menu-color: var(--page-bg-color);
+  --dropdown-menu-border-color: var(--primary-color);
+}
 .dropdown-menu.component {
   position: fixed;
   z-index: 999998;
-  border: 1px solid var(--primary-color);
+  background-color: var(--dropdown-menu-color);
+  border: 1px solid var(--dropdown-menu-border-color);
   border-radius: 6px;
-  background-color: var(--content-bg-color);
-  min-width: 120px;
+  min-width: 160px;
   overflow: hidden;
 }
 .dropdown-menu.component > ul {
@@ -433,14 +438,15 @@ button.component.disabled {
   justify-content: flex-start;
   gap: 8px;
   width: 100%;
+  white-space: nowrap;
 }
 @media (pointer: fine) {
   .dropdown-menu.component > ul > li > button:hover {
-    background-color: var(--primary-color);
+    background-color: var(--button-hover-color);
   }
 }
 .dropdown-menu.component > ul > li > button:active {
-  background-color: var(--primary-color);
+  background-color: var(--button-hover-color);
 }
 .snackbar.component {
   position: fixed;
@@ -1848,6 +1854,9 @@ button.component.disabled {
 .hashtag-info-modal > header > .title > .hashtag {
   font-size: 18px;
   font-weight: bold;
+}
+.hashtag-menu {
+  width: 200px;
 }
 .hashtag-message-form > main {
   border-top: 1px solid var(--line-color);
