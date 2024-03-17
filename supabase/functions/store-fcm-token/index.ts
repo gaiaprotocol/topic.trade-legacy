@@ -2,7 +2,7 @@ import { serveWithOptions } from "../_shared/cors.ts";
 import { subscribeFcmTopic } from "../_shared/fcm.ts";
 import supabase, { getSignedUser } from "../_shared/supabase.ts";
 
-const TOPICS = ["notices"];
+const DEFAULT_TOPICS = ["notices"];
 
 serveWithOptions(async (req) => {
   const { fcmToken } = await req.json();
@@ -18,13 +18,13 @@ serveWithOptions(async (req) => {
   if (tokenError) throw tokenError;
 
   if (tokenDataSet?.[0] === undefined) {
-    for (const topic of TOPICS) {
+    for (const topic of DEFAULT_TOPICS) {
       await subscribeFcmTopic(fcmToken, topic);
     }
     const { error: insertError } = await supabase.from("fcm_tokens").insert({
       user_id: user.id,
       token: fcmToken,
-      subscribed_topics: TOPICS,
+      subscribed_topics: DEFAULT_TOPICS,
     });
     if (insertError) throw insertError;
   }
