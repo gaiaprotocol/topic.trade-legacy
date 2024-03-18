@@ -1,5 +1,5 @@
 import { serveWithOptions } from "../_shared/cors.ts";
-import { subscribeFcmTopic } from "../_shared/fcm.ts";
+import { unsubscribeFcmTopic } from "../_shared/fcm.ts";
 import supabase, { getSignedUser } from "../_shared/supabase.ts";
 
 serveWithOptions(async (req) => {
@@ -14,17 +14,19 @@ serveWithOptions(async (req) => {
   ).select("user_id, token, subscribed_topics").eq("user_id", user.id);
   if (fetchError) throw fetchError;
 
-  const subscribedTopics: string[] = [];
+  const unsubscribedTopics: string[] = [];
   for (const tokenData of tokenDataSet) {
     let hasChanged = false;
-    if (!tokenData.subscribed_topics.includes(topic)) {
+    if (tokenData.subscribed_topics.includes(topic)) {
       try {
-        await subscribeFcmTopic(tokenData.token, topic);
+        await unsubscribeFcmTopic(tokenData.token, topic);
       } catch (e) {
         console.error(e);
       }
-      if (!subscribedTopics.includes(topic)) subscribedTopics.push(topic);
-      tokenData.subscribed_topics.push(topic);
+      if (!unsubscribedTopics.includes(topic)) unsubscribedTopics.push(topic);
+      tokenData.subscribed_topics = tokenData.subscribed_topics.filter((
+        t: string,
+      ) => t !== topic);
       hasChanged = true;
     }
 
@@ -36,11 +38,11 @@ serveWithOptions(async (req) => {
     }
   }
 
-  for (const topic of subscribedTopics) {
-    const { error } = await supabase.from("fcm_subscribed_topics").upsert({
-      user_id: user.id,
-      topic,
-    });
+  for (const topic of unsubscribedTopics) {
+    const { error } = await supabase.from("fcm_subscribed_topics").delete().eq(
+      "user_id",
+      user.id,
+    ).eq("topic", topic);
     if (error) throw error;
   }
 });

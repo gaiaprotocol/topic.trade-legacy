@@ -43,7 +43,7 @@ export default async function initialize(config: AppConfig) {
     defaultAssetPrice: 68750000000000n,
   });
 
-  if (BrowserInfo.isMobileDevice && !BrowserInfo.installed) {
+  if (!config.dev && BrowserInfo.isMobileDevice && !BrowserInfo.installed) {
     new PWAInstallOverlay(SFEnv.serviceName).appendTo(BodyNode);
   } else {
     AppInitializer.initialize(
@@ -72,9 +72,7 @@ export default async function initialize(config: AppConfig) {
 
     await SplashLoader.load(
       el("img", { src: "/images/logo-transparent.png" }),
-      [
-        SFSignedUserManager.fetchUserOnInit(),
-      ],
+      [SFSignedUserManager.init(true, false)],
     );
 
     SFOnlineUserManager.init();

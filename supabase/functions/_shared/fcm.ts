@@ -81,7 +81,35 @@ export async function subscribeFcmTopic(token: string, topic: string) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
-        access_token_auth: true,
+        access_token_auth: "true",
+      },
+    },
+  );
+
+  const resData = await res.json();
+  if (isDevMode) console.log("resData", resData);
+  if (res.status < 200 || 299 < res.status) {
+    throw resData;
+  }
+  return resData;
+}
+
+export async function unsubscribeFcmTopic(token: string, topic: string) {
+  const accessToken = await getAccessToken({
+    clientEmail: serviceAccount.client_email,
+    privateKey: serviceAccount.private_key,
+  });
+
+  if (isDevMode) console.log("accessToken", accessToken);
+
+  const res = await fetch(
+    `https://iid.googleapis.com/iid/v1/${token}/rel/topics/${topic}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        access_token_auth: "true",
       },
     },
   );
