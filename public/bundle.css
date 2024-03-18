@@ -2014,30 +2014,6 @@ button.component.disabled {
 .login-required-popup > main {
   padding: 0 20px;
 }
-.link-wallet-popup > header > h1 {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  text-transform: capitalize;
-}
-.link-wallet-popup > main {
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.link-wallet-popup > main > .wallet-address {
-  width: 100%;
-  border: 1px solid var(--input-border-color);
-  background-color: var(--input-bg-color);
-  padding: 8px 12px;
-  border-radius: 6px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
 .user-info-modal > main {
   padding: 20px 0;
 }
@@ -2055,6 +2031,41 @@ button.component.disabled {
 .profile-section > .name {
   font-size: 18px;
   font-weight: bold;
+}
+.link-wallet-popup > header > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.link-wallet-popup > main {
+  padding: 0 20px;
+}
+.link-wallet-confirm-popup > header > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.link-wallet-confirm-popup > main {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.link-wallet-confirm-popup > main > .wallet-address {
+  width: 100%;
+  border: 1px solid var(--input-border-color);
+  background-color: var(--input-bg-color);
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 body {
   width: 100%;

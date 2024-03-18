@@ -10,6 +10,7 @@ import {
 import { PWAInstallOverlay } from "@common-module/social";
 import {
   inject_fsesf_msg,
+  LinkWalletPopup,
   SFEnv,
   SFOnlineUserManager,
   SFSignedUserManager,
@@ -19,6 +20,7 @@ import { base, baseSepolia } from "viem/chains";
 import { FCM } from "../../social-module/lib/index.js";
 import App from "./App.js";
 import AppConfig from "./AppConfig.js";
+import WelcomePopup from "./WelcomePopup.js";
 
 export default async function initialize(config: AppConfig) {
   inject_fsesf_msg();
@@ -80,5 +82,10 @@ export default async function initialize(config: AppConfig) {
     Router.route(["", "{topic}"], App);
 
     AuthUtil.checkEmailAccess();
+
+    if (SFSignedUserManager.signed && !SFSignedUserManager.walletLinked) {
+      new LinkWalletPopup();
+    }
+    WelcomePopup.launch();
   }
 }
