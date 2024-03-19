@@ -29,7 +29,7 @@ export default async function initialize(config: AppConfig) {
     dev: config.dev,
     serviceName: "topic.trade",
     overviewUrl:
-      "https://gaiaprotocol.notion.site/What-is-topic-trade-8c67f745819946369b42ca371caec79d?pvs=4",
+      "https://gaiaprotocol.notion.site/topic-trade-Leading-the-New-Trends-in-the-Crypto-World-8c67f745819946369b42ca371caec79d?pvs=4",
     socialUrls: {
       github: "https://github.com/gaiaprotocol/topictrade",
       //TODO: x: "https://x.com/...",

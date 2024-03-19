@@ -2146,4 +2146,14 @@ body > section.room:empty::before {
     display: none;
   }
 }
+.welcome-popup > header > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.welcome-popup > main {
+  padding: 0 20px;
+}
 
