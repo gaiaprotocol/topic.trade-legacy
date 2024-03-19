@@ -49,6 +49,19 @@ body {
                 overscroll-behavior: contain;
             }
         }
+
+        >.bottom-menu-tabs {
+            >.tab {
+                >.avatar {
+                    width : 30px;
+                    height: 30px;
+                }
+
+                &.active>.avatar {
+                    border: 1px solid var(--primary-color);
+                }
+            }
+        }
     }
 
     >section.room {

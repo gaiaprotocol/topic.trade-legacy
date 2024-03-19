@@ -1,4 +1,5 @@
 import {
+  AvatarUtil,
   BodyNode,
   BottomMenuTabs,
   DomNode,
@@ -7,7 +8,7 @@ import {
   View,
   ViewParams,
 } from "@common-module/app";
-import { HashtagRoom, SFEnv } from "fsesf";
+import { HashtagRoom, SFEnv, SFSignedUserManager } from "fsesf";
 import ActivityTab from "./tabs/ActivityTab.js";
 import ChatsTab from "./tabs/ChatsTab.js";
 import LeaderboardTab from "./tabs/LeaderboardTab.js";
@@ -25,6 +26,18 @@ export default class App extends View {
 
   constructor(params: ViewParams, uri: string, hashtagInfo?: any) {
     super();
+
+    let settingsIcon = new MaterialIcon("settings");
+    if (SFSignedUserManager.user) {
+      settingsIcon = el(".avatar");
+      AvatarUtil.selectLoadable(settingsIcon, [
+        SFSignedUserManager.user.avatar_thumb,
+        SFSignedUserManager.user.stored_avatar_thumb,
+      ]);
+    } else {
+      settingsIcon = new MaterialIcon("settings");
+    }
+
     BodyNode.append(
       el(
         "section.app",
@@ -43,7 +56,7 @@ export default class App extends View {
           icon: new MaterialIcon("browse_activity"),
         }, {
           id: "settings",
-          icon: new MaterialIcon("settings"),
+          icon: settingsIcon,
         }]),
       ),
       this.roomSection = el("section.room", {
