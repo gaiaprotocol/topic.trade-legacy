@@ -2112,6 +2112,13 @@ body > section.app > .app-tab > main {
   overflow-y: auto;
   overscroll-behavior: contain;
 }
+body > section.app > .bottom-menu-tabs > .tab > .avatar {
+  width: 30px;
+  height: 30px;
+}
+body > section.app > .bottom-menu-tabs > .tab.active > .avatar {
+  border: 1px solid var(--primary-color);
+}
 body > section.room {
   flex-grow: 1;
   border-left: 1px solid var(--line-color);
