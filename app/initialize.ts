@@ -9,6 +9,7 @@ import {
 } from "@common-module/app";
 import { PWAInstallOverlay } from "@common-module/social";
 import {
+  BlockTimeManager,
   inject_fsesf_msg,
   LinkWalletPopup,
   SFEnv,
@@ -41,8 +42,7 @@ export default async function initialize(config: AppConfig) {
     defaultChain: config.defaultChain,
     contractAddresses: config.contractAddresses,
 
-    hashtagOptions: { name: "topic", baseUri: "" },
-    defaultAssetPrice: 68750000000000n,
+    hashtagOptions: { unit: "topic", baseUri: "" },
   });
 
   if (!config.dev && BrowserInfo.isMobileDevice && !BrowserInfo.installed) {
@@ -74,7 +74,7 @@ export default async function initialize(config: AppConfig) {
 
     await SplashLoader.load(
       el("img", { src: "/images/logo-transparent.png" }),
-      [SFSignedUserManager.init(true, false)],
+      [SFSignedUserManager.init(true, false), BlockTimeManager.init()],
     );
 
     SFOnlineUserManager.init();

@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS "public"."hashtags" (
     "image_thumb" "text",
     "metadata" "jsonb",
     "supply" bigint DEFAULT '0'::bigint NOT NULL,
-    "last_fetched_price" numeric DEFAULT '68750000000000'::numeric NOT NULL,
+    "last_fetched_price" numeric DEFAULT '62500000000000'::numeric NOT NULL,
     "total_trading_volume" numeric DEFAULT '0'::numeric NOT NULL,
     "is_price_up" boolean,
     "last_message" "text",
