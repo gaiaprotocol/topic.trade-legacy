@@ -434,13 +434,13 @@ ALTER TABLE ONLY "public"."wallet_linking_nonces"
 
 ALTER TABLE "public"."banned_users" ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "can write only authed" ON "public"."hashtag_messages" FOR INSERT TO "authenticated" WITH CHECK ((("length"("hashtag") <= 32) AND ((("message" IS NOT NULL) AND ("message" <> ''::"text") AND ("length"("message") <= 1000)) OR (("message" IS NULL) AND ("rich" IS NOT NULL))) AND ("author" = "auth"."uid"()) AND (( SELECT "banned_users"."user_id"
+CREATE POLICY "can write only authed" ON "public"."hashtag_messages" FOR INSERT TO "authenticated" WITH CHECK ((("length"("hashtag") < 32) AND ((("message" IS NOT NULL) AND ("message" <> ''::"text") AND ("length"("message") <= 1000)) OR (("message" IS NULL) AND ("rich" IS NOT NULL))) AND ("author" = "auth"."uid"()) AND (( SELECT "banned_users"."user_id"
    FROM "public"."banned_users"
   WHERE ("banned_users"."user_id" = "auth"."uid"())) IS NULL)));
 
-CREATE POLICY "check hashtag length" ON "public"."hashtag_holders" FOR INSERT WITH CHECK (("length"("hashtag") <= 32));
+CREATE POLICY "check hashtag length" ON "public"."hashtag_holders" FOR INSERT WITH CHECK (("length"("hashtag") < 32));
 
-CREATE POLICY "check hashtag length" ON "public"."hashtags" FOR INSERT WITH CHECK (("length"("hashtag") <= 32));
+CREATE POLICY "check hashtag length" ON "public"."hashtags" FOR INSERT WITH CHECK (("length"("hashtag") < 32));
 
 ALTER TABLE "public"."contract_events" ENABLE ROW LEVEL SECURITY;
 
@@ -454,7 +454,7 @@ ALTER TABLE "public"."hashtag_messages" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."hashtags" ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "only authed" ON "public"."hashtag_chat_users" FOR INSERT TO "authenticated" WITH CHECK ((("length"("hashtag") <= 32) AND ("user_id" = "auth"."uid"())));
+CREATE POLICY "only authed" ON "public"."hashtag_chat_users" FOR INSERT TO "authenticated" WITH CHECK ((("length"("hashtag") < 32) AND ("user_id" = "auth"."uid"())));
 
 CREATE POLICY "only user" ON "public"."hashtag_chat_users" FOR UPDATE TO "authenticated" USING (("user_id" = "auth"."uid"())) WITH CHECK (("user_id" = "auth"."uid"()));
 

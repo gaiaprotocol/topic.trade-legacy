@@ -5,10 +5,11 @@ import {
   DomNode,
   el,
   MaterialIcon,
+  Router,
   View,
   ViewParams,
 } from "@common-module/app";
-import { HashtagRoom, SFEnv, SFSignedUserManager } from "fsesf";
+import { HashtagRoom, HashtagUtil, SFEnv, SFSignedUserManager } from "fsesf";
 import ActivityTab from "./tabs/ActivityTab.js";
 import ChatsTab from "./tabs/ChatsTab.js";
 import LeaderboardTab from "./tabs/LeaderboardTab.js";
@@ -82,6 +83,7 @@ export default class App extends View {
         this.roomSection,
       );
       this.chatsTab.activeHashtag(params.topic);
+      this.checkAvailableTopic(params.topic);
     }
   }
 
@@ -99,10 +101,17 @@ export default class App extends View {
         this.room.enter(params.topic, hashtagInfo);
       }
       this.chatsTab.activeHashtag(params.topic);
+      this.checkAvailableTopic(params.topic);
     } else {
       this.room?.delete();
       this.room = undefined;
       this.chatsTab.deactiveHashtag();
+    }
+  }
+
+  private checkAvailableTopic(topic: string) {
+    if (!HashtagUtil.available(topic)) {
+      setTimeout(() => Router.goNoHistory("/"));
     }
   }
 }
