@@ -1,3 +1,6 @@
+/*!***********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../app-module/style/reset.css ***!
+  \***********************************************************************************************************/
 /***
     The new CSS reset - version 1.8.4 (last updated 14.2.2023)
     GitHub page: https://github.com/elad2412/the-new-css-reset
@@ -98,6 +101,9 @@ meter {
 :where(dialog:modal) {
     all: revert;
 }
+/*!*********************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/less-loader/dist/cjs.js!./public/style/main.less ***!
+  \*********************************************************************************************************************************************/
 :root {
   --primary-color: #C1A87D;
   --line-color: #252527;
@@ -1957,6 +1963,64 @@ button.component.disabled {
 .hashtag-leaderboard-item > .info-container > .last-message > .sent-at {
   font-size: 12px;
 }
+.holding-hashtag-list > ul {
+  border-top: 1px solid var(--line-color);
+}
+.holding-hashtag-list-item {
+  cursor: pointer;
+  height: 58px;
+  border-bottom: 1px solid var(--line-color);
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+@media (pointer: fine) {
+  .holding-hashtag-list-item:hover {
+    background-color: var(--button-hover-color);
+  }
+}
+.holding-hashtag-list-item:active {
+  background-color: var(--button-hover-color);
+}
+.holding-hashtag-list-item.active {
+  background-color: var(--button-hover-color);
+}
+.holding-hashtag-list-item > .image-container {
+  display: flex;
+}
+.holding-hashtag-list-item > .image-container > img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+.holding-hashtag-list-item > h3 {
+  flex-grow: 1;
+  width: 0;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.holding-hashtag-list-item > .info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.holding-hashtag-list-item > .info > .price {
+  font-size: 12px;
+}
+.holding-hashtag-list-item > .info > .price.up {
+  color: var(--rising-color);
+}
+.holding-hashtag-list-item > .info > .price.down {
+  color: var(--falling-color);
+}
+.holding-hashtag-list-item > .info > .balance {
+  font-size: 12px;
+}
 .hashtag-message-form > main {
   border-top: 1px solid var(--line-color);
   min-height: 50px;
@@ -2176,7 +2240,12 @@ button.component.disabled {
 .me-panel > .signed-user {
   background-color: green;
 }
-.me-panel > button.component {
+.me-panel > section.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.me-panel > section.menu > button.component {
   justify-content: flex-start;
   border-radius: 0;
   background-color: blue;

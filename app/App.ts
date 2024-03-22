@@ -82,8 +82,9 @@ export default class App extends View {
       this.room = new HashtagRoom(params.topic, hashtagInfo).appendTo(
         this.roomSection,
       );
-      this.chatsTab.activeHashtag(params.topic);
-      this.leaderboardTab.activeHashtag(params.topic);
+      [this.chatsTab, this.leaderboardTab, this.settingsTab].forEach((list) =>
+        list.activeHashtag(params.topic!)
+      );
       this.checkAvailableTopic(params.topic);
     }
   }
@@ -101,14 +102,16 @@ export default class App extends View {
       } else {
         this.room.enter(params.topic, hashtagInfo);
       }
-      this.chatsTab.activeHashtag(params.topic);
-      this.leaderboardTab.activeHashtag(params.topic);
+      [this.chatsTab, this.leaderboardTab, this.settingsTab].forEach((list) =>
+        list.activeHashtag(params.topic!)
+      );
       this.checkAvailableTopic(params.topic);
     } else {
       this.room?.delete();
       this.room = undefined;
-      this.chatsTab.deactiveHashtag();
-      this.leaderboardTab.deactiveHashtag();
+      [this.chatsTab, this.leaderboardTab, this.settingsTab].forEach((list) =>
+        list.deactiveHashtag()
+      );
     }
   }
 
