@@ -2156,7 +2156,7 @@ button.component.disabled {
   display: flex;
   flex-direction: column;
   gap: 1px;
-  background-color: red;
+  padding-bottom: 20px;
 }
 .me-panel > .signed-user {
   background-color: green;
@@ -2165,6 +2165,13 @@ button.component.disabled {
   justify-content: flex-start;
   border-radius: 0;
   background-color: blue;
+}
+.me-panel > footer {
+  margin-top: 10px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 10px;
 }
 .login-required {
   border-radius: 16px;
