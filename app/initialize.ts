@@ -33,8 +33,8 @@ export default async function initialize(config: AppConfig) {
       "https://gaiaprotocol.notion.site/topic-trade-Leading-the-New-Trends-in-the-Crypto-World-8c67f745819946369b42ca371caec79d?pvs=4",
     socialUrls: {
       github: "https://github.com/gaiaprotocol/topictrade",
-      //TODO: x: "https://x.com/...",
-      //TODO: discord: "https://discord.gg/...",
+      x: "https://x.com/topictrade",
+      discord: "https://discord.gg/gaia-protocol-931958830873575474",
     },
     messageForWalletLinking: "Link Wallet to topic.trade",
 
