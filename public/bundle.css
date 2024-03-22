@@ -2067,14 +2067,14 @@ button.component.disabled {
   }
   to {
     opacity: 1;
-    height: 53px;
+    height: 58px;
   }
 }
 :root {
   --activity-list-item-date-color: #595959;
 }
 .activity-list-item {
-  padding: 8px 10px;
+  padding: 10.5px 10px;
   display: flex;
   gap: 10px;
   align-items: center;
