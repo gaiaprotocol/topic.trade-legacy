@@ -1,3 +1,6 @@
+/*!***********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../app-module/style/reset.css ***!
+  \***********************************************************************************************************/
 /***
     The new CSS reset - version 1.8.4 (last updated 14.2.2023)
     GitHub page: https://github.com/elad2412/the-new-css-reset
@@ -98,6 +101,9 @@ meter {
 :where(dialog:modal) {
     all: revert;
 }
+/*!*********************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/less-loader/dist/cjs.js!./public/style/main.less ***!
+  \*********************************************************************************************************************************************/
 :root {
   --primary-color: #C1A87D;
   --line-color: #252527;
@@ -1981,7 +1987,17 @@ button.component.disabled {
   height: 36px;
   border-radius: 50%;
 }
-.holding-hashtag-list-item > h3 {
+.holding-hashtag-list-item > .info-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.holding-hashtag-list-item > .info-container > .info {
+  display: flex;
+  align-items: center;
+}
+.holding-hashtag-list-item > .info-container > .info > h3 {
   flex-grow: 1;
   width: 0;
   font-weight: bold;
@@ -1989,22 +2005,19 @@ button.component.disabled {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.holding-hashtag-list-item > .info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-}
-.holding-hashtag-list-item > .info > .price {
+.holding-hashtag-list-item > .info-container > .info > .price {
   font-size: 12px;
 }
-.holding-hashtag-list-item > .info > .price.up {
+.holding-hashtag-list-item > .info-container > .info > .price.up {
   color: var(--rising-color);
 }
-.holding-hashtag-list-item > .info > .price.down {
+.holding-hashtag-list-item > .info-container > .info > .price.down {
   color: var(--falling-color);
 }
-.holding-hashtag-list-item > .info > .balance {
+.holding-hashtag-list-item > .info-container > .balance-and-fee-earned {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 12px;
   color: var(--sub-text-color);
 }
