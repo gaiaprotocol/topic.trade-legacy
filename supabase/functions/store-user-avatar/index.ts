@@ -78,6 +78,13 @@ serveWithOptions(async (req) => {
             "http://localhost:54321/",
           )
           : thumbnailUrl,
+      last_sign_in_at: new Date(),
+    })
+      .eq("user_id", user.id);
+    if (updateError) throw updateError;
+  } else {
+    const { error: updateError } = await supabase.from("users_public").update({
+      last_sign_in_at: new Date(),
     })
       .eq("user_id", user.id);
     if (updateError) throw updateError;
