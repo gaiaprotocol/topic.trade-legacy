@@ -1513,6 +1513,7 @@ button.component.disabled {
 :root {
   --rising-color: #00A67E;
   --falling-color: #FB6565;
+  --online-color: #1dbf73;
 }
 .layout {
   height: 100%;
@@ -1996,26 +1997,10 @@ button.component.disabled {
   display: flex;
   gap: 6px;
 }
-.hashtag-message-list-item > .author-avatar {
-  flex-shrink: 0;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #252527;
-  background-size: cover;
+.hashtag-message-list-item > .user-avatar {
   width: 34px;
   height: 34px;
   cursor: pointer;
-}
-.hashtag-message-list-item > .author-avatar.loading {
-  background-color: rgba(255, 255, 255, 0.1);
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
-  background-size: 120px 100%;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: loading-content-animation;
-  animation-timing-function: linear;
 }
 .hashtag-message-list-item > main {
   display: flex;
@@ -2152,6 +2137,36 @@ button.component.disabled {
 .activity-list-item > main > .info > .price.down {
   color: var(--falling-color);
 }
+.user-avatar {
+  position: relative;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #252527;
+  background-size: cover;
+}
+.user-avatar.loading {
+  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
+  background-size: 120px 100%;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-content-animation;
+  animation-timing-function: linear;
+}
+.user-avatar.online::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--online-color);
+  border: 2px solid #fff;
+}
 .me-panel {
   display: flex;
   flex-direction: column;
@@ -2214,6 +2229,18 @@ button.component.disabled {
 .profile-section > .name {
   font-size: 18px;
   font-weight: bold;
+}
+.profile-section > .last-sign-in {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.profile-section > .last-sign-in.online::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--online-color);
 }
 .link-wallet-popup > header > h1 {
   display: flex;
