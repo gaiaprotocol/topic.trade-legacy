@@ -14,6 +14,211 @@ CREATE SCHEMA IF NOT EXISTS "public";
 
 ALTER SCHEMA "public" OWNER TO "pg_database_owner";
 
+CREATE OR REPLACE FUNCTION "public"."decrease_hashtag_holder_count"() RETURNS "trigger"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    AS $$begin
+  update hashtags
+  set
+    holder_count = holder_count - 1
+  where
+    hashtag = old.hashtag;
+  return null;
+end;$$;
+
+ALTER FUNCTION "public"."decrease_hashtag_holder_count"() OWNER TO "postgres";
+
+CREATE OR REPLACE FUNCTION "public"."get_contract_event"("p_chain" "text", "p_contract_type" "text", "p_block_number" bigint, "p_log_index" bigint) RETURNS TABLE("chain" "text", "contract_type" "text", "block_number" bigint, "log_index" bigint, "tx" "text", "event_name" "text", "args" "text"[], "wallet_address" "text", "asset_id" "text", "created_at" timestamp with time zone, "user_id" "uuid", "user_wallet_address" "text", "user_display_name" "text", "user_avatar" "text", "user_avatar_thumb" "text", "user_stored_avatar" "text", "user_stored_avatar_thumb" "text", "user_x_username" "text", "asset_name" "text", "asset_image_thumb" "text", "asset_stored_image_thumb" "text")
+    LANGUAGE "plpgsql"
+    AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        e.chain,
+        e.contract_type,
+        e.block_number,
+        e.log_index,
+        e.tx,
+        e.event_name,
+        e.args,
+        e.wallet_address,
+        e.asset_id,
+        e.created_at,
+
+        u.user_id,
+        u.wallet_address as user_wallet_address,
+        u.display_name as user_display_name,
+        u.avatar as user_avatar,
+        u.avatar_thumb as user_avatar_thumb,
+        u.stored_avatar as user_stored_avatar,
+        u.stored_avatar_thumb as user_stored_avatar_thumb,
+        u.x_username as user_x_username,
+
+        a.asset_name,
+        a.asset_image_thumb,
+        a.asset_stored_image_thumb
+    FROM 
+        "public"."contract_events" e
+    LEFT JOIN 
+        "public"."users_public" u ON e.wallet_address = u.wallet_address
+    LEFT JOIN 
+        LATERAL (
+            SELECT
+                hashtag as asset_id,
+                hashtag as asset_name,
+                image_thumb as asset_image_thumb,
+                null as asset_stored_image_thumb
+            FROM public.hashtags WHERE e.contract_type = 'hashtag-trade' AND hashtag = e.asset_id
+        ) a ON e.asset_id = a.asset_id
+    WHERE
+        e.chain = p_chain AND
+        e.contract_type = p_contract_type AND
+        e.block_number = p_block_number AND
+        e.log_index = p_log_index;
+END;
+$$;
+
+ALTER FUNCTION "public"."get_contract_event"("p_chain" "text", "p_contract_type" "text", "p_block_number" bigint, "p_log_index" bigint) OWNER TO "postgres";
+
+CREATE OR REPLACE FUNCTION "public"."get_contract_events_recently"("last_created_at" timestamp with time zone DEFAULT NULL::timestamp with time zone, "max_count" integer DEFAULT 100) RETURNS TABLE("chain" "text", "contract_type" "text", "block_number" bigint, "log_index" bigint, "tx" "text", "event_name" "text", "args" "text"[], "wallet_address" "text", "asset_id" "text", "created_at" timestamp with time zone, "user_id" "uuid", "user_wallet_address" "text", "user_display_name" "text", "user_avatar" "text", "user_avatar_thumb" "text", "user_stored_avatar" "text", "user_stored_avatar_thumb" "text", "user_x_username" "text", "asset_name" "text", "asset_image_thumb" "text", "asset_stored_image_thumb" "text")
+    LANGUAGE "plpgsql"
+    AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        e.chain,
+        e.contract_type,
+        e.block_number,
+        e.log_index,
+        e.tx,
+        e.event_name,
+        e.args,
+        e.wallet_address,
+        e.asset_id,
+        e.created_at,
+
+        u.user_id,
+        u.wallet_address as user_wallet_address,
+        u.display_name as user_display_name,
+        u.avatar as user_avatar,
+        u.avatar_thumb as user_avatar_thumb,
+        u.stored_avatar as user_stored_avatar,
+        u.stored_avatar_thumb as user_stored_avatar_thumb,
+        u.x_username as user_x_username,
+
+        a.asset_name,
+        a.asset_image_thumb,
+        a.asset_stored_image_thumb
+    FROM 
+        "public"."contract_events" e
+    LEFT JOIN 
+        "public"."users_public" u ON e.wallet_address = u.wallet_address
+    LEFT JOIN 
+        LATERAL (
+            SELECT
+                hashtag as asset_id,
+                hashtag as asset_name,
+                image_thumb as asset_image_thumb,
+                null as asset_stored_image_thumb
+            FROM public.hashtags WHERE e.contract_type = 'hashtag-trade' AND hashtag = e.asset_id
+        ) a ON e.asset_id = a.asset_id
+    WHERE
+        (last_created_at IS NULL OR e.created_at < last_created_at)
+        AND e.event_name IN ('TicketCreated', 'TicketDeleted', 'Trade')
+    ORDER BY 
+        e.created_at DESC
+    LIMIT 
+        max_count;
+END;
+$$;
+
+ALTER FUNCTION "public"."get_contract_events_recently"("last_created_at" timestamp with time zone, "max_count" integer) OWNER TO "postgres";
+
+CREATE OR REPLACE FUNCTION "public"."get_hashtag_leaderboard"("last_rank" integer DEFAULT NULL::integer, "max_count" integer DEFAULT 100) RETURNS TABLE("rank" integer, "hashtag" "text", "image" "text", "image_thumb" "text", "metadata" "jsonb", "supply" bigint, "total_trading_volume" "text", "is_price_up" boolean, "last_message_id" bigint, "last_message_sender" "text", "last_message" "text", "last_message_sent_at" timestamp with time zone, "holder_count" integer, "last_purchased_at" timestamp with time zone, "created_at" timestamp with time zone, "updated_at" timestamp with time zone)
+    LANGUAGE "plpgsql"
+    AS $$
+DECLARE
+    row_rank integer;
+BEGIN
+    row_rank := COALESCE(last_rank, 0);
+    RETURN QUERY
+    SELECT
+        (row_number() OVER (ORDER BY h.supply DESC) + row_rank)::integer AS rank,
+        h.hashtag,
+        h.image,
+        h.image_thumb,
+        h.metadata,
+        h.supply,
+        h.total_trading_volume::text,
+        h.is_price_up,
+        h.last_message_id,
+        h.last_message_sender,
+        h.last_message,
+        h.last_message_sent_at,
+        h.holder_count,
+        h.last_purchased_at,
+        h.created_at,
+        h.updated_at
+    FROM 
+        public.hashtags h
+    ORDER BY 
+        h.supply DESC, h.holder_count DESC
+    OFFSET 
+        row_rank
+    LIMIT 
+        max_count;
+END;
+$$;
+
+ALTER FUNCTION "public"."get_hashtag_leaderboard"("last_rank" integer, "max_count" integer) OWNER TO "postgres";
+
+CREATE OR REPLACE FUNCTION "public"."get_holding_hashtags"("p_wallet_address" "text") RETURNS TABLE("hashtag" "text", "image" "text", "image_thumb" "text", "metadata" "jsonb", "supply" bigint, "total_trading_volume" "text", "is_price_up" boolean, "last_message_id" bigint, "last_message_sender" "text", "last_message" "text", "last_message_sent_at" timestamp with time zone, "holder_count" integer, "last_purchased_at" timestamp with time zone, "created_at" timestamp with time zone, "updated_at" timestamp with time zone, "balance" bigint)
+    LANGUAGE "plpgsql"
+    AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        h.hashtag,
+        h.image,
+        h.image_thumb,
+        h.metadata,
+        h.supply,
+        h.total_trading_volume::text,
+        h.is_price_up,
+        h.last_message_id,
+        h.last_message_sender,
+        h.last_message,
+        h.last_message_sent_at,
+        h.holder_count,
+        h.last_purchased_at,
+        h.created_at,
+        h.updated_at,
+        hh.last_fetched_balance
+    FROM 
+        public.hashtags h
+    JOIN 
+        public.hashtag_holders hh ON h.hashtag = hh.hashtag AND hh.wallet_address = p_wallet_address
+    WHERE 
+        hh.wallet_address = p_wallet_address
+    ORDER BY 
+        hh.last_fetched_balance DESC;
+END;
+$$;
+
+ALTER FUNCTION "public"."get_holding_hashtags"("p_wallet_address" "text") OWNER TO "postgres";
+
+CREATE OR REPLACE FUNCTION "public"."increase_hashtag_holder_count"() RETURNS "trigger"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    AS $$begin
+  update hashtags
+  set
+    holder_count = holder_count + 1
+  where
+    hashtag = new.hashtag;
+  return null;
+end;$$;
+
+ALTER FUNCTION "public"."increase_hashtag_holder_count"() OWNER TO "postgres";
+
 CREATE OR REPLACE FUNCTION "public"."parse_contract_event"() RETURNS "trigger"
     LANGUAGE "plpgsql" SECURITY DEFINER
     AS $$
@@ -25,12 +230,11 @@ BEGIN
             IF new.args[3] = 'true' THEN
 
                 insert into hashtags (
-                    hashtag, supply, last_fetched_price, total_trading_volume, is_price_up, last_purchased_at
+                    hashtag, supply, total_trading_volume, is_price_up, last_purchased_at
                 ) values (
-                    new.asset_id, new.args[9]::bigint, new.args[5]::numeric, new.args[5]::numeric, true, now()
+                    new.asset_id, new.args[9]::bigint, new.args[5]::numeric, true, now()
                 ) on conflict (hashtag) do update
                     set supply = new.args[9]::bigint,
-                    last_fetched_price = new.args[5]::numeric,
                     total_trading_volume = hashtags.total_trading_volume + new.args[5]::numeric,
                     is_price_up = true,
                     last_purchased_at = now();
@@ -41,12 +245,6 @@ BEGIN
                     new.asset_id, new.args[1], new.args[4]::bigint
                 ) on conflict (hashtag, wallet_address) do update
                     set last_fetched_balance = hashtag_holders.last_fetched_balance + new.args[4]::bigint;
-                
-                IF NOT FOUND THEN
-                    update hashtags set
-                        holder_count = holder_count + 1
-                    where hashtag = new.asset_id;
-                END IF;
 
                 insert into user_wallets (
                     wallet_address, total_asset_balance
@@ -60,31 +258,19 @@ BEGIN
 
                 update hashtags set
                     supply = new.args[9]::bigint,
-                    last_fetched_price = new.args[5]::numeric,
                     total_trading_volume = hashtags.total_trading_volume + new.args[5]::numeric,
                     is_price_up = false
                 where hashtag = new.asset_id;
 
-                WITH updated AS (
-                    UPDATE hashtag_holders
-                    SET last_fetched_balance = hashtag_holders.last_fetched_balance - new.args[4]::bigint
-                    WHERE hashtag = new.asset_id
-                    AND wallet_address = new.args[1]
-                    RETURNING wallet_address, last_fetched_balance
-                )
-                DELETE FROM hashtag_holders
-                WHERE (wallet_address, last_fetched_balance) IN (
-                    SELECT wallet_address, last_fetched_balance FROM updated WHERE last_fetched_balance = 0
-                );
+                UPDATE hashtag_holders
+                SET last_fetched_balance = hashtag_holders.last_fetched_balance - new.args[4]::bigint
+                WHERE hashtag = new.asset_id
+                AND wallet_address = new.args[1];
 
-                IF FOUND THEN
-                    update hashtags set
-                        holder_count = holder_count - 1
-                    where hashtag = new.asset_id;
-                END IF;
+                DELETE FROM hashtag_holders WHERE last_fetched_balance = 0;
 
                 update user_wallets set
-                    total_key_balance = user_wallets.total_key_balance - new.args[4]::bigint
+                    total_asset_balance = user_wallets.total_asset_balance - new.args[4]::bigint
                 where wallet_address = new.args[1];
 
             END IF;
@@ -205,6 +391,13 @@ SET default_tablespace = '';
 
 SET default_table_access_method = "heap";
 
+CREATE TABLE IF NOT EXISTS "public"."admins" (
+    "user_id" "uuid" DEFAULT "auth"."uid"() NOT NULL,
+    "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
+);
+
+ALTER TABLE "public"."admins" OWNER TO "postgres";
+
 CREATE TABLE IF NOT EXISTS "public"."banned_users" (
     "user_id" "uuid" DEFAULT "auth"."uid"() NOT NULL,
     "ban_reason" "text",
@@ -229,6 +422,15 @@ CREATE TABLE IF NOT EXISTS "public"."contract_events" (
 
 ALTER TABLE "public"."contract_events" OWNER TO "postgres";
 
+CREATE TABLE IF NOT EXISTS "public"."fcm_subscribed_topics" (
+    "user_id" "uuid" DEFAULT "auth"."uid"() NOT NULL,
+    "topic" "text" NOT NULL,
+    "created_at" timestamp with time zone DEFAULT "now"() NOT NULL,
+    "updated_at" timestamp with time zone
+);
+
+ALTER TABLE "public"."fcm_subscribed_topics" OWNER TO "postgres";
+
 CREATE TABLE IF NOT EXISTS "public"."fcm_tokens" (
     "user_id" "uuid" DEFAULT "auth"."uid"() NOT NULL,
     "token" "text" NOT NULL,
@@ -238,6 +440,24 @@ CREATE TABLE IF NOT EXISTS "public"."fcm_tokens" (
 );
 
 ALTER TABLE "public"."fcm_tokens" OWNER TO "postgres";
+
+CREATE TABLE IF NOT EXISTS "public"."feedbacks" (
+    "id" bigint NOT NULL,
+    "user_id" "uuid",
+    "feedback" "text" NOT NULL,
+    "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
+);
+
+ALTER TABLE "public"."feedbacks" OWNER TO "postgres";
+
+ALTER TABLE "public"."feedbacks" ALTER COLUMN "id" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME "public"."feedbacks_id_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
 
 CREATE TABLE IF NOT EXISTS "public"."hashtag_chat_users" (
     "hashtag" "text" NOT NULL,
@@ -282,7 +502,6 @@ CREATE TABLE IF NOT EXISTS "public"."hashtags" (
     "image_thumb" "text",
     "metadata" "jsonb",
     "supply" bigint DEFAULT '0'::bigint NOT NULL,
-    "last_fetched_price" numeric DEFAULT '62500000000000'::numeric NOT NULL,
     "total_trading_volume" numeric DEFAULT '0'::numeric NOT NULL,
     "is_price_up" boolean,
     "last_message" "text",
@@ -332,7 +551,6 @@ ALTER TABLE "public"."user_wallets" OWNER TO "postgres";
 CREATE TABLE IF NOT EXISTS "public"."users_public" (
     "user_id" "uuid" DEFAULT "auth"."uid"() NOT NULL,
     "wallet_address" "text",
-    "total_earned_trading_fees" numeric DEFAULT '0'::numeric NOT NULL,
     "display_name" "text",
     "avatar" "text",
     "avatar_thumb" "text",
@@ -345,7 +563,8 @@ CREATE TABLE IF NOT EXISTS "public"."users_public" (
     "deleted" boolean DEFAULT false NOT NULL,
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL,
     "updated_at" timestamp with time zone,
-    "wallet_type" "text"
+    "wallet_type" "text",
+    "last_sign_in_at" timestamp with time zone
 );
 
 ALTER TABLE "public"."users_public" OWNER TO "postgres";
@@ -359,14 +578,23 @@ CREATE TABLE IF NOT EXISTS "public"."wallet_linking_nonces" (
 
 ALTER TABLE "public"."wallet_linking_nonces" OWNER TO "postgres";
 
+ALTER TABLE ONLY "public"."admins"
+    ADD CONSTRAINT "admins_pkey" PRIMARY KEY ("user_id");
+
 ALTER TABLE ONLY "public"."banned_users"
     ADD CONSTRAINT "banned_users_pkey" PRIMARY KEY ("user_id");
 
 ALTER TABLE ONLY "public"."contract_events"
     ADD CONSTRAINT "contract_events_pkey" PRIMARY KEY ("chain", "contract_type", "block_number", "log_index");
 
+ALTER TABLE ONLY "public"."fcm_subscribed_topics"
+    ADD CONSTRAINT "fcm_subscribed_topics_pkey" PRIMARY KEY ("user_id", "topic");
+
 ALTER TABLE ONLY "public"."fcm_tokens"
     ADD CONSTRAINT "fcm_tokens_pkey" PRIMARY KEY ("user_id", "token");
+
+ALTER TABLE ONLY "public"."feedbacks"
+    ADD CONSTRAINT "feedbacks_pkey" PRIMARY KEY ("id");
 
 ALTER TABLE ONLY "public"."hashtag_chat_users"
     ADD CONSTRAINT "hashtag_chat_users_pkey" PRIMARY KEY ("hashtag", "user_id");
@@ -398,6 +626,10 @@ ALTER TABLE ONLY "public"."users_public"
 ALTER TABLE ONLY "public"."wallet_linking_nonces"
     ADD CONSTRAINT "wallet_linking_nonces_pkey" PRIMARY KEY ("user_id");
 
+CREATE OR REPLACE TRIGGER "decrease_hashtag_holder_count" AFTER DELETE ON "public"."hashtag_holders" FOR EACH ROW EXECUTE FUNCTION "public"."decrease_hashtag_holder_count"();
+
+CREATE OR REPLACE TRIGGER "increase_hashtag_holder_count" AFTER INSERT ON "public"."hashtag_holders" FOR EACH ROW EXECUTE FUNCTION "public"."increase_hashtag_holder_count"();
+
 CREATE OR REPLACE TRIGGER "insert_contract_event_webhook" AFTER INSERT ON "public"."contract_events" FOR EACH ROW EXECUTE FUNCTION "supabase_functions"."http_request"('https://jdrnvhppizwxhjjhisxd.supabase.co/functions/v1/insert-contract-event-webhook', 'POST', '{"Content-type":"application/json"}', '{"secret":"b838f2d9-f641-4251-a769-5b83fdce5934"}', '1000');
 
 CREATE OR REPLACE TRIGGER "parse_contract_event" AFTER INSERT ON "public"."contract_events" FOR EACH ROW EXECUTE FUNCTION "public"."parse_contract_event"();
@@ -414,11 +646,20 @@ CREATE OR REPLACE TRIGGER "set_user_wallets_updated_at" BEFORE UPDATE ON "public
 
 CREATE OR REPLACE TRIGGER "set_users_public_updated_at" BEFORE UPDATE ON "public"."users_public" FOR EACH ROW EXECUTE FUNCTION "public"."set_updated_at"();
 
+ALTER TABLE ONLY "public"."admins"
+    ADD CONSTRAINT "admins_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users_public"("user_id");
+
 ALTER TABLE ONLY "public"."banned_users"
     ADD CONSTRAINT "banned_users_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users_public"("user_id");
 
+ALTER TABLE ONLY "public"."fcm_subscribed_topics"
+    ADD CONSTRAINT "fcm_subscribed_topics_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users_public"("user_id");
+
 ALTER TABLE ONLY "public"."fcm_tokens"
     ADD CONSTRAINT "fcm_tokens_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users_public"("user_id");
+
+ALTER TABLE ONLY "public"."feedbacks"
+    ADD CONSTRAINT "feedbacks_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users_public"("user_id");
 
 ALTER TABLE ONLY "public"."hashtag_messages"
     ADD CONSTRAINT "hashtag_chat_messages_author_fkey" FOREIGN KEY ("author") REFERENCES "public"."users_public"("user_id");
@@ -432,19 +673,35 @@ ALTER TABLE ONLY "public"."users_public"
 ALTER TABLE ONLY "public"."wallet_linking_nonces"
     ADD CONSTRAINT "wallet_linking_nonces_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users_public"("user_id");
 
+ALTER TABLE "public"."admins" ENABLE ROW LEVEL SECURITY;
+
 ALTER TABLE "public"."banned_users" ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "can write only authed" ON "public"."hashtag_messages" FOR INSERT TO "authenticated" WITH CHECK ((("length"("hashtag") < 32) AND ((("message" IS NOT NULL) AND ("message" <> ''::"text") AND ("length"("message") <= 1000)) OR (("message" IS NULL) AND ("rich" IS NOT NULL))) AND ("author" = "auth"."uid"()) AND (( SELECT "banned_users"."user_id"
+CREATE POLICY "can view only admin" ON "public"."feedbacks" FOR SELECT TO "authenticated" USING ((( SELECT "admins"."user_id"
+   FROM "public"."admins"
+  WHERE ("admins"."user_id" = "auth"."uid"())) IS NOT NULL));
+
+CREATE POLICY "can view only user" ON "public"."fcm_subscribed_topics" FOR SELECT TO "authenticated" USING (("user_id" = "auth"."uid"()));
+
+CREATE POLICY "can view only user" ON "public"."fcm_tokens" FOR SELECT TO "authenticated" USING (("user_id" = "auth"."uid"()));
+
+CREATE POLICY "can write everyone" ON "public"."feedbacks" FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "can write only authed" ON "public"."hashtag_messages" FOR INSERT TO "authenticated" WITH CHECK ((("length"("hashtag") <= 32) AND ((("message" IS NOT NULL) AND ("message" <> ''::"text") AND ("length"("message") <= 1000)) OR (("message" IS NULL) AND ("rich" IS NOT NULL))) AND ("author" = "auth"."uid"()) AND (( SELECT "banned_users"."user_id"
    FROM "public"."banned_users"
   WHERE ("banned_users"."user_id" = "auth"."uid"())) IS NULL)));
 
-CREATE POLICY "check hashtag length" ON "public"."hashtag_holders" FOR INSERT WITH CHECK (("length"("hashtag") < 32));
+CREATE POLICY "check hashtag length" ON "public"."hashtag_holders" FOR INSERT WITH CHECK (("length"("hashtag") <= 32));
 
-CREATE POLICY "check hashtag length" ON "public"."hashtags" FOR INSERT WITH CHECK (("length"("hashtag") < 32));
+CREATE POLICY "check hashtag length" ON "public"."hashtags" FOR INSERT WITH CHECK (("length"("hashtag") <= 32));
 
 ALTER TABLE "public"."contract_events" ENABLE ROW LEVEL SECURITY;
 
+ALTER TABLE "public"."fcm_subscribed_topics" ENABLE ROW LEVEL SECURITY;
+
 ALTER TABLE "public"."fcm_tokens" ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE "public"."feedbacks" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."hashtag_chat_users" ENABLE ROW LEVEL SECURITY;
 
@@ -454,7 +711,7 @@ ALTER TABLE "public"."hashtag_messages" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."hashtags" ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "only authed" ON "public"."hashtag_chat_users" FOR INSERT TO "authenticated" WITH CHECK ((("length"("hashtag") < 32) AND ("user_id" = "auth"."uid"())));
+CREATE POLICY "only authed" ON "public"."hashtag_chat_users" FOR INSERT TO "authenticated" WITH CHECK ((("length"("hashtag") <= 32) AND ("user_id" = "auth"."uid"())));
 
 CREATE POLICY "only user" ON "public"."hashtag_chat_users" FOR UPDATE TO "authenticated" USING (("user_id" = "auth"."uid"())) WITH CHECK (("user_id" = "auth"."uid"()));
 
@@ -465,6 +722,8 @@ ALTER TABLE "public"."user_devices" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "public"."user_wallets" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."users_public" ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "view everyone" ON "public"."contract_events" FOR SELECT USING (true);
 
 CREATE POLICY "view everyone" ON "public"."hashtag_chat_users" FOR SELECT USING (true);
 
@@ -485,6 +744,30 @@ GRANT USAGE ON SCHEMA "public" TO "anon";
 GRANT USAGE ON SCHEMA "public" TO "authenticated";
 GRANT USAGE ON SCHEMA "public" TO "service_role";
 
+GRANT ALL ON FUNCTION "public"."decrease_hashtag_holder_count"() TO "anon";
+GRANT ALL ON FUNCTION "public"."decrease_hashtag_holder_count"() TO "authenticated";
+GRANT ALL ON FUNCTION "public"."decrease_hashtag_holder_count"() TO "service_role";
+
+GRANT ALL ON FUNCTION "public"."get_contract_event"("p_chain" "text", "p_contract_type" "text", "p_block_number" bigint, "p_log_index" bigint) TO "anon";
+GRANT ALL ON FUNCTION "public"."get_contract_event"("p_chain" "text", "p_contract_type" "text", "p_block_number" bigint, "p_log_index" bigint) TO "authenticated";
+GRANT ALL ON FUNCTION "public"."get_contract_event"("p_chain" "text", "p_contract_type" "text", "p_block_number" bigint, "p_log_index" bigint) TO "service_role";
+
+GRANT ALL ON FUNCTION "public"."get_contract_events_recently"("last_created_at" timestamp with time zone, "max_count" integer) TO "anon";
+GRANT ALL ON FUNCTION "public"."get_contract_events_recently"("last_created_at" timestamp with time zone, "max_count" integer) TO "authenticated";
+GRANT ALL ON FUNCTION "public"."get_contract_events_recently"("last_created_at" timestamp with time zone, "max_count" integer) TO "service_role";
+
+GRANT ALL ON FUNCTION "public"."get_hashtag_leaderboard"("last_rank" integer, "max_count" integer) TO "anon";
+GRANT ALL ON FUNCTION "public"."get_hashtag_leaderboard"("last_rank" integer, "max_count" integer) TO "authenticated";
+GRANT ALL ON FUNCTION "public"."get_hashtag_leaderboard"("last_rank" integer, "max_count" integer) TO "service_role";
+
+GRANT ALL ON FUNCTION "public"."get_holding_hashtags"("p_wallet_address" "text") TO "anon";
+GRANT ALL ON FUNCTION "public"."get_holding_hashtags"("p_wallet_address" "text") TO "authenticated";
+GRANT ALL ON FUNCTION "public"."get_holding_hashtags"("p_wallet_address" "text") TO "service_role";
+
+GRANT ALL ON FUNCTION "public"."increase_hashtag_holder_count"() TO "anon";
+GRANT ALL ON FUNCTION "public"."increase_hashtag_holder_count"() TO "authenticated";
+GRANT ALL ON FUNCTION "public"."increase_hashtag_holder_count"() TO "service_role";
+
 GRANT ALL ON FUNCTION "public"."parse_contract_event"() TO "anon";
 GRANT ALL ON FUNCTION "public"."parse_contract_event"() TO "authenticated";
 GRANT ALL ON FUNCTION "public"."parse_contract_event"() TO "service_role";
@@ -501,6 +784,10 @@ GRANT ALL ON FUNCTION "public"."set_user_metadata_to_public"() TO "anon";
 GRANT ALL ON FUNCTION "public"."set_user_metadata_to_public"() TO "authenticated";
 GRANT ALL ON FUNCTION "public"."set_user_metadata_to_public"() TO "service_role";
 
+GRANT ALL ON TABLE "public"."admins" TO "anon";
+GRANT ALL ON TABLE "public"."admins" TO "authenticated";
+GRANT ALL ON TABLE "public"."admins" TO "service_role";
+
 GRANT ALL ON TABLE "public"."banned_users" TO "anon";
 GRANT ALL ON TABLE "public"."banned_users" TO "authenticated";
 GRANT ALL ON TABLE "public"."banned_users" TO "service_role";
@@ -509,9 +796,21 @@ GRANT ALL ON TABLE "public"."contract_events" TO "anon";
 GRANT ALL ON TABLE "public"."contract_events" TO "authenticated";
 GRANT ALL ON TABLE "public"."contract_events" TO "service_role";
 
+GRANT ALL ON TABLE "public"."fcm_subscribed_topics" TO "anon";
+GRANT ALL ON TABLE "public"."fcm_subscribed_topics" TO "authenticated";
+GRANT ALL ON TABLE "public"."fcm_subscribed_topics" TO "service_role";
+
 GRANT ALL ON TABLE "public"."fcm_tokens" TO "anon";
 GRANT ALL ON TABLE "public"."fcm_tokens" TO "authenticated";
 GRANT ALL ON TABLE "public"."fcm_tokens" TO "service_role";
+
+GRANT ALL ON TABLE "public"."feedbacks" TO "anon";
+GRANT ALL ON TABLE "public"."feedbacks" TO "authenticated";
+GRANT ALL ON TABLE "public"."feedbacks" TO "service_role";
+
+GRANT ALL ON SEQUENCE "public"."feedbacks_id_seq" TO "anon";
+GRANT ALL ON SEQUENCE "public"."feedbacks_id_seq" TO "authenticated";
+GRANT ALL ON SEQUENCE "public"."feedbacks_id_seq" TO "service_role";
 
 GRANT ALL ON TABLE "public"."hashtag_chat_users" TO "anon";
 GRANT ALL ON TABLE "public"."hashtag_chat_users" TO "authenticated";
