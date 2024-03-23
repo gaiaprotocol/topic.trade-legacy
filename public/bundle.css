@@ -1784,8 +1784,157 @@ button.component.disabled {
   font-size: 18px;
   font-weight: bold;
 }
+.hashtag-info-modal > main > .actions {
+  padding: 20px;
+  border-bottom: 1px solid var(--line-color);
+}
+.hashtag-info-modal > main > .metrics {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.hashtag-info-modal > main > .metrics > section {
+  border: 1px solid var(--line-color);
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hashtag-info-modal > main > .metrics > section > .value-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hashtag-info-modal > main > .metrics > section > .value-container > label {
+  color: var(--sub-text-color);
+  font-size: 12px;
+}
+.hashtag-info-modal > main > .metrics > section > .value-container > .value {
+  font-size: 16px;
+}
+.hashtag-info-modal > main > .trade {
+  padding: 0 20px 20px 20px;
+  display: flex;
+  gap: 10px;
+}
+.hashtag-info-modal > main > .trade > button {
+  flex-grow: 1;
+  width: 33.33%;
+}
 .hashtag-menu {
   width: 200px;
+}
+.buy-hashtag-popup {
+  max-width: 500px !important;
+}
+.buy-hashtag-popup > header > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.buy-hashtag-popup > main {
+  padding: 20px;
+}
+.buy-hashtag-popup > main > p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+.buy-hashtag-popup > main > table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid var(--line-color);
+}
+.buy-hashtag-popup > main > table tr > th {
+  padding: 8px 10px;
+  border: 1px solid var(--line-color);
+  color: var(--title-text-color);
+  font-weight: bold;
+}
+.buy-hashtag-popup > main > table tr > td {
+  padding: 8px 10px;
+  border: 1px solid var(--line-color);
+}
+.sell-hashtag-popup {
+  max-width: 500px !important;
+}
+.sell-hashtag-popup > header > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.sell-hashtag-popup > main {
+  padding: 20px;
+}
+.sell-hashtag-popup > main > p {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+.sell-hashtag-popup > main > table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid var(--line-color);
+}
+.sell-hashtag-popup > main > table tr > th {
+  padding: 8px 10px;
+  border: 1px solid var(--line-color);
+  color: var(--title-text-color);
+  font-weight: bold;
+}
+.sell-hashtag-popup > main > table tr > td {
+  padding: 8px 10px;
+  border: 1px solid var(--line-color);
+}
+.claim-hashtag-holder-fee-popup {
+  max-width: 500px !important;
+}
+.claim-hashtag-holder-fee-popup > header > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.claim-hashtag-holder-fee-popup > main {
+  padding: 20px;
+}
+.claim-hashtag-holder-fee-popup > main > table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid var(--line-color);
+}
+.claim-hashtag-holder-fee-popup > main > table thead > tr > th {
+  color: var(--title-text-color);
+}
+.claim-hashtag-holder-fee-popup > main > table tr > th {
+  padding: 8px 10px;
+  border: 1px solid var(--line-color);
+  font-weight: bold;
+}
+.claim-hashtag-holder-fee-popup > main > table tr > td {
+  padding: 8px 10px;
+  border: 1px solid var(--line-color);
+}
+.claim-hashtag-holder-fee-popup > main > table .total > th {
+  color: var(--title-text-color);
+}
+.claim-hashtag-holder-fee-popup > main > table .total > td {
+  font-weight: bold;
 }
 @keyframes new-hashtag-list-item {
   from {
@@ -2336,8 +2485,15 @@ button.component.disabled {
 .login-required-popup > main {
   padding: 0 20px;
 }
+.user-info-modal > header > .title {
+  font-size: 18px;
+  font-weight: bold;
+}
 .user-info-modal > main {
-  padding: 20px 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .profile-section {
   display: flex;
@@ -2365,6 +2521,64 @@ button.component.disabled {
   height: 10px;
   border-radius: 50%;
   background-color: var(--online-color);
+}
+.metric-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.metric-section > section {
+  border: 1px solid var(--line-color);
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.metric-section > section > .value-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.metric-section > section > .value-container > label {
+  color: var(--sub-text-color);
+  font-size: 12px;
+}
+.metric-section > section > .value-container > .value {
+  font-size: 16px;
+}
+.x-section {
+  border: 1px solid var(--line-color);
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.x-section > .link-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.x-section > .link-container > h2 {
+  font-weight: bold;
+  margin-left: 4px;
+  font-size: 20px;
+}
+.x-section > .link-container > .link {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  border: 1px solid var(--input-border-color);
+  background-color: var(--input-bg-color);
+  padding: 8px 4px 8px 12px;
+  border-radius: 6px;
+}
+.x-section > .link-container > .link > button.copy {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .link-wallet-popup > header > h1 {
   display: flex;
@@ -2400,6 +2614,46 @@ button.component.disabled {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+.wallet-settings-modal {
+  max-width: 500px !important;
+}
+.wallet-settings-modal > header > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.wallet-settings-modal > main {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.wallet-settings-modal > main > .wallet-address-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.wallet-settings-modal > main > .wallet-address-container > h3 {
+  font-weight: bold;
+}
+.wallet-settings-modal > main > .wallet-address-container > .wallet-address {
+  border: 1px solid var(--input-border-color);
+  background-color: var(--input-bg-color);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  word-break: break-all;
+}
+.wallet-settings-modal > main > .button-container {
+  display: flex;
+  gap: 10px;
+}
+.wallet-settings-modal > main > .button-container > button {
+  flex-grow: 1;
 }
 body {
   width: 100%;
