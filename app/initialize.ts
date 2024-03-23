@@ -16,6 +16,7 @@ import {
   SFEnv,
   SFOnlineUserManager,
   SFSignedUserManager,
+  SignedUserAssetManager,
   WalletConnectManager,
 } from "fsesf";
 import { base, baseSepolia } from "viem/chains";
@@ -75,14 +76,12 @@ export default async function initialize(config: AppConfig) {
 
     await SplashLoader.load(
       el("img", { src: "/images/logo-transparent.png" }),
-      [
-        SFSignedUserManager.init(true, false),
-        BlockTimeManager.init(),
-        RealtimeActivityManager.init(),
-      ],
+      [BlockTimeManager.init(), SFSignedUserManager.init(true, false)],
     );
 
     SFOnlineUserManager.init();
+    SignedUserAssetManager.init();
+    RealtimeActivityManager.init();
 
     Router.route(["", "{topic}"], App);
 
