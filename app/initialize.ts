@@ -12,6 +12,7 @@ import {
   BlockTimeManager,
   inject_fsesf_msg,
   LinkWalletPopup,
+  RealtimeActivityManager,
   SFEnv,
   SFOnlineUserManager,
   SFSignedUserManager,
@@ -74,7 +75,11 @@ export default async function initialize(config: AppConfig) {
 
     await SplashLoader.load(
       el("img", { src: "/images/logo-transparent.png" }),
-      [SFSignedUserManager.init(true, false), BlockTimeManager.init()],
+      [
+        SFSignedUserManager.init(true, false),
+        BlockTimeManager.init(),
+        RealtimeActivityManager.init(),
+      ],
     );
 
     SFOnlineUserManager.init();
