@@ -1781,6 +1781,9 @@ button.component.disabled {
   font-size: 18px;
   font-weight: bold;
 }
+.hashtag-info-modal > main {
+  padding-bottom: 80px;
+}
 .hashtag-info-modal > main > .actions {
   padding: 20px;
   border-bottom: 1px solid var(--line-color);
@@ -2604,6 +2607,7 @@ button.component.disabled {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  padding: 20px 0 80px;
 }
 .profile-section {
   display: flex;
