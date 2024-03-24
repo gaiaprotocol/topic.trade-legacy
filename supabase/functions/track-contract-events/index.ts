@@ -71,7 +71,7 @@ serveWithOptions(async (req) => {
       .from("contract_events")
       .upsert(data);
     if (saveEventError) {
-      console.log(data);
+      console.error(data);
       throw saveEventError;
     }
   }

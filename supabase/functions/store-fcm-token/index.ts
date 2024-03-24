@@ -20,10 +20,24 @@ serveWithOptions(async (req) => {
   ).select("user_id, token, subscribed_topics").eq("user_id", user.id);
   if (fetchError) throw fetchError;
 
+  const toSubscribeTopics = TOPICS;
+  const { data: subscribedTopicsData, error: fetchSubscribedTopicsError } =
+    await supabase.from("fcm_subscribed_topics").select("topic").eq(
+      "user_id",
+      user.id,
+    );
+  if (fetchSubscribedTopicsError) throw fetchSubscribedTopicsError;
+  for (const subscribedTopicData of subscribedTopicsData) {
+    if (!toSubscribeTopics.includes(subscribedTopicData.topic)) {
+      toSubscribeTopics.push(subscribedTopicData.topic);
+    }
+  }
+
   const subscribedTopics: string[] = [];
+
   for (const tokenData of tokenDataSet) {
     let hasChanged = false;
-    for (const topic of TOPICS) {
+    for (const topic of toSubscribeTopics) {
       if (!tokenData.subscribed_topics.includes(topic)) {
         try {
           await subscribeFcmTopic(tokenData.token, topic);
