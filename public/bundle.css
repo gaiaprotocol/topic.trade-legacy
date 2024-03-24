@@ -554,6 +554,9 @@ button.component.disabled {
 .bottom-menu-tabs.component > .tab.active {
   color: var(--primary-color);
 }
+.lazy-loading-component.hidden {
+  display: none;
+}
 .exitable {
   position: fixed;
   left: 0;
@@ -1782,11 +1785,22 @@ button.component.disabled {
   padding: 20px;
   border-bottom: 1px solid var(--line-color);
 }
+@container (width < 1280px) {
+  .hashtag-info-modal > main > .actions {
+    padding: 12px;
+  }
+}
 .hashtag-info-modal > main > .metrics {
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+}
+@container (width < 1280px) {
+  .hashtag-info-modal > main > .metrics {
+    padding: 12px;
+    gap: 8px;
+  }
 }
 .hashtag-info-modal > main > .metrics > section {
   border: 1px solid var(--line-color);
@@ -1795,6 +1809,12 @@ button.component.disabled {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+@container (width < 1280px) {
+  .hashtag-info-modal > main > .metrics > section {
+    padding: 8px;
+    gap: 8px;
+  }
 }
 .hashtag-info-modal > main > .metrics > section > .value-container {
   display: flex;
@@ -1808,10 +1828,21 @@ button.component.disabled {
 .hashtag-info-modal > main > .metrics > section > .value-container > .value {
   font-size: 16px;
 }
+@container (width < 1280px) {
+  .hashtag-info-modal > main > .metrics > section > .value-container > .value {
+    font-size: 12px;
+  }
+}
 .hashtag-info-modal > main > .trade {
   padding: 0 20px 20px 20px;
   display: flex;
   gap: 10px;
+  border-bottom: 1px solid var(--line-color);
+}
+@container (width < 1280px) {
+  .hashtag-info-modal > main > .trade {
+    padding: 0 12px 12px 12px;
+  }
 }
 .hashtag-info-modal > main > .trade > button {
   flex-grow: 1;
@@ -2138,9 +2169,6 @@ button.component.disabled {
 .holding-hashtag-list-item:active {
   background-color: var(--button-hover-color);
 }
-.holding-hashtag-list-item.active {
-  background-color: var(--button-hover-color);
-}
 .holding-hashtag-list-item > .image-container {
   display: flex;
 }
@@ -2176,10 +2204,99 @@ button.component.disabled {
 .holding-hashtag-list-item > .info-container > .info > .price.down {
   color: var(--falling-color);
 }
-.holding-hashtag-list-item > .info-container > .balance-and-fee-earned {
+.holding-hashtag-list-item > .info-container > .balance {
+  font-size: 12px;
+  color: var(--sub-text-color);
+}
+.signed-user-holding-hashtag-list-item {
+  cursor: pointer;
+  height: 58px;
+  border-bottom: 1px solid var(--line-color);
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+@media (pointer: fine) {
+  .signed-user-holding-hashtag-list-item:hover {
+    background-color: var(--button-hover-color);
+  }
+}
+.signed-user-holding-hashtag-list-item:active {
+  background-color: var(--button-hover-color);
+}
+.signed-user-holding-hashtag-list-item.active {
+  background-color: var(--button-hover-color);
+}
+.signed-user-holding-hashtag-list-item > .image-container {
+  display: flex;
+}
+.signed-user-holding-hashtag-list-item > .image-container > img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+.signed-user-holding-hashtag-list-item > .info-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.signed-user-holding-hashtag-list-item > .info-container > .info {
+  display: flex;
+  align-items: center;
+}
+.signed-user-holding-hashtag-list-item > .info-container > .info > h3 {
+  flex-grow: 1;
+  width: 0;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.signed-user-holding-hashtag-list-item > .info-container > .info > .price {
+  font-size: 12px;
+}
+.signed-user-holding-hashtag-list-item > .info-container > .info > .price.up {
+  color: var(--rising-color);
+}
+.signed-user-holding-hashtag-list-item > .info-container > .info > .price.down {
+  color: var(--falling-color);
+}
+.signed-user-holding-hashtag-list-item > .info-container > .balance-and-fee-earned {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 12px;
+  color: var(--sub-text-color);
+}
+.hashtag-holder-list-item {
+  cursor: pointer;
+  height: 58px;
+  border-bottom: 1px solid var(--line-color);
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+@media (pointer: fine) {
+  .hashtag-holder-list-item:hover {
+    background-color: var(--button-hover-color);
+  }
+}
+.hashtag-holder-list-item:active {
+  background-color: var(--button-hover-color);
+}
+.hashtag-holder-list-item > .avatar {
+  width: 36px;
+  height: 36px;
+}
+.hashtag-holder-list-item > .name {
+  flex-grow: 1;
+}
+.hashtag-holder-list-item > .balance {
   font-size: 12px;
   color: var(--sub-text-color);
 }
@@ -2484,10 +2601,9 @@ button.component.disabled {
   font-weight: bold;
 }
 .user-info-modal > main {
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 .profile-section {
   display: flex;
@@ -2520,6 +2636,7 @@ button.component.disabled {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+  padding: 0 16px;
 }
 .metric-section > section {
   border: 1px solid var(--line-color);
@@ -2542,9 +2659,7 @@ button.component.disabled {
   font-size: 16px;
 }
 .x-section {
-  border: 1px solid var(--line-color);
-  border-radius: 4px;
-  padding: 12px;
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
