@@ -3,7 +3,6 @@ import {
   AuthUtil,
   BodyNode,
   BrowserInfo,
-  DateUtil,
   el,
   Router,
   SplashLoader,
@@ -94,3 +93,11 @@ export default async function initialize(config: AppConfig) {
     WelcomePopup.launch();
   }
 }
+
+navigator.serviceWorker.addEventListener("message", (event) => {
+  if (event.data.action === "redirect-from-notificationclick") {
+    if (event.data.topic.startsWith("hashtag_")) {
+      Router.go(`/${event.data.topic.replace("hashtag_", "")}`);
+    }
+  }
+});

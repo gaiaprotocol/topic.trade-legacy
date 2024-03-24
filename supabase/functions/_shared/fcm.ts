@@ -1,6 +1,6 @@
 import { JWT } from "npm:google-auth-library@9";
 import serviceAccount from "./firebase-adminsdk-key.json" assert {
-  type: "json",
+  type: "json"
 };
 import { isDevMode } from "./supabase.ts";
 
@@ -23,11 +23,16 @@ const getAccessToken = (
   });
 };
 
-export async function sendFcmToSpecificUser(token: string, message: {
-  title: string;
-  content: string;
-  icon?: string;
-}) {
+export async function sendFcmToSpecificUser(
+  token: string,
+  topic: string,
+  message: {
+    userId?: string;
+    title: string;
+    content: string;
+    icon?: string;
+  },
+) {
   const accessToken = await getAccessToken({
     clientEmail: serviceAccount.client_email,
     privateKey: serviceAccount.private_key,
@@ -46,13 +51,7 @@ export async function sendFcmToSpecificUser(token: string, message: {
       body: JSON.stringify({
         message: {
           token,
-          notification: {
-            title: message.title,
-            body: message.content,
-          },
-          webpush: message.icon
-            ? { notification: { icon: message.icon } }
-            : undefined,
+          data: { topic, ...message },
         },
       }),
     },
@@ -123,6 +122,7 @@ export async function unsubscribeFcmTopic(token: string, topic: string) {
 }
 
 export async function sendFcmToTopic(topic: string, message: {
+  userId?: string;
   title: string;
   content: string;
   icon?: string;
@@ -145,13 +145,7 @@ export async function sendFcmToTopic(topic: string, message: {
       body: JSON.stringify({
         message: {
           topic,
-          notification: {
-            title: message.title,
-            body: message.content,
-          },
-          webpush: message.icon
-            ? { notification: { icon: message.icon } }
-            : undefined,
+          data: { topic, ...message },
         },
       }),
     },

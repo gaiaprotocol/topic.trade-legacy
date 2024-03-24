@@ -74,7 +74,7 @@ serveWithOptions(async (req) => {
 
     const { data: users, error: getUserError } = await supabase.from(
       "users_public",
-    ).select("display_name, stored_avatar_thumb").eq(
+    ).select("user_id, display_name, stored_avatar_thumb").eq(
       "wallet_address",
       data.wallet_address,
     );
@@ -85,6 +85,7 @@ serveWithOptions(async (req) => {
       if (data.args[2] === "true") { // buy
         try {
           await sendFcmToTopic(`hashtag_${data.asset_id}`, {
+            userId: user.user_id,
             title: "New trade",
             content: `${
               user
@@ -102,6 +103,7 @@ serveWithOptions(async (req) => {
         try {
           const user = users[0];
           await sendFcmToTopic(`hashtag_${data.asset_id}`, {
+            userId: user.user_id,
             title: "New trade",
             content: `${
               user
@@ -123,13 +125,17 @@ serveWithOptions(async (req) => {
     const data = payload.record as HashtagMessage;
     const { data: users, error: getUserError } = await supabase.from(
       "users_public",
-    ).select("display_name, stored_avatar_thumb").eq("user_id", data.author);
+    ).select("user_id, display_name, stored_avatar_thumb").eq(
+      "user_id",
+      data.author,
+    );
     if (getUserError) throw getUserError;
     const user = users[0];
 
     if (data.message) {
       try {
         await sendFcmToTopic(`hashtag_${data.hashtag}`, {
+          userId: user.user_id,
           title: user?.display_name,
           content: data.message,
           icon: user?.stored_avatar_thumb,
@@ -140,6 +146,7 @@ serveWithOptions(async (req) => {
     } else if (data.rich?.files?.length) {
       try {
         await sendFcmToTopic(`hashtag_${data.hashtag}`, {
+          userId: user.user_id,
           title: user?.display_name,
           content: "Sent a file",
           icon: user?.stored_avatar_thumb,
@@ -163,7 +170,7 @@ serveWithOptions(async (req) => {
 
     for (const t of fcmTokens) {
       try {
-        await sendFcmToSpecificUser(t.token, {
+        await sendFcmToSpecificUser(t.token, "feedback", {
           title: "New feedback",
           content: (payload.record as Feedback).feedback,
         });
