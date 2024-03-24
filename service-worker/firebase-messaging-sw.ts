@@ -11,7 +11,7 @@ const firebaseApp = initializeApp({
   measurementId: "G-9CNQ54G1CY",
 });
 
-let db;
+let db: any;
 const request = indexedDB.open("signedUserIdDatabase");
 request.onupgradeneeded = (event) => {
   db = (event.target as any)?.result;
@@ -45,7 +45,7 @@ onBackgroundMessage(messaging, (payload) => {
           payload.data &&
           payload.data.userId !== request.result.signedUserId
         ) {
-          self.registration.showNotification(payload.data.title, {
+          (self as any).registration.showNotification(payload.data.title, {
             data: payload.data,
             body: payload.data.content,
             icon: payload.data.icon,
@@ -57,20 +57,20 @@ onBackgroundMessage(messaging, (payload) => {
         console.error("Signed user Id not found in indexedDB");
       }
     };
-    request.onerror = (event) => {
-      console.error("Database error: ", (event.target as any)?.error);
+    request.onerror = (event: any) => {
+      console.error("Database error: ", event.target?.error);
     };
   }
 });
 
-self.addEventListener("notificationclick", (event) => {
+self.addEventListener("notificationclick", (event: any) => {
   console.log("On notification click: ", event.notification);
   event.notification.close();
 
   event.waitUntil(
-    clients
+    (self as any).clients
       .matchAll({ type: "window", includeUncontrolled: true })
-      .then((clientList) => {
+      .then((clientList: any) => {
         for (const client of clientList) {
           console.log(client);
           if ("focus" in client) {
@@ -81,7 +81,9 @@ self.addEventListener("notificationclick", (event) => {
             return client.focus();
           }
         }
-        if (clients.openWindow) return clients.openWindow("/");
+        if ((self as any).clients.openWindow) {
+          return (self as any).clients.openWindow("/");
+        }
       }),
   );
 });
