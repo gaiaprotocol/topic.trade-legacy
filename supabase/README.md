@@ -15,9 +15,10 @@ supabase functions deploy store-user-avatar
 supabase functions deploy new-wallet-linking-nonce
 supabase functions deploy link-wallet-to-user
 supabase functions deploy store-fcm-token
+supabase functions deploy subscribe-fcm-topic
+supabase functions deploy unsubscribe-fcm-topic
 supabase functions deploy track-contract-events
-supabase functions deploy insert-contract-event-webhook --no-verify-jwt
-supabase functions deploy insert-feedback-webhook --no-verify-jwt
+supabase functions deploy insert-data-webhook --no-verify-jwt
 ```
 
 ## 데이터베이스 구조 백업

@@ -158,7 +158,7 @@ export async function sendFcmToTopic(topic: string, message: {
   );
 
   const resData = await res.json();
-  if (isDevMode) console.log("resData", resData);
+  if (isDevMode) console.log("resData", JSON.stringify(resData));
   if (res.status < 200 || 299 < res.status) {
     throw resData;
   }

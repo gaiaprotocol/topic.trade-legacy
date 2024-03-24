@@ -3,6 +3,7 @@ import {
   AuthUtil,
   BodyNode,
   BrowserInfo,
+  DateUtil,
   el,
   Router,
   SplashLoader,
