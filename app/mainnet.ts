@@ -4,9 +4,9 @@ import initialize from "./initialize.js";
 await initialize({
   dev: false,
 
-  supabaseUrl: "https://jdrnvhppizwxhjjhisxd.supabase.co",
+  supabaseUrl: "https://aixmhhlmhynxarubznjv.supabase.co",
   supabaseAnonKey:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impkcm52aHBwaXp3eGhqamhpc3hkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDA0OTQ4MTcsImV4cCI6MjAxNjA3MDgxN30.z1v9yXN3iJxBANJ1K4z-aqnL3es_PGmpmdSDafid8oI",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpeG1oaGxtaHlueGFydWJ6bmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEyODE0ODYsImV4cCI6MjAyNjg1NzQ4Nn0.R6P0m5AoeYOTnat0mZHBm2oFzYM9IXW_pDDLwW4mKVs",
 
   chains: {
     8453: {
@@ -22,7 +22,7 @@ await initialize({
   defaultChain: 8453,
   contractAddresses: {
     8453: { // base
-      [ContractType.HashtagTrade]: "",
+      [ContractType.HashtagTrade]: "0x14a4D7e4E3DF2AEF1464D84Bac9d27605eC78725",
     },
   },
 
