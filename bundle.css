@@ -367,7 +367,7 @@ button.component.disabled {
 }
 :root {
   --dropdown-menu-color: var(--page-bg-color);
-  --dropdown-menu-border-color: var(--primary-color);
+  --dropdown-menu-border-color: var(--line-color);
 }
 .dropdown-menu.component {
   position: fixed;
