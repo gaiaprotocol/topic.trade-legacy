@@ -104,13 +104,13 @@ export default async function initialize(config: AppConfig) {
     }
     WelcomePopup.launch();
   }
-}
 
-navigator.serviceWorker.addEventListener("message", (event) => {
-  if (event.data.action === "notificationclick") {
-    const fcmData = event.data.data?.FCM_MSG?.data;
-    if (fcmData) {
-      if (fcmData.redirectTo) Router.go(fcmData.redirectTo);
+  navigator.serviceWorker.addEventListener("message", (event) => {
+    if (event.data.action === "notificationclick") {
+      const fcmData = event.data.data?.FCM_MSG?.data;
+      if (fcmData) {
+        if (fcmData.redirectTo) Router.go(fcmData.redirectTo);
+      }
     }
-  }
-});
+  });
+}
