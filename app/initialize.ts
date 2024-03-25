@@ -106,6 +106,9 @@ export default async function initialize(config: AppConfig) {
 
 navigator.serviceWorker.addEventListener("message", (event) => {
   if (event.data.action === "notificationclick") {
-    if (event.data.data.redirectTo) Router.go(event.data.data.redirectTo);
+    const fcmData = event.data.data?.FCM_MSG?.data;
+    if (fcmData) {
+      if (fcmData.redirectTo) Router.go(fcmData.redirectTo);
+    }
   }
 });
