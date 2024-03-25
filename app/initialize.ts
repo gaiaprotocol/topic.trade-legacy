@@ -49,7 +49,9 @@ export default async function initialize(config: AppConfig) {
   });
 
   if (!config.dev && BrowserInfo.isMobileDevice && !BrowserInfo.installed) {
-    new PWAInstallOverlay(SFEnv.serviceName).appendTo(BodyNode);
+    new PWAInstallOverlay(SFEnv.serviceName, SFEnv.overviewUrl).appendTo(
+      BodyNode,
+    );
   } else {
     AppInitializer.initialize(
       config.supabaseUrl,
