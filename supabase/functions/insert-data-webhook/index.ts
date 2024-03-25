@@ -59,10 +59,13 @@ function numberWithCommas(x: string, fixed?: number) {
   return parts.join(".");
 }
 
-async function findHashtagSubscribedTokens(hashtag: string): Promise<string[]> {
+async function findHashtagSubscribedTokens(
+  hashtag: string,
+  exceptUser: string | undefined,
+): Promise<string[]> {
   const { data: subs, error: getSubsError } = await supabase.from(
     "subscribed_hashtags",
-  ).select("user_id").eq("hashtag", hashtag);
+  ).select("user_id").eq("hashtag", hashtag).neq("user_id", exceptUser);
   if (getSubsError) throw getSubsError;
 
   const { data: tokens, error: getTokensError } = await supabase.from(
@@ -98,7 +101,10 @@ serveWithOptions(async (req) => {
     if (getUserError) throw getUserError;
     const user = users[0];
 
-    const tokens = await findHashtagSubscribedTokens(data.asset_id!);
+    const tokens = await findHashtagSubscribedTokens(
+      data.asset_id!,
+      user?.user_id,
+    );
 
     if (data.contract_type === "hashtag-trade") {
       if (data.args[2] === "true") { // buy
@@ -156,7 +162,10 @@ serveWithOptions(async (req) => {
     if (getUserError) throw getUserError;
     const user = users[0];
 
-    const tokens = await findHashtagSubscribedTokens(data.hashtag);
+    const tokens = await findHashtagSubscribedTokens(
+      data.hashtag,
+      user?.user_id,
+    );
 
     if (data.message) {
       for (const token of tokens) {
