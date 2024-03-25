@@ -1,5 +1,5 @@
 import { serveWithOptions } from "../_shared/cors.ts";
-import { sendFcmToSpecificUser, sendFcmToTopic } from "../_shared/fcm.ts";
+import { sendFcmToSpecificUser } from "../_shared/fcm.ts";
 import supabase, { isDevMode } from "../_shared/supabase.ts";
 
 interface ContractEvent {
@@ -59,6 +59,23 @@ function numberWithCommas(x: string, fixed?: number) {
   return parts.join(".");
 }
 
+async function findHashtagSubscribedTokens(hashtag: string): Promise<string[]> {
+  const { data: subs, error: getSubsError } = await supabase.from(
+    "subscribed_hashtags",
+  ).select("user_id").eq("hashtag", hashtag);
+  if (getSubsError) throw getSubsError;
+
+  const { data: tokens, error: getTokensError } = await supabase.from(
+    "fcm_tokens",
+  ).select("token").in(
+    "user_id",
+    subs.map((holder) => holder.user_id),
+  );
+  if (getTokensError) throw getTokensError;
+
+  return tokens.map((t) => t.token);
+}
+
 serveWithOptions(async (req) => {
   const u = new URL(req.url);
   const secret = u.searchParams.get("secret");
@@ -81,41 +98,48 @@ serveWithOptions(async (req) => {
     if (getUserError) throw getUserError;
     const user = users[0];
 
+    const tokens = await findHashtagSubscribedTokens(data.asset_id!);
+
     if (data.contract_type === "hashtag-trade") {
       if (data.args[2] === "true") { // buy
-        try {
-          await sendFcmToTopic(`hashtag_${data.asset_id}`, {
-            userId: user.user_id,
-            title: "New trade",
-            content: `${
-              user
-                ? user.display_name
-                : shortenEthereumAddress(data.wallet_address ?? "")
-            } bought ${numberWithCommas(data.args[3])} ${data.asset_id} ${
-              Deno.env.get("HASHTAG_UNIT")
-            }.`,
-            icon: user?.stored_avatar_thumb,
-          });
-        } catch (e) {
-          console.error(e);
+        for (const token of tokens) {
+          try {
+            await sendFcmToSpecificUser(token, {
+              title: "New trade",
+              body: `${
+                user
+                  ? user.display_name
+                  : shortenEthereumAddress(data.wallet_address ?? "")
+              } bought ${numberWithCommas(data.args[3])} ${data.asset_id} ${
+                Deno.env.get("HASHTAG_UNIT")
+              }.`,
+              icon: user?.stored_avatar_thumb,
+            }, {
+              redirectTo: `/${data.asset_id}`,
+            });
+          } catch (e) {
+            console.error(e);
+          }
         }
       } else {
-        try {
-          const user = users[0];
-          await sendFcmToTopic(`hashtag_${data.asset_id}`, {
-            userId: user.user_id,
-            title: "New trade",
-            content: `${
-              user
-                ? user.display_name
-                : shortenEthereumAddress(data.wallet_address ?? "")
-            } sold ${numberWithCommas(data.args[3])} ${data.asset_id} ${
-              Deno.env.get("HASHTAG_UNIT")
-            }.`,
-            icon: user?.stored_avatar_thumb,
-          });
-        } catch (e) {
-          console.error(e);
+        for (const token of tokens) {
+          try {
+            await sendFcmToSpecificUser(token, {
+              title: "New trade",
+              body: `${
+                user
+                  ? user.display_name
+                  : shortenEthereumAddress(data.wallet_address ?? "")
+              } sold ${numberWithCommas(data.args[3])} ${data.asset_id} ${
+                Deno.env.get("HASHTAG_UNIT")
+              }.`,
+              icon: user?.stored_avatar_thumb,
+            }, {
+              redirectTo: `/${data.asset_id}`,
+            });
+          } catch (e) {
+            console.error(e);
+          }
         }
       }
     }
@@ -132,27 +156,35 @@ serveWithOptions(async (req) => {
     if (getUserError) throw getUserError;
     const user = users[0];
 
+    const tokens = await findHashtagSubscribedTokens(data.hashtag);
+
     if (data.message) {
-      try {
-        await sendFcmToTopic(`hashtag_${data.hashtag}`, {
-          userId: user.user_id,
-          title: user?.display_name,
-          content: data.message,
-          icon: user?.stored_avatar_thumb,
-        });
-      } catch (e) {
-        console.error(e);
+      for (const token of tokens) {
+        try {
+          await sendFcmToSpecificUser(token, {
+            title: user?.display_name,
+            body: data.message,
+            icon: user?.stored_avatar_thumb,
+          }, {
+            redirectTo: `/${data.hashtag}`,
+          });
+        } catch (e) {
+          console.error(e);
+        }
       }
     } else if (data.rich?.files?.length) {
-      try {
-        await sendFcmToTopic(`hashtag_${data.hashtag}`, {
-          userId: user.user_id,
-          title: user?.display_name,
-          content: "Sent a file",
-          icon: user?.stored_avatar_thumb,
-        });
-      } catch (e) {
-        console.error(e);
+      for (const token of tokens) {
+        try {
+          await sendFcmToSpecificUser(token, {
+            title: user?.display_name,
+            body: "Sent a file",
+            icon: user?.stored_avatar_thumb,
+          }, {
+            redirectTo: `/${data.hashtag}`,
+          });
+        } catch (e) {
+          console.error(e);
+        }
       }
     }
   } else if (payload.type === "INSERT" && payload.table === "feedbacks") {
@@ -170,9 +202,9 @@ serveWithOptions(async (req) => {
 
     for (const t of fcmTokens) {
       try {
-        await sendFcmToSpecificUser(t.token, "feedback", {
+        await sendFcmToSpecificUser(t.token, {
           title: "New feedback",
-          content: (payload.record as Feedback).feedback,
+          body: (payload.record as Feedback).feedback,
         });
       } catch (e) {
         console.error(e);

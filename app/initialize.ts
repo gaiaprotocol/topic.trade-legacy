@@ -10,6 +10,7 @@ import {
 import { PWAInstallOverlay } from "@common-module/social";
 import {
   BlockTimeManager,
+  HashtagSubscribeManager,
   inject_fsesf_msg,
   LinkWalletPopup,
   RealtimeActivityManager,
@@ -76,7 +77,16 @@ export default async function initialize(config: AppConfig) {
 
     await SplashLoader.load(
       el("img", { src: "/images/logo-transparent.png" }),
-      [BlockTimeManager.init(), SFSignedUserManager.init(true, false)],
+      [
+        BlockTimeManager.init(),
+        SFSignedUserManager.init(
+          {},
+          async (userId) =>
+            await HashtagSubscribeManager.loadSignedUserSubscribedHashtags(
+              userId,
+            ),
+        ),
+      ],
     );
 
     SFOnlineUserManager.init();
@@ -95,9 +105,7 @@ export default async function initialize(config: AppConfig) {
 }
 
 navigator.serviceWorker.addEventListener("message", (event) => {
-  if (event.data.action === "redirect-from-notificationclick") {
-    if (event.data.topic.startsWith("hashtag_")) {
-      Router.go(`/${event.data.topic.replace("hashtag_", "")}`);
-    }
+  if (event.data.action === "notificationclick") {
+    if (event.data.data.redirectTo) Router.go(event.data.data.redirectTo);
   }
 });

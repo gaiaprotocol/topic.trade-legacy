@@ -16,8 +16,6 @@ supabase functions deploy store-user-avatar
 supabase functions deploy new-wallet-linking-nonce
 supabase functions deploy link-wallet-to-user
 supabase functions deploy store-fcm-token
-supabase functions deploy subscribe-fcm-topic
-supabase functions deploy unsubscribe-fcm-topic
 supabase functions deploy track-contract-events
 supabase functions deploy insert-data-webhook --no-verify-jwt
 ```

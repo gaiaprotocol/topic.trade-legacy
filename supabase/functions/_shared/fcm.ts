@@ -1,6 +1,6 @@
 import { JWT } from "npm:google-auth-library@9";
 import serviceAccount from "./firebase-adminsdk-key.json" assert {
-  type: "json"
+  type: "json",
 };
 import { isDevMode } from "./supabase.ts";
 
@@ -23,16 +23,11 @@ const getAccessToken = (
   });
 };
 
-export async function sendFcmToSpecificUser(
-  token: string,
-  topic: string,
-  message: {
-    userId?: string;
-    title: string;
-    content: string;
-    icon?: string;
-  },
-) {
+export async function sendFcmToSpecificUser(token: string, message: {
+  title: string;
+  body: string;
+  icon?: string;
+}, data?: any) {
   const accessToken = await getAccessToken({
     clientEmail: serviceAccount.client_email,
     privateKey: serviceAccount.private_key,
@@ -51,7 +46,14 @@ export async function sendFcmToSpecificUser(
       body: JSON.stringify({
         message: {
           token,
-          data: { topic, ...message },
+          notification: {
+            title: message.title,
+            body: message.body,
+          },
+          data,
+          webpush: message.icon
+            ? { notification: { icon: message.icon } }
+            : undefined,
         },
       }),
     },
@@ -122,11 +124,10 @@ export async function unsubscribeFcmTopic(token: string, topic: string) {
 }
 
 export async function sendFcmToTopic(topic: string, message: {
-  userId?: string;
   title: string;
-  content: string;
+  body: string;
   icon?: string;
-}) {
+}, data?: any) {
   const accessToken = await getAccessToken({
     clientEmail: serviceAccount.client_email,
     privateKey: serviceAccount.private_key,
@@ -145,7 +146,14 @@ export async function sendFcmToTopic(topic: string, message: {
       body: JSON.stringify({
         message: {
           topic,
-          data: { topic, ...message },
+          notification: {
+            title: message.title,
+            body: message.body,
+          },
+          data,
+          webpush: message.icon
+            ? { notification: { icon: message.icon } }
+            : undefined,
         },
       }),
     },
