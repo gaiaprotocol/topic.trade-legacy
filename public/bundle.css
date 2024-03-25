@@ -128,9 +128,6 @@ meter {
 
     --hover-color  : rgba(193, 168, 125, 0.2);
     --disable-color: rgba(255, 255, 255, 0.5);
-
-    --loading-bar-bg-color: rgba(193, 168, 125, 0.1);
-    --loading-bar-color   : rgba(193, 168, 125, 0.5);
     */
 }
 @font-face {
@@ -368,51 +365,6 @@ button.component.disabled {
   max-width: 120px;
   max-height: 120px;
 }
-@keyframes loading-spinner-animation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-:root {
-  --loading-spinner-color: var(--paragraph-text-color);
-}
-.loading-spinner.component:after {
-  content: " ";
-  display: block;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid var(--loading-spinner-color);
-  border-color: var(--loading-spinner-color) transparent var(--loading-spinner-color) transparent;
-  animation: loading-spinner-animation 1.2s linear infinite;
-}
-@keyframes loading-content-animation {
-  0% {
-    background-position: -120px 0;
-  }
-  100% {
-    background-position: 120px 0;
-  }
-}
-.loading-content.component:after {
-  content: " ";
-  display: block;
-  width: 60px;
-  min-height: 16px;
-  height: 100%;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.1);
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
-  background-size: 120px 100%;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: loading-content-animation;
-  animation-timing-function: linear;
-}
 :root {
   --dropdown-menu-color: var(--page-bg-color);
   --dropdown-menu-border-color: var(--primary-color);
@@ -556,6 +508,85 @@ button.component.disabled {
 }
 .lazy-loading-component.hidden {
   display: none;
+}
+@keyframes loading-spinner-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+:root {
+  --loading-spinner-color: var(--paragraph-text-color);
+}
+.loading-spinner.component:after {
+  content: " ";
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--loading-spinner-color);
+  border-color: var(--loading-spinner-color) transparent var(--loading-spinner-color) transparent;
+  animation: loading-spinner-animation 1.2s linear infinite;
+}
+@keyframes loading-content-animation {
+  0% {
+    background-position: -120px 0;
+  }
+  100% {
+    background-position: 120px 0;
+  }
+}
+.loading-content.component:after {
+  content: " ";
+  display: block;
+  width: 60px;
+  min-height: 16px;
+  height: 100%;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
+  background-size: 120px 100%;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-content-animation;
+  animation-timing-function: linear;
+}
+@keyframes list-loading-bar-loading {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+:root {
+  --list-loading-bar-bg-color: rgba(193, 168, 125, 0.1);
+  --list-loading-bar-color: rgba(193, 168, 125, 0.5);
+}
+:has(> .list-loading-bar.component) {
+  position: relative;
+}
+.list-loading-bar.component {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--list-loading-bar-bg-color);
+  z-index: 999997;
+  overflow: hidden;
+}
+.list-loading-bar.component::before {
+  content: '';
+  position: absolute;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background-color: var(--list-loading-bar-color);
+  animation: list-loading-bar-loading 2s linear infinite;
 }
 .exitable {
   position: fixed;
