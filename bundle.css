@@ -1044,9 +1044,18 @@ button.component.disabled {
   font-size: 24px;
   padding: 0 16px;
 }
+.pwa-install-overlay > h2 {
+  font-size: 24px;
+  padding: 0 16px;
+}
 .pwa-install-overlay > p {
   font-size: 16px;
   padding: 0 16px;
+}
+.pwa-install-overlay > a.help {
+  font-size: 12px;
+  color: var(--sub-text-color);
+  text-decoration: underline;
 }
 .post-display.social-component {
   position: relative;
