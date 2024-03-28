@@ -106,7 +106,7 @@ meter {
   --title-text-color: #fff;
   --paragraph-text-color: #b4c2d3;
   --sub-text-color: #8e8e8e;
-  --page-font-size: 14px;
+  --page-font-size: 15px;
   --overlay-color: rgba(0, 0, 0, 0.5);
   --modal-bg-color: #1E1E1E;
   /* old
@@ -167,7 +167,7 @@ h6 {
   color: var(--title-text-color);
 }
 p {
-  line-height: 1.6em;
+  line-height: 1.5em;
 }
 a {
   cursor: pointer;
@@ -1873,7 +1873,7 @@ button.component.disabled {
 }
 @container (width < 1280px) {
   .hashtag-info-modal > main > .metrics > section > .value-container > .value {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 .hashtag-info-modal > main > .trade {
@@ -2404,7 +2404,6 @@ button.component.disabled {
   align-items: center;
 }
 .hashtag-message-list-item > main > header > .author > .name {
-  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -2415,7 +2414,7 @@ button.component.disabled {
 .hashtag-message-list-item > main > ul {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   align-items: start;
 }
 @keyframes new-hashtag-message-display {
@@ -2682,6 +2681,12 @@ button.component.disabled {
   gap: 16px;
   padding: 0 16px;
 }
+@container (width < 1280px) {
+  .metric-section {
+    padding: 0 12px;
+    gap: 8px;
+  }
+}
 .metric-section > section {
   border: 1px solid var(--line-color);
   border-radius: 4px;
@@ -2689,6 +2694,12 @@ button.component.disabled {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+@container (width < 1280px) {
+  .metric-section > section {
+    padding: 8px;
+    gap: 8px;
+  }
 }
 .metric-section > section > .value-container {
   display: flex;
@@ -2701,6 +2712,11 @@ button.component.disabled {
 }
 .metric-section > section > .value-container > .value {
   font-size: 16px;
+}
+@container (width < 1280px) {
+  .metric-section > section > .value-container > .value {
+    font-size: 13px;
+  }
 }
 .x-section {
   padding: 0 16px;
@@ -2807,6 +2823,19 @@ button.component.disabled {
 }
 .wallet-settings-modal > main > .button-container > button {
   flex-grow: 1;
+}
+@font-face {
+  font-family: 'gg sans';
+  font-weight: normal;
+  src: url('/fonts/gg-sans-regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'gg sans';
+  font-weight: bold;
+  src: url('/fonts/gg-sans-semibold.woff') format('woff');
+}
+body {
+  font-family: 'gg sans', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
 }
 body {
   width: 100%;
