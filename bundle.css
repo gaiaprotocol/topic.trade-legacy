@@ -2154,6 +2154,10 @@ button.component.disabled {
 .hashtag-leaderboard-item.new {
   animation: new-hashtag-leaderboard-item 0.3s ease-out;
 }
+.hashtag-leaderboard-item > .rank {
+  min-width: 16px;
+  text-align: center;
+}
 .hashtag-leaderboard-item > .image-container {
   display: flex;
   align-items: center;
