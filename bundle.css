@@ -106,7 +106,7 @@ meter {
   --title-text-color: #fff;
   --paragraph-text-color: #b4c2d3;
   --sub-text-color: #8e8e8e;
-  --page-font-size: 14px;
+  --page-font-size: 15px;
   --overlay-color: rgba(0, 0, 0, 0.5);
   --modal-bg-color: #1E1E1E;
   /* old
@@ -167,7 +167,7 @@ h6 {
   color: var(--title-text-color);
 }
 p {
-  line-height: 1.6em;
+  line-height: 1.5em;
 }
 a {
   cursor: pointer;
@@ -2404,7 +2404,6 @@ button.component.disabled {
   align-items: center;
 }
 .hashtag-message-list-item > main > header > .author > .name {
-  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -2415,7 +2414,7 @@ button.component.disabled {
 .hashtag-message-list-item > main > ul {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   align-items: start;
 }
 @keyframes new-hashtag-message-display {
@@ -2807,6 +2806,19 @@ button.component.disabled {
 }
 .wallet-settings-modal > main > .button-container > button {
   flex-grow: 1;
+}
+@font-face {
+  font-family: 'gg sans';
+  font-weight: normal;
+  src: url('/fonts/gg-sans-regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'gg sans';
+  font-weight: bold;
+  src: url('/fonts/gg-sans-semibold.woff') format('woff');
+}
+body {
+  font-family: 'gg sans', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
 }
 body {
   width: 100%;
