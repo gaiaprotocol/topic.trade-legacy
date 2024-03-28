@@ -1873,7 +1873,7 @@ button.component.disabled {
 }
 @container (width < 1280px) {
   .hashtag-info-modal > main > .metrics > section > .value-container > .value {
-    font-size: 12px;
+    font-size: 13px;
   }
 }
 .hashtag-info-modal > main > .trade {
@@ -2681,6 +2681,12 @@ button.component.disabled {
   gap: 16px;
   padding: 0 16px;
 }
+@container (width < 1280px) {
+  .metric-section {
+    padding: 0 12px;
+    gap: 8px;
+  }
+}
 .metric-section > section {
   border: 1px solid var(--line-color);
   border-radius: 4px;
@@ -2688,6 +2694,12 @@ button.component.disabled {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+@container (width < 1280px) {
+  .metric-section > section {
+    padding: 8px;
+    gap: 8px;
+  }
 }
 .metric-section > section > .value-container {
   display: flex;
@@ -2700,6 +2712,11 @@ button.component.disabled {
 }
 .metric-section > section > .value-container > .value {
   font-size: 16px;
+}
+@container (width < 1280px) {
+  .metric-section > section > .value-container > .value {
+    font-size: 13px;
+  }
 }
 .x-section {
   padding: 0 16px;
