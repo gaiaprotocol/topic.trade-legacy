@@ -2311,11 +2311,17 @@ button.component.disabled {
 }
 .signed-user-holding-hashtag-list-item > .image-container {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  background-color: var(--placeholder-bg-color);
 }
 .signed-user-holding-hashtag-list-item > .image-container > img {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 6px;
 }
 .signed-user-holding-hashtag-list-item > .info-container {
   flex-grow: 1;
