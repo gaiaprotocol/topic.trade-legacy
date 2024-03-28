@@ -103,6 +103,7 @@ meter {
   --line-color: #252527;
   --placeholder-color: rgba(255, 255, 255, 0.5);
   --placeholder-bg-color: rgba(255, 255, 255, 0.1);
+  --windows-scrollbar-color: rgba(128, 128, 128, 0.5);
   --page-bg-color: #121212;
   --title-text-color: #fff;
   --paragraph-text-color: #b4c2d3;
@@ -150,12 +151,12 @@ meter {
   height: 100%;
   background-color: var(--page-bg-color);
 }
-::-webkit-scrollbar {
+body.windows ::-webkit-scrollbar {
   background-color: transparent;
   width: 8px;
 }
-::-webkit-scrollbar-thumb {
-  background-color: #babac0;
+body.windows ::-webkit-scrollbar-thumb {
+  background-color: var(--windows-scrollbar-color);
   border-radius: 8px;
 }
 body {
@@ -2025,12 +2026,12 @@ button.component.disabled {
   }
   to {
     opacity: 1;
-    height: 58px;
+    height: 62px;
   }
 }
 .hashtag-list-item {
   cursor: pointer;
-  height: 58px;
+  height: 62px;
   border-bottom: 1px solid var(--line-color);
   padding: 0 10px;
   display: flex;
@@ -2070,7 +2071,6 @@ button.component.disabled {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 .hashtag-list-item > .info-container > .info {
   display: flex;
@@ -2097,6 +2097,7 @@ button.component.disabled {
   display: flex;
   align-items: center;
   gap: 4px;
+  font-size: 14px;
 }
 .hashtag-list-item > .info-container > .last-message > .sender {
   color: var(--title-text-color);
