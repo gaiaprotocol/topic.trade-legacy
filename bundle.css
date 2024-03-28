@@ -1770,15 +1770,14 @@ button.component.disabled {
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 6px;
   background-color: var(--placeholder-bg-color);
   cursor: pointer;
 }
 .hashtag-room-title-bar > .image-container > img {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background-color: var(--placeholder-bg-color);
+  border-radius: 6px;
 }
 .hashtag-room-title-bar > .info-container {
   display: flex;
@@ -1823,14 +1822,13 @@ button.component.disabled {
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 6px;
   background-color: var(--placeholder-bg-color);
 }
 .hashtag-info-modal > header > .title > .image-container > img {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background-color: var(--placeholder-bg-color);
+  border-radius: 6px;
 }
 .hashtag-info-modal > header > .title > .hashtag {
   font-size: 18px;
@@ -2060,13 +2058,13 @@ button.component.disabled {
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 6px;
   background-color: var(--placeholder-bg-color);
 }
 .hashtag-list-item > .image-container > img {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 6px;
 }
 .hashtag-list-item > .info-container {
   flex-grow: 1;
@@ -2162,14 +2160,13 @@ button.component.disabled {
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 6px;
   background-color: var(--placeholder-bg-color);
 }
 .hashtag-leaderboard-item > .image-container > img {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background-color: var(--placeholder-bg-color);
+  border-radius: 6px;
 }
 .hashtag-leaderboard-item > .info-container {
   flex-grow: 1;
@@ -2247,14 +2244,13 @@ button.component.disabled {
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 6px;
   background-color: var(--placeholder-bg-color);
 }
 .holding-hashtag-list-item > .image-container > img {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background-color: var(--placeholder-bg-color);
+  border-radius: 6px;
 }
 .holding-hashtag-list-item > .info-container {
   flex-grow: 1;
