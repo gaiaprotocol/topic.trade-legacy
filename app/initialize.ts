@@ -113,4 +113,6 @@ export default async function initialize(config: AppConfig) {
       }
     }
   });
+
+  if (BrowserInfo.isWindows) BodyNode.addClass("windows");
 }
