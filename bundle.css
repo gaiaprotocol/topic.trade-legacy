@@ -2485,7 +2485,6 @@ button.component.disabled {
   margin-top: 4px;
   margin-bottom: 4px;
   max-width: 240px;
-  max-height: 240px;
 }
 @keyframes new-activity-list-item {
   from {
