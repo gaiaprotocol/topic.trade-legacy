@@ -2481,7 +2481,7 @@ button.component.disabled {
 :root {
   --waiting-message-color: rgba(255, 255, 255, 0.5);
   --phone-message-bg-color: rgba(128, 128, 128, 0.2);
-  --phone-authored-message-bg-color: rgba(193, 168, 125, 0.4);
+  --phone-authored-message-bg-color: rgba(193, 168, 125, 0.2);
 }
 @container (width < 520px) {
   .hashtag-message-display {
