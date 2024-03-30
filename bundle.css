@@ -2426,39 +2426,44 @@ button.component.disabled {
   display: flex;
   gap: 6px;
 }
+@container (width < 520px) {
+  .hashtag-message-list-item > main > ul {
+    align-items: flex-start;
+  }
+  .hashtag-message-list-item.authored > .user-avatar {
+    display: none;
+  }
+  .hashtag-message-list-item.authored > main > .author {
+    display: none;
+  }
+  .hashtag-message-list-item.authored > main > ul {
+    align-items: flex-end;
+  }
+}
 .hashtag-message-list-item > .user-avatar {
   width: 34px;
   height: 34px;
   cursor: pointer;
 }
 .hashtag-message-list-item > main {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-.hashtag-message-list-item > main > header {
+.hashtag-message-list-item > main > .author {
   display: flex;
   gap: 6px;
   align-items: center;
 }
-.hashtag-message-list-item > main > header > .author {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.hashtag-message-list-item > main > header > .author > .name {
+.hashtag-message-list-item > main > .author > .name {
   font-weight: bold;
   cursor: pointer;
-}
-.hashtag-message-list-item > main > header > .date {
-  color: var(--sub-text-color);
-  font-size: 12px;
 }
 .hashtag-message-list-item > main > ul {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  align-items: start;
+  gap: 2px;
 }
 @keyframes new-hashtag-message-display {
   from {
@@ -2470,10 +2475,18 @@ button.component.disabled {
 }
 :root {
   --waiting-message-color: rgba(255, 255, 255, 0.5);
+  --phone-message-bg-color: rgba(128, 128, 128, 0.2);
+  --phone-authored-message-bg-color: rgba(193, 168, 125, 0.4);
 }
-.hashtag-message-display {
-  border-radius: 6px;
-  word-break: break-all;
+@container (width < 520px) {
+  .hashtag-message-display {
+    background-color: var(--phone-message-bg-color);
+    border-radius: 16px;
+    padding: 4px 12px;
+  }
+  .hashtag-message-display.authored {
+    background-color: var(--phone-authored-message-bg-color);
+  }
 }
 .hashtag-message-display.waiting {
   color: var(--waiting-message-color);
@@ -2485,6 +2498,19 @@ button.component.disabled {
   margin-top: 4px;
   margin-bottom: 4px;
   max-width: 240px;
+}
+.hashtag-message-display > .message-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+.hashtag-message-display > .message-container > .message {
+  flex-grow: 1;
+  word-break: break-all;
+}
+.hashtag-message-display > .message-container > .date {
+  color: var(--sub-text-color);
+  font-size: 12px;
 }
 @keyframes new-activity-list-item {
   from {
