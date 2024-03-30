@@ -1752,6 +1752,11 @@ button.component.disabled {
   overflow-y: scroll;
   padding: 20px;
 }
+@container (width < 520px) {
+  .hashtag-room > .hashtag-message-list {
+    padding: 10px;
+  }
+}
 .hashtag-room-title-bar {
   height: 50px;
   border-bottom: 1px solid var(--line-color);
@@ -2483,6 +2488,7 @@ button.component.disabled {
     background-color: var(--phone-message-bg-color);
     border-radius: 16px;
     padding: 4px 12px;
+    max-width: 88%;
   }
   .hashtag-message-display.authored {
     background-color: var(--phone-authored-message-bg-color);
@@ -2511,6 +2517,7 @@ button.component.disabled {
 .hashtag-message-display > .message-container > .date {
   color: var(--sub-text-color);
   font-size: 12px;
+  white-space: nowrap;
 }
 @keyframes new-activity-list-item {
   from {
