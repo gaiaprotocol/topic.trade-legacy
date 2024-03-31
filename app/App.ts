@@ -9,6 +9,7 @@ import {
   View,
   ViewParams,
 } from "@common-module/app";
+import { FCM } from "@common-module/social";
 import { HashtagRoom, HashtagUtil, SFEnv, SFSignedUserManager } from "fsesf";
 import ActivityTab from "./tabs/ActivityTab.js";
 import ChatsTab from "./tabs/ChatsTab.js";
@@ -118,6 +119,8 @@ export default class App extends View {
   private checkAvailableTopic(topic: string) {
     if (!HashtagUtil.available(topic)) {
       setTimeout(() => Router.goNoHistory("/"));
+    } else {
+      FCM.closeAllNotifications(`hashtag_${topic}`);
     }
   }
 }

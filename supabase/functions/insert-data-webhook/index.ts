@@ -111,6 +111,7 @@ serveWithOptions(async (req) => {
         for (const token of tokens) {
           try {
             await sendFcmToSpecificUser(token, {
+              tag: `hashtag_${data.asset_id}`,
               title: "New trade",
               body: `${
                 user
@@ -131,6 +132,7 @@ serveWithOptions(async (req) => {
         for (const token of tokens) {
           try {
             await sendFcmToSpecificUser(token, {
+              tag: `hashtag_${data.asset_id}`,
               title: "New trade",
               body: `${
                 user
@@ -171,6 +173,7 @@ serveWithOptions(async (req) => {
       for (const token of tokens) {
         try {
           await sendFcmToSpecificUser(token, {
+            tag: `hashtag_${data.hashtag}`,
             title: user?.display_name,
             body: data.message,
             icon: user?.stored_avatar_thumb,
@@ -185,6 +188,7 @@ serveWithOptions(async (req) => {
       for (const token of tokens) {
         try {
           await sendFcmToSpecificUser(token, {
+            tag: `hashtag_${data.hashtag}`,
             title: user?.display_name,
             body: "Sent a file",
             icon: user?.stored_avatar_thumb,
@@ -212,6 +216,7 @@ serveWithOptions(async (req) => {
     for (const t of fcmTokens) {
       try {
         await sendFcmToSpecificUser(t.token, {
+          tag: "feedback",
           title: "New feedback",
           body: (payload.record as Feedback).feedback,
         });
