@@ -2506,6 +2506,7 @@ button.component.disabled {
   --waiting-message-color: rgba(255, 255, 255, 0.5);
   --phone-message-bg-color: rgba(128, 128, 128, 0.2);
   --phone-authored-message-bg-color: rgba(193, 168, 125, 0.2);
+  --phone-message-hover-color: rgba(193, 168, 125, 0.4);
 }
 .hashtag-message-display {
   color: var(--message-color);
@@ -2514,11 +2515,15 @@ button.component.disabled {
   .hashtag-message-display {
     background-color: var(--phone-message-bg-color);
     border-radius: 16px;
-    padding: 4px 12px;
+    padding: 8px 12px;
     max-width: 88%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
   }
   .hashtag-message-display.authored {
     background-color: var(--phone-authored-message-bg-color);
+  }
+  .hashtag-message-display:active {
+    background-color: var(--phone-message-hover-color);
   }
 }
 .hashtag-message-display.waiting > .message-container > .message {
