@@ -2485,6 +2485,7 @@ button.component.disabled {
 }
 .hashtag-message-list-item > main > .author > .name {
   font-weight: bold;
+  color: var(--primary-color);
   cursor: pointer;
 }
 .hashtag-message-list-item > main > ul {
@@ -2501,9 +2502,13 @@ button.component.disabled {
   }
 }
 :root {
+  --message-color: #fff;
   --waiting-message-color: rgba(255, 255, 255, 0.5);
   --phone-message-bg-color: rgba(128, 128, 128, 0.2);
   --phone-authored-message-bg-color: rgba(193, 168, 125, 0.2);
+}
+.hashtag-message-display {
+  color: var(--message-color);
 }
 @container (width < 520px) {
   .hashtag-message-display {
@@ -2516,7 +2521,7 @@ button.component.disabled {
     background-color: var(--phone-authored-message-bg-color);
   }
 }
-.hashtag-message-display.waiting {
+.hashtag-message-display.waiting > .message-container > .message {
   color: var(--waiting-message-color);
 }
 .hashtag-message-display.new {
@@ -2534,6 +2539,7 @@ button.component.disabled {
 }
 .hashtag-message-display > .message-container > .message {
   flex-grow: 1;
+  color: var(--message-color);
   word-break: break-all;
 }
 .hashtag-message-display > .message-container > .date {
