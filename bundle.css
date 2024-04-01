@@ -2491,9 +2491,12 @@ button.component.disabled {
 }
 .hashtag-message-list-item {
   display: flex;
-  gap: 6px;
+  gap: 12px;
 }
 @container (width < 520px) {
+  .hashtag-message-list-item {
+    gap: 6px;
+  }
   .hashtag-message-list-item > main > .author > .name {
     font-size: 12px;
   }
