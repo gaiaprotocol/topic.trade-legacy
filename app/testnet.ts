@@ -17,6 +17,7 @@ await initialize({
       symbol: "ETH",
       assetBaseDivider: 16000n,
       assetFeePercent: 100000000000000000n,
+      bridgeUrl: "https://bridge.base.org",
     },
   },
   defaultChain: 84532,
