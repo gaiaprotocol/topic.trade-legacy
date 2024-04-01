@@ -2512,6 +2512,7 @@ button.component.disabled {
 }
 .hashtag-message-display {
   color: var(--message-color);
+  padding: 2px 0;
 }
 @container (width < 520px) {
   .hashtag-message-display {
