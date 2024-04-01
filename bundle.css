@@ -2443,6 +2443,7 @@ button.component.disabled {
 }
 .hashtag-message-form > main > form > .input-container > .message-input {
   word-break: break-all;
+  color: var(--message-color);
 }
 .hashtag-message-list {
   display: flex;
@@ -2486,6 +2487,7 @@ button.component.disabled {
 .hashtag-message-list-item > main > .author > .name {
   font-weight: bold;
   color: var(--primary-color);
+  font-size: 12px;
   cursor: pointer;
 }
 .hashtag-message-list-item > main > ul {
