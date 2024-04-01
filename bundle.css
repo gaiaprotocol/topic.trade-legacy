@@ -2545,20 +2545,23 @@ button.component.disabled {
   margin-bottom: 4px;
   max-width: 240px;
 }
-.hashtag-message-display > .message-container {
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
+.hashtag-message-display > .message-container::after {
+  content: '';
+  display: table;
+  clear: both;
 }
 .hashtag-message-display > .message-container > .message {
-  flex-grow: 1;
+  float: left;
   color: var(--message-color);
   word-break: break-all;
 }
 .hashtag-message-display > .message-container > .date {
+  margin-left: 6px;
+  float: right;
   color: var(--sub-text-color);
   font-size: 12px;
   white-space: nowrap;
+  line-height: 21px;
 }
 @keyframes new-activity-list-item {
   from {
@@ -2933,12 +2936,39 @@ button.component.disabled {
   font-weight: bold;
   word-break: break-all;
 }
-.wallet-settings-modal > main > .button-container {
+.wallet-settings-modal > main > .wallet-address-container > .button-container {
   display: flex;
   gap: 10px;
 }
-.wallet-settings-modal > main > .button-container > button {
+.wallet-settings-modal > main > .wallet-address-container > .button-container > button {
   flex-grow: 1;
+}
+.wallet-settings-modal > main > .chain-info-display {
+  border: 1px solid var(--line-color);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.wallet-settings-modal > main > .chain-info-display > h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: capitalize;
+}
+.wallet-settings-modal > main > .chain-info-display > h3 > .icon {
+  width: 20px;
+  height: 20px;
+}
+.wallet-settings-modal > main > .chain-info-display > .balance {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.wallet-settings-modal > main > .chain-info-display > .balance > .value {
+  font-weight: bold;
+  color: var(--primary-color);
 }
 @font-face {
   font-family: 'gg sans';
