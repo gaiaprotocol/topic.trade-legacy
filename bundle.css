@@ -3021,8 +3021,53 @@ button.component.disabled {
   font-weight: bold;
   src: url('/fonts/gg-sans-semibold.woff') format('woff');
 }
+@font-face {
+  font-family: 'Noto Color Emoji';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/notocoloremoji/v30/Yq6P-KqIXTD0t4D9z1ESnKM3-HpFab4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Noto Emoji';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/notoemoji/v47/bMrnmSyK7YY-MEu6aWjPDs-ar6uWaGWuob_10jwv.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Noto Emoji';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/notoemoji/v47/bMrnmSyK7YY-MEu6aWjPDs-ar6uWaGWuob-r0jwv.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Noto Emoji';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/notoemoji/v47/bMrnmSyK7YY-MEu6aWjPDs-ar6uWaGWuob-Z0jwv.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Noto Emoji';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/notoemoji/v47/bMrnmSyK7YY-MEu6aWjPDs-ar6uWaGWuob911Twv.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Noto Emoji';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/notoemoji/v47/bMrnmSyK7YY-MEu6aWjPDs-ar6uWaGWuob9M1Twv.ttf) format('truetype');
+}
 body {
-  font-family: 'gg sans', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+  --google-font-color-notocoloremoji: none;
+}
+body {
+  font-family: 'gg sans', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif, 'Noto Color Emoji';
 }
 body {
   width: 100%;
