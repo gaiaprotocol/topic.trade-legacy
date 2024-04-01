@@ -1448,6 +1448,12 @@ button.component.disabled {
   justify-content: center;
   cursor: text;
 }
+.emoji-picker.social-component {
+  position: fixed;
+  left: -999999px;
+  top: -999999px;
+  height: 320px;
+}
 .upload-preview-area {
   background-color: var(--content-bg-color);
 }
@@ -2443,6 +2449,14 @@ button.component.disabled {
 .hashtag-message-form > main > section.rich > button {
   cursor: pointer;
 }
+.hashtag-message-form > main > section.emoji {
+  display: flex;
+  padding-right: 8px;
+  align-items: center;
+}
+.hashtag-message-form > main > section.emoji > button {
+  cursor: pointer;
+}
 .hashtag-message-form > main > form {
   flex-grow: 1;
   display: flex;
@@ -2477,6 +2491,9 @@ button.component.disabled {
   gap: 6px;
 }
 @container (width < 520px) {
+  .hashtag-message-list-item > main > .author > .name {
+    font-size: 12px;
+  }
   .hashtag-message-list-item > main > ul {
     align-items: flex-start;
   }
@@ -2509,7 +2526,6 @@ button.component.disabled {
 .hashtag-message-list-item > main > .author > .name {
   font-weight: bold;
   color: var(--primary-color);
-  font-size: 12px;
   cursor: pointer;
 }
 .hashtag-message-list-item > main > ul {
