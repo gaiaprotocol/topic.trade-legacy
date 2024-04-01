@@ -3067,7 +3067,7 @@ body {
   --google-font-color-notocoloremoji: none;
 }
 body {
-  font-family: 'Noto Color Emoji', 'gg sans', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: 'gg sans', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif, 'Noto Color Emoji';
 }
 emoji-picker {
   --emoji-font-family: 'Noto Color Emoji';
