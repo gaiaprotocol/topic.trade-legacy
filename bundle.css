@@ -2486,6 +2486,9 @@ button.component.disabled {
     gap: 12px;
   }
 }
+.hashtag-message-list > .loading-spinner {
+  margin: 0 auto;
+}
 .hashtag-message-list-item {
   display: flex;
   gap: 6px;
