@@ -1795,6 +1795,7 @@ button.component.disabled {
   height: 0px;
   flex-grow: 1;
   overflow-y: scroll;
+  overscroll-behavior: contain;
   padding: 20px;
 }
 @container (width < 520px) {
