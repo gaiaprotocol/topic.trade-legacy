@@ -2450,6 +2450,11 @@ button.component.disabled {
   flex-direction: column;
   gap: 18px;
 }
+@container (width < 520px) {
+  .hashtag-message-list {
+    gap: 12px;
+  }
+}
 .hashtag-message-list-item {
   display: flex;
   gap: 6px;
