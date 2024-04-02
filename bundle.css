@@ -662,6 +662,9 @@ button.component.disabled {
   gap: 8px;
   padding: 0 12px;
 }
+.popup.component > footer:empty {
+  display: none;
+}
 @keyframes show-drawer {
   from {
     opacity: 0;
