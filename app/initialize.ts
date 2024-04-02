@@ -119,7 +119,9 @@ export default async function initialize(config: AppConfig) {
   });
 
   const params = new URLSearchParams(window.location.search);
-  if (params.has("redirectTo")) Router.go(params.get("redirectTo")!);
+  if (params.has("redirectTo")) {
+    setTimeout(() => Router.go(params.get("redirectTo")!));
+  }
 
   if (BrowserInfo.isWindows) BodyNode.addClass("windows");
 }
