@@ -1067,6 +1067,9 @@ button.component.disabled {
 }
 .prompt.component > main {
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .warning-message-box.component {
   display: flex;
