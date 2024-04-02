@@ -2631,6 +2631,7 @@ button.component.disabled {
   --phone-message-hover-color: rgba(193, 168, 125, 0.4);
 }
 .hashtag-message-display {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -2645,6 +2646,7 @@ button.component.disabled {
   max-width: 240px;
 }
 .hashtag-message-display > .message-container {
+  width: 100%;
   display: flex;
   gap: 6px;
   align-items: flex-end;
