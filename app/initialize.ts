@@ -4,6 +4,7 @@ import {
   BodyNode,
   BrowserInfo,
   el,
+  PolyfillUtil,
   Router,
   SplashLoader,
 } from "@common-module/app";
@@ -126,4 +127,5 @@ export default async function initialize(config: AppConfig) {
   }
 
   if (BrowserInfo.isWindows) BodyNode.addClass("windows");
+  PolyfillUtil.fixMSWindowsEmojiDisplay();
 }

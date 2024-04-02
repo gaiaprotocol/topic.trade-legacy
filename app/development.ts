@@ -1,7 +1,7 @@
 import { ContractType } from "fsesf";
 import initialize from "./initialize.js";
 
-const TESTNET = true;
+const TESTNET = false;
 await initialize(
   TESTNET
     ? {
