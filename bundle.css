@@ -2565,52 +2565,59 @@ button.component.disabled {
   --phone-message-hover-color: rgba(193, 168, 125, 0.4);
 }
 .hashtag-message-display {
-  color: var(--message-color);
-  padding: 2px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
-@container (width < 520px) {
-  .hashtag-message-display {
-    background-color: var(--phone-message-bg-color);
-    border-radius: 16px;
-    padding: 8px 12px;
-    max-width: 88%;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-  }
-  .hashtag-message-display.authored {
-    background-color: var(--phone-authored-message-bg-color);
-  }
-  .hashtag-message-display:active {
-    background-color: var(--phone-message-hover-color);
-  }
-}
-.hashtag-message-display.waiting > .message-container > .message {
+.hashtag-message-display.waiting > .message {
   color: var(--waiting-message-color);
 }
 .hashtag-message-display.new {
   animation: new-hashtag-message-display 0.3s ease-out;
 }
 .hashtag-message-display > .rich-display {
-  margin-top: 4px;
-  margin-bottom: 4px;
   max-width: 240px;
 }
-.hashtag-message-display > .message-container::after {
-  content: '';
-  display: table;
-  clear: both;
+.hashtag-message-display > .message-container {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
 }
 .hashtag-message-display > .message-container > .message {
-  float: left;
+  flex-grow: 1;
   color: var(--message-color);
   word-break: break-all;
+  padding: 2px 0;
+}
+@container (width < 520px) {
+  .hashtag-message-display > .message-container > .message {
+    flex-grow: 0;
+    background-color: var(--phone-message-bg-color);
+    border-radius: 16px;
+    padding: 8px 12px;
+    max-width: 88%;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
 }
 .hashtag-message-display > .message-container > .date {
-  margin-left: 6px;
-  float: right;
   color: var(--sub-text-color);
   font-size: 12px;
   white-space: nowrap;
   line-height: 21px;
+}
+@container (width < 520px) {
+  .hashtag-message-display.authored {
+    align-items: flex-end;
+  }
+  .hashtag-message-display.authored > .message-container {
+    flex-direction: row-reverse;
+  }
+  .hashtag-message-display.authored > .message-container > .message {
+    background-color: var(--phone-authored-message-bg-color);
+  }
+  .hashtag-message-display:active > .message-container > .message {
+    background-color: var(--phone-message-hover-color);
+  }
 }
 @keyframes new-activity-list-item {
   from {
