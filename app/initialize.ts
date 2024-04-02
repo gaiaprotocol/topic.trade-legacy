@@ -61,6 +61,8 @@ export default async function initialize(config: AppConfig) {
     new PWAInstallOverlay(SFEnv.serviceName, SFEnv.overviewUrl).appendTo(
       BodyNode,
     );
+  } else {
+    WelcomePopup.launch();
   }
 
   WalletConnectManager.init(config.walletConnectProjectId, [
@@ -106,7 +108,6 @@ export default async function initialize(config: AppConfig) {
   if (SFSignedUserManager.signed && !SFSignedUserManager.walletLinked) {
     new LinkWalletPopup();
   }
-  WelcomePopup.launch();
 
   navigator.serviceWorker.addEventListener("message", (event) => {
     if (event.data.action === "notificationclick") {

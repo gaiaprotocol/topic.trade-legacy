@@ -662,6 +662,9 @@ button.component.disabled {
   gap: 8px;
   padding: 0 12px;
 }
+.popup.component > footer:empty {
+  display: none;
+}
 @keyframes show-drawer {
   from {
     opacity: 0;
@@ -1064,6 +1067,9 @@ button.component.disabled {
 }
 .prompt.component > main {
   padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .warning-message-box.component {
   display: flex;
@@ -1080,7 +1086,7 @@ button.component.disabled {
   text-decoration: underline;
 }
 :root {
-  --pwa-install-overlay-bg-color: rgba(12, 12, 12, 0.8);
+  --pwa-install-overlay-bg-color: rgba(12, 12, 12, 0.85);
 }
 .pwa-install-overlay {
   position: fixed;
@@ -1091,6 +1097,7 @@ button.component.disabled {
   height: 100%;
   overflow-y: auto;
   background-color: var(--pwa-install-overlay-bg-color);
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   display: flex;
   flex-direction: column;
@@ -1957,6 +1964,8 @@ button.component.disabled {
   width: 33.33%;
 }
 .hashtag-menu {
+  -webkit-user-select: none;
+  user-select: none;
   width: 200px;
 }
 .buy-hashtag-popup {
