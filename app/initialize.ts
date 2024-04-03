@@ -122,7 +122,7 @@ export default async function initialize(config: AppConfig) {
   const params = new URLSearchParams(window.location.search);
   if (params.has("redirectTo")) {
     if (BrowserInfo.isAndroid) {
-      setTimeout(() => Router.go(params.get("redirectTo")!), 100);
+      setTimeout(() => Router.go(params.get("redirectTo")!), 1000);
     } else Router.go(params.get("redirectTo")!);
   }
 
