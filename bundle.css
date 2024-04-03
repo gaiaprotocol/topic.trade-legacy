@@ -111,26 +111,6 @@ meter {
   --page-font-size: 15px;
   --overlay-color: rgba(0, 0, 0, 0.5);
   --modal-bg-color: #1E1E1E;
-  /* old
-    --page-bg-color   : #121212;
-    --content-bg-color: #141414;
-    --panel-bg-color  : #1E1E1E;
-    --popup-bg-color  : rgba(0, 0, 0, 0.5);
-    --text-color      : #fff;
-    --line-color      : #252527;
-
-    --primary-color  : #C1A87D;
-    --secondary-color: #fff;
-
-    --error-color        : #FF0000;
-    --warning-color      : #FFA500;
-    --warning-bg-color   : rgba(255, 165, 0, 0.12);
-    --success-color      : #00FF00;
-    --empty-message-color: #b4c2d3;
-
-    --hover-color  : rgba(193, 168, 125, 0.2);
-    --disable-color: rgba(255, 255, 255, 0.5);
-    */
 }
 @font-face {
   font-family: 'Roboto';
@@ -223,6 +203,25 @@ button {
 .activatable.component.active {
   display: block;
 }
+.lazy-loading-component.hidden {
+  display: none;
+}
+.splash-screen.component {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.splash-screen.component > img {
+  max-width: 120px;
+  max-height: 120px;
+}
 :root {
   --button-text-color: var(--primary-color);
   --button-hover-color: rgba(193, 168, 125, 0.2);
@@ -292,89 +291,6 @@ button.component.disabled {
   cursor: not-allowed;
   filter: grayscale(1);
 }
-.nav-bar.component {
-  position: fixed;
-  left: calc(50% - 1280px / 2);
-  top: 0;
-  z-index: 999990;
-  width: 90px;
-  height: 100%;
-  border-right: 1px solid var(--line-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-  padding-bottom: 32px;
-  overflow-y: auto;
-}
-@container (width < 1280px) {
-  .nav-bar.component {
-    left: 0;
-    top: auto;
-    bottom: 0;
-    width: 100%;
-    height: calc(80px + env(safe-area-inset-bottom));
-    padding-bottom: calc(4px + env(safe-area-inset-bottom));
-    border-top: 1px solid var(--line-color);
-    border-right: none;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 0;
-    overflow-y: visible;
-  }
-  .nav-bar.component::before,
-  .nav-bar.component::after {
-    content: '';
-    margin: 0 -1%;
-  }
-}
-.nav-bar.component > h1.logo {
-  padding: 21px 0;
-}
-@container (width < 1280px) {
-  .nav-bar.component > h1.logo {
-    display: none;
-  }
-}
-.nav-bar.component > h1.logo > a > img {
-  max-width: 55px;
-  max-height: 55px;
-}
-.nav-bar.component > a.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: center;
-  font-size: 12px;
-  color: var(--secondary-color);
-}
-.nav-bar.component > a.menu > .icon {
-  font-size: 42px;
-}
-@container (width < 1280px) {
-  .nav-bar.component > a.menu > .icon {
-    font-size: 36px;
-  }
-}
-.nav-bar.component > a.menu.active {
-  color: var(--primary-color);
-}
-.splash-screen.component {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background-color: var(--bg-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.splash-screen.component > img {
-  max-width: 120px;
-  max-height: 120px;
-}
 :root {
   --dropdown-menu-color: var(--page-bg-color);
   --dropdown-menu-border-color: var(--line-color);
@@ -410,33 +326,6 @@ button.component.disabled {
 }
 .dropdown-menu.component > ul > li > button:active {
   background-color: var(--button-hover-color);
-}
-.snackbar.component {
-  position: fixed;
-  left: 0;
-  bottom: 20px;
-  z-index: 999998;
-  width: 100%;
-}
-@container (width < 1280px) {
-  .snackbar.component {
-    bottom: calc(110px + env(safe-area-inset-bottom));
-  }
-}
-.snackbar.component > main {
-  max-width: 532px;
-  width: 90%;
-  margin: auto;
-  background-color: var(--content-bg-color);
-  border: 1px solid var(--line-color);
-  display: flex;
-  align-items: center;
-  border-radius: 19px;
-  padding-left: 20px;
-  gap: 8px;
-}
-.snackbar.component > main > p {
-  flex-grow: 1;
 }
 .tabs.component {
   border-bottom: 1px solid var(--line-color);
@@ -516,29 +405,86 @@ button.component.disabled {
 .bottom-menu-tabs.component > .tab.active {
   color: var(--primary-color);
 }
-.lazy-loading-component.hidden {
-  display: none;
-}
-@keyframes loading-spinner-animation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 :root {
-  --loading-spinner-color: var(--paragraph-text-color);
+  --mobile-app-nav-bar-height: 62px;
 }
-.loading-spinner.component:after {
-  content: " ";
-  display: block;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid var(--loading-spinner-color);
-  border-color: var(--loading-spinner-color) transparent var(--loading-spinner-color) transparent;
-  animation: loading-spinner-animation 1.2s linear infinite;
+.app-nav-bar.component {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999990;
+  width: 90px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  border-right: 1px solid var(--line-color);
+}
+@container (width < 1280px) {
+  .app-nav-bar.component {
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: calc(60px + env(safe-area-inset-bottom));
+    padding-bottom: calc(2px + env(safe-area-inset-bottom));
+    flex-direction: row;
+    gap: 0;
+    border-top: 1px solid var(--line-color);
+    border-right: none;
+  }
+  .app-nav-bar.component > h1.logo {
+    display: none;
+  }
+}
+.app-nav-bar.component > h1.logo {
+  margin: 21px 0;
+  cursor: pointer;
+}
+.app-nav-bar.component > h1.logo > img {
+  max-width: 55px;
+}
+.app-nav-bar.component > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+@container (width < 1280px) {
+  .app-nav-bar.component > ul {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+  }
+  .app-nav-bar.component > ul::before,
+  .app-nav-bar.component > ul::after {
+    content: '';
+    margin: 0 -1%;
+  }
+}
+.app-nav-bar.component > ul > .app-nav-bar-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+@container (width < 1280px) {
+  .app-nav-bar.component > ul > .app-nav-bar-menu {
+    gap: 2px;
+    font-size: 11px;
+  }
+}
+.app-nav-bar.component > ul > .app-nav-bar-menu > img {
+  height: 30px;
+}
+.app-nav-bar.component > ul > .app-nav-bar-menu > .icon {
+  font-size: 30px;
+}
+.app-nav-bar.component > ul > .app-nav-bar-menu.active {
+  color: var(--primary-color);
 }
 @keyframes loading-content-animation {
   0% {
@@ -563,6 +509,27 @@ button.component.disabled {
   animation-iteration-count: infinite;
   animation-name: loading-content-animation;
   animation-timing-function: linear;
+}
+@keyframes loading-spinner-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+:root {
+  --loading-spinner-color: var(--paragraph-text-color);
+}
+.loading-spinner.component:after {
+  content: " ";
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--loading-spinner-color);
+  border-color: var(--loading-spinner-color) transparent var(--loading-spinner-color) transparent;
+  animation: loading-spinner-animation 1.2s linear infinite;
 }
 @keyframes list-loading-bar-loading {
   0% {
@@ -892,56 +859,11 @@ button.component.disabled {
 .input.component > input:focus {
   border: 1px solid var(--primary-color);
 }
-.select.component {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.select.component > .value {
-  border: 1px solid var(--line-color);
-  border-radius: 6px;
-  background-color: var(--content-bg-color);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  line-height: 1em;
-  text-transform: capitalize;
-}
-.select.component > .value:empty::before {
-  content: attr(data-empty-message);
-  color: var(--disable-color);
-}
-.select.component > .option-container {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: -1px;
-  z-index: 1;
-  border: 1px solid var(--primary-color);
-  border-radius: 6px;
-  background-color: var(--content-bg-color);
-  min-width: 120px;
-}
-.select.component > .option-container > .option {
-  padding: 8px 12px;
-  text-transform: capitalize;
-  cursor: pointer;
-}
-@media (pointer: fine) {
-  .select.component > .option-container > .option:hover {
-    background-color: var(--primary-color);
-  }
-}
-.select.component > .option-container > .option:active {
-  background-color: var(--primary-color);
-}
-.select.component.open > .value {
-  border: 1px solid var(--primary-color);
-}
-.select.component.open > .option-container {
-  display: block;
+:root {
+  --checkbox-border-color: var(--input-border-color);
+  --checkbox-bg-color: var(--input-bg-color);
+  --checkbox-check-color: var(--input-border-color);
+  --checkbox-check-bg-color: var(--primary-color);
 }
 .checkbox.component {
   display: flex;
@@ -959,7 +881,8 @@ button.component.disabled {
   left: 0;
   height: 25px;
   width: 25px;
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--checkbox-border-color);
+  background-color: var(--checkbox-bg-color);
   border-radius: 50%;
 }
 .checkbox.component > .checkmark-container > .checkmark:after {
@@ -970,14 +893,14 @@ button.component.disabled {
   top: 5px;
   width: 5px;
   height: 10px;
-  border: solid var(--primary-color);
+  border: solid var(--checkbox-check-color);
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 .checkbox.component > .checkmark-container > input:checked ~ .checkmark {
-  background-color: #fff;
+  background-color: var(--checkbox-check-bg-color);
 }
 .checkbox.component > .checkmark-container > input:checked ~ .checkmark:after {
   display: block;
@@ -1071,6 +994,10 @@ button.component.disabled {
   flex-direction: column;
   gap: 10px;
 }
+:root {
+  --warning-color: #FFA500;
+  --warning-bg-color: rgba(255, 165, 0, 0.12);
+}
 .warning-message-box.component {
   display: flex;
   background-color: var(--warning-bg-color);
@@ -1084,6 +1011,42 @@ button.component.disabled {
 }
 .warning-message-box.component > p > a {
   text-decoration: underline;
+}
+.x-account-email-required-popup > header {
+  padding: 0 12px !important;
+}
+.x-account-email-required-popup > header > h1 {
+  padding-left: 8px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.5em;
+}
+@container (width < 1280px) {
+  .x-account-email-required-popup > header > h1 {
+    font-size: 16px;
+  }
+}
+.x-account-email-required-popup > main {
+  padding: 0 20px;
+}
+.x-account-email-required-popup > main > ol {
+  list-style-type: decimal;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.x-account-email-required-popup > main > ol > li {
+  margin-bottom: 20px;
+  line-height: 1.5em;
+}
+.x-account-email-required-popup > main > ol > li > img {
+  margin-top: 10px;
+  display: block;
+  max-width: 100%;
+  border-radius: 8px;
 }
 :root {
   --pwa-install-overlay-bg-color: rgba(12, 12, 12, 0.85);
@@ -1144,403 +1107,30 @@ button.component.disabled {
   color: var(--sub-text-color);
   text-decoration: underline;
 }
-.post-display.social-component {
-  position: relative;
-  display: flex;
-  gap: 10px;
-  cursor: pointer;
-  padding: 20px;
-}
-.post-display.social-component > main {
-  flex-grow: 1;
-}
-.post-display.social-component > main > header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.post-display.social-component .author-avatar {
-  flex-shrink: 0;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #252527;
-  background-size: cover;
-  cursor: pointer;
-}
-.post-display.social-component .author-avatar.loading {
-  background-color: rgba(255, 255, 255, 0.1);
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
-  background-size: 120px 100%;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: loading-content-animation;
-  animation-timing-function: linear;
-}
-.post-display.social-component .author {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.post-display.social-component .author > .name {
-  font-weight: 700;
-  cursor: pointer;
-}
-.post-display.social-component .author > .x-username {
-  color: #595959;
-  cursor: pointer;
-}
-.post-display.social-component button.owner-menu {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-}
-.post-display.social-component .message {
-  margin-top: 6px;
-}
-.post-display.social-component .rich-display {
-  margin-top: 20px;
-}
-.post-display.social-component .date {
-  margin-top: 20px;
-  color: #595959;
-  font-size: 12px;
-}
-.post-display.social-component .actions {
-  margin-top: 20px;
-  display: flex;
-  gap: 30px;
-}
-.post-display.social-component .actions > button {
-  display: flex;
-  gap: 16px;
-  cursor: pointer;
-  align-items: center;
-}
-.post-display.social-component.in-view {
-  display: block;
-  cursor: inherit;
-}
-.post-display.social-component.in-view > header {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  font-size: 16px;
-}
-.post-display.social-component.in-view > header > .author {
-  padding-top: 0;
-  flex-direction: column;
-  gap: 4px;
-}
-.post-display.social-component.in-view .message {
-  margin-top: 12px;
-  font-size: 16px;
-}
-.post-display.social-component.in-view .actions {
-  margin-top: 20px;
-}
-.post-content-display.social-component {
-  display: flex;
-  gap: 10px;
-}
-.post-content-display.social-component > main {
-  flex-grow: 1;
-}
-.post-content-display.social-component .author-avatar {
-  flex-shrink: 0;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #252527;
-  background-size: cover;
-  cursor: pointer;
-}
-.post-content-display.social-component .author-avatar.loading {
-  background-color: rgba(255, 255, 255, 0.1);
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
-  background-size: 120px 100%;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: loading-content-animation;
-  animation-timing-function: linear;
-}
-.post-content-display.social-component .author {
-  padding-top: 4px;
-  display: flex;
-  gap: 4px;
-}
-.post-content-display.social-component .author > .name {
-  font-weight: 700;
-  cursor: pointer;
-}
-.post-content-display.social-component .author > .x-username {
-  color: #595959;
-  cursor: pointer;
-}
-.post-content-display.social-component .message {
-  margin-top: 6px;
-}
-.post-thread.social-component > .post-display,
-.post-thread.social-component > .post-form {
-  border-bottom: 1px solid #242424;
-}
-.post-list.social-component {
-  position: relative;
-}
-.post-list.social-component.hidden {
-  display: none;
-}
-.post-form.social-component > main {
-  display: flex;
-  gap: 20px;
-}
-.post-form.social-component > main > .author-avatar {
-  flex-shrink: 0;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #252527;
-  background-size: cover;
-}
-.post-form.social-component > main > .author-avatar.loading {
-  background-color: rgba(255, 255, 255, 0.1);
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
-  background-size: 120px 100%;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: loading-content-animation;
-  animation-timing-function: linear;
-}
-.post-form.social-component > main > form {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.post-form.social-component > main > form > .message-input {
-  border: 1px solid var(--line-color);
-  padding: 8px 12px;
-  border-radius: 12px;
-  min-height: 80px;
-}
-.post-form.social-component > footer {
-  margin-top: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 70px;
-}
-.post-form.social-component > footer > section.rich > button {
-  padding: 4px;
-  cursor: pointer;
-}
-.chat-message-display {
-  border-radius: 6px;
-  background-color: #fff;
-  color: #0A0A0A;
-  padding: 6px 10px;
-}
-.chat-message-display > .rich-display {
-  margin-top: 4px;
-  margin-bottom: 4px;
-  max-width: 240px;
-  max-height: 240px;
-}
-.chat-message-list {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.chat-message-list > .message-loading-animation {
-  position: absolute;
-  left: 10px;
-  bottom: 0;
-}
-.chat-message-list-item {
-  display: flex;
-  gap: 6px;
-}
-.chat-message-list-item > .author-avatar {
-  flex-shrink: 0;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #252527;
-  background-size: cover;
-  width: 34px;
-  height: 34px;
-  cursor: pointer;
-}
-.chat-message-list-item > .author-avatar.loading {
-  background-color: rgba(255, 255, 255, 0.1);
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.1) 8%, rgba(255, 255, 255, 0.3) 18%, rgba(255, 255, 255, 0.1) 33%);
-  background-size: 120px 100%;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: loading-content-animation;
-  animation-timing-function: linear;
-}
-.chat-message-list-item > main {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: start;
-}
-.chat-message-list-item > main > header {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.chat-message-list-item > main > header > .author {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.chat-message-list-item > main > header > .author > .name {
-  font-size: 12px;
-  font-weight: bold;
-}
-.chat-message-list-item > main > header > .date {
-  color: #595959;
-  font-size: 12px;
-}
-.chat-message-list-item.authored {
-  justify-content: end;
-}
-.chat-message-list-item.authored > .author-avatar {
-  display: none;
-}
-.chat-message-list-item.authored > main {
-  align-items: end;
-}
-.chat-message-list-item.authored > main > header > .author {
-  display: none;
-}
-.chat-message-list-item.authored > main > .chat-message-display {
-  background-color: var(--button-bg-color);
-  border: 1px solid var(--primary-color);
-  color: var(--primary-color);
-}
-.chat-message-form > main {
-  border-top: 1px solid var(--line-color);
-  min-height: 56px;
-  display: flex;
-}
-.chat-message-form > main > section.rich {
-  display: flex;
-  padding: 0 8px;
-  align-items: center;
-}
-.chat-message-form > main > section.rich > button {
-  cursor: pointer;
-}
-.chat-message-form > main > form {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-right: 20px;
-}
-.chat-message-form > main > form > .input-container {
-  height: 100%;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  cursor: text;
-}
 .emoji-picker.social-component {
   position: fixed;
   left: -999999px;
   top: -999999px;
   height: 320px;
 }
-.upload-preview-area {
-  background-color: var(--content-bg-color);
-}
-.upload-preview-area:empty {
-  display: none;
-}
-.upload-preview-area::after {
-  content: '';
-  display: table;
-  clear: both;
-}
-.upload-preview-area > .preview {
-  float: left;
-  position: relative;
-  width: 150px;
-  height: 150px;
-  border-radius: 5px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-.upload-preview-area > .preview.image {
-  background-size: cover;
-  background-position: center;
-}
-.upload-preview-area > .preview.file {
-  padding: 10px;
-  display: flex;
-  align-items: end;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.upload-preview-area > .preview > button.x {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  padding: 5px;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-}
-.x-account-email-required-popup > header {
-  padding: 0 12px !important;
-}
-.x-account-email-required-popup > header > h1 {
-  padding-left: 8px;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.leave-feedback-modal > header > .title {
   font-size: 18px;
   font-weight: bold;
-  line-height: 1.5em;
 }
-@container (width < 1280px) {
-  .x-account-email-required-popup > header > h1 {
-    font-size: 16px;
-  }
+.leave-feedback-modal > main {
+  padding: 20px;
 }
-.x-account-email-required-popup > main {
-  padding: 0 20px;
+.leave-feedback-modal > main > form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.x-account-email-required-popup > main > ol {
-  list-style-type: decimal;
-  margin-top: 20px;
-  margin-left: 20px;
-}
-.x-account-email-required-popup > main > ol > li {
-  margin-bottom: 20px;
-  line-height: 1.5em;
-}
-.x-account-email-required-popup > main > ol > li > img {
-  margin-top: 10px;
-  display: block;
-  max-width: 100%;
-  border-radius: 8px;
+.leave-feedback-modal > main > form > textarea {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  border: 1px solid var(--line-color);
+  border-radius: 5px;
 }
 .pwa-install-popup > header {
   padding: 0 12px !important;
@@ -1615,25 +1205,6 @@ button.component.disabled {
   width: 100%;
   max-width: 280px;
   border-radius: 8px;
-}
-.leave-feedback-modal > header > .title {
-  font-size: 18px;
-  font-weight: bold;
-}
-.leave-feedback-modal > main {
-  padding: 20px;
-}
-.leave-feedback-modal > main > form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.leave-feedback-modal > main > form > textarea {
-  width: 100%;
-  height: 200px;
-  padding: 10px;
-  border: 1px solid var(--line-color);
-  border-radius: 5px;
 }
 :root {
   --rising-color: #00A67E;
