@@ -31,9 +31,7 @@ self.addEventListener("notificationclick", (event: any) => {
         }
         if ((self as any).clients.openWindow) {
           const fcmData = event.notification.data?.FCM_MSG?.data;
-          return (self as any).clients.openWindow(
-            "/?redirectTo=" + fcmData.redirectTo,
-          );
+          return (self as any).clients.openWindow(fcmData.redirectTo);
         }
       }),
   );

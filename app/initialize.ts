@@ -111,18 +111,9 @@ export default async function initialize(config: AppConfig) {
   navigator.serviceWorker.addEventListener("message", (event) => {
     if (event.data.action === "notificationclick") {
       const fcmData = event.data.data?.FCM_MSG?.data;
-      if (fcmData) {
-        if (fcmData.redirectTo) Router.go(fcmData.redirectTo);
-      }
+      if (fcmData?.redirectTo) Router.go(fcmData.redirectTo);
     }
   });
-
-  const params = new URLSearchParams(window.location.search);
-  if (params.has("redirectTo")) {
-    if (BrowserInfo.isAndroid) {
-      setTimeout(() => Router.go(params.get("redirectTo")!), 1000);
-    } else Router.go(params.get("redirectTo")!);
-  }
 
   if (BrowserInfo.isWindows) BodyNode.addClass("windows");
   PolyfillUtil.fixMSWindowsEmojiDisplay();
