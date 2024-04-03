@@ -88,12 +88,10 @@ export default async function initialize(config: AppConfig) {
     el("img", { src: "/images/logo-transparent.png" }),
     [
       BlockTimeManager.init(),
-      SFSignedUserManager.init(
-        {},
-        async (userId) =>
-          await HashtagSubscribeManager.loadSignedUserSubscribedHashtags(
-            userId,
-          ),
+      SFSignedUserManager.init((userId) =>
+        HashtagSubscribeManager.loadSignedUserSubscribedHashtags(
+          userId,
+        )
       ),
     ],
   );
