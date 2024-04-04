@@ -198,7 +198,7 @@ button {
   animation-timing-function: linear;
 }
 .activatable.component {
-  display: none !important;
+  display: none;
 }
 .activatable.component.active {
   display: block;
