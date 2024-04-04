@@ -2480,6 +2480,7 @@ button.component.disabled {
   cursor: pointer;
 }
 .me-panel > .signed-user > .info {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
