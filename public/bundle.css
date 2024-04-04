@@ -274,12 +274,12 @@ button.component.outlined {
   color: var(--outlined-button-text-color);
 }
 @media (pointer: fine) {
-  button.component.outlined:hover {
+  button.component.outlined:hover:not(.disabled) {
     background-color: var(--outlined-button-hover-bg-color);
     border-color: var(--outlined-button-hover-line-color);
   }
 }
-button.component.outlined:active {
+button.component.outlined:active:not(.disabled) {
   background-color: var(--outlined-button-hover-bg-color);
   border-color: var(--outlined-button-hover-line-color);
 }
@@ -328,6 +328,7 @@ button.component.disabled {
   background-color: var(--button-hover-color);
 }
 .tabs.component {
+  position: relative;
   border-bottom: 1px solid var(--line-color);
   display: flex;
   align-items: center;
@@ -335,15 +336,34 @@ button.component.disabled {
   width: 100%;
   padding: 0 10px;
 }
-.tabs.component > button.prev {
-  flex-shrink: 0;
-}
+.tabs.component > button.prev,
 .tabs.component > button.next {
-  flex-shrink: 0;
+  position: absolute;
+  top: 4px;
+  z-index: 1;
+  background-color: var(--page-bg-color);
 }
-.tabs.component:not(.scrollable) > button.prev {
+.tabs.component > button.prev:disabled,
+.tabs.component > button.next:disabled {
   display: none;
 }
+.tabs.component > button.prev::after,
+.tabs.component > button.next::after {
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  content: '';
+  width: 40px;
+  height: 4px;
+  background-color: var(--page-bg-color);
+}
+.tabs.component > button.prev {
+  left: 0;
+}
+.tabs.component > button.next {
+  right: 0;
+}
+.tabs.component:not(.scrollable) > button.prev,
 .tabs.component:not(.scrollable) > button.next {
   display: none;
 }
@@ -351,7 +371,7 @@ button.component.disabled {
   flex-grow: 1;
   display: flex;
   gap: 40px;
-  padding: 10px 10px 0;
+  padding: 0 10px;
   overflow-x: auto;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
@@ -690,9 +710,11 @@ button.component.disabled {
   .drawer.component {
     width: 100%;
     max-width: 100%;
-    height: 80%;
+    height: 84%;
     top: auto;
     bottom: 0;
+    border-right: 1px solid var(--line-color);
+    border-top: 1px solid var(--line-color);
     border-radius: 16px 16px 0 0;
     animation: show-drawer-mobile 0.3s ease-out;
   }
@@ -1008,6 +1030,9 @@ button.component.disabled {
 }
 .warning-message-box.component > i {
   font-size: 24px;
+}
+.warning-message-box.component > p {
+  word-break: break-all;
 }
 .warning-message-box.component > p > a {
   text-decoration: underline;
@@ -2670,6 +2695,7 @@ button.component.disabled {
 }
 .wallet-settings-modal > main > .wallet-address-container > .button-container > button {
   flex-grow: 1;
+  width: 50%;
 }
 .wallet-settings-modal > main > .chain-info-display {
   border: 1px solid var(--line-color);
