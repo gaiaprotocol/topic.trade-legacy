@@ -198,13 +198,13 @@ button {
   animation-timing-function: linear;
 }
 .activatable.component {
-  display: none;
+  display: none !important;
 }
 .activatable.component.active {
   display: block;
 }
 .lazy-loading-component.hidden {
-  display: none;
+  display: none !important;
 }
 .splash-screen.component {
   position: fixed;
@@ -935,7 +935,7 @@ button.component.disabled {
   outline: 2px dotted var(--primary-color);
 }
 .rich-display.component:empty {
-  display: none;
+  display: none !important;
 }
 .rich-display.component > .image-container {
   position: relative;
@@ -2636,6 +2636,26 @@ button.component.disabled {
   .metric-section > section > .value-container > .value {
     font-size: 13px;
   }
+}
+.bio-section {
+  margin: 0 16px;
+  border: 1px solid var(--line-color);
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+@container (width < 1280px) {
+  .bio-section {
+    margin: 0 12px;
+    padding: 8px;
+    gap: 8px;
+  }
+}
+.bio-section > h2 {
+  color: var(--sub-text-color);
+  font-size: 12px;
 }
 .x-section {
   padding: 0 16px;
