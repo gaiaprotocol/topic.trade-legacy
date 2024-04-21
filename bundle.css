@@ -2297,6 +2297,7 @@ button.component.disabled {
   --message-color: #fff;
   --waiting-message-color: rgba(255, 255, 255, 0.5);
   --phone-message-bg-color: rgba(128, 128, 128, 0.2);
+  --waiting-phone-message-bg-color: rgba(128, 128, 128, 0.1);
   --phone-authored-message-bg-color: rgba(193, 168, 125, 0.2);
   --phone-message-hover-color: rgba(193, 168, 125, 0.4);
 }
@@ -2308,6 +2309,11 @@ button.component.disabled {
 }
 .hashtag-message-display.waiting > .message {
   color: var(--waiting-message-color);
+}
+@container (width < 520px) {
+  .hashtag-message-display.waiting > .message {
+    background-color: var(--waiting-phone-message-bg-color);
+  }
 }
 .hashtag-message-display.new {
   animation: new-hashtag-message-display 0.3s ease-out;
