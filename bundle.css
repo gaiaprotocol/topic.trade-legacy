@@ -2825,6 +2825,34 @@ button.component.disabled {
   font-weight: bold;
   color: var(--primary-color);
 }
+.coinbase-pay-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 16px;
+  border-radius: 6px;
+  line-height: 1em;
+  gap: 8px;
+  text-transform: capitalize;
+  background-color: #0052ff;
+  color: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  white-space: nowrap;
+  font-weight: bold;
+}
+@media (pointer: fine) {
+  .coinbase-pay-button:hover:not(.disabled) {
+    background-color: #1f66ff;
+  }
+}
+.coinbase-pay-button:active:not(.disabled) {
+  background-color: #1f66ff;
+}
+.coinbase-pay-button.disabled {
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
 @font-face {
   font-family: 'gg sans';
   font-weight: normal;
