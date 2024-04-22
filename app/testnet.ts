@@ -18,6 +18,7 @@ await initialize({
       assetBaseDivider: 16000n,
       assetFeePercent: 100000000000000000n,
       bridgeUrl: "https://bridge.base.org",
+      explorerUrl: "https://basescan.org",
     },
   },
   defaultChain: 84532,
@@ -28,4 +29,5 @@ await initialize({
   },
 
   walletConnectProjectId: "7fd590b8ac5e9f5f2e4cd99a07a54783",
+  coinbasePayAppId: "2487ea29-e7cd-4e1c-9d48-80ca328e6d46",
 });

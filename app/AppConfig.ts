@@ -13,4 +13,5 @@ export default interface AppConfig {
   };
 
   walletConnectProjectId: string;
+  coinbasePayAppId: string;
 }

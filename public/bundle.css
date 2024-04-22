@@ -440,6 +440,7 @@ button.component.disabled {
   flex-direction: column;
   align-items: center;
   gap: 32px;
+  background-color: var(--page-bg-color);
   border-right: 1px solid var(--line-color);
 }
 @container (width < 1280px) {
@@ -869,6 +870,9 @@ button.component.disabled {
   gap: 8px;
   font-size: 12px;
 }
+.input.component > .label {
+  text-transform: capitalize;
+}
 .input.component > textarea,
 .input.component > input {
   font-size: var(--page-font-size);
@@ -881,6 +885,9 @@ button.component.disabled {
 .input.component > textarea:focus,
 .input.component > input:focus {
   border: 1px solid var(--primary-color);
+}
+.input.component > textarea {
+  height: 100px;
 }
 :root {
   --checkbox-border-color: var(--input-border-color);
@@ -1018,13 +1025,34 @@ button.component.disabled {
   gap: 10px;
 }
 :root {
-  --warning-color: #FFA500;
-  --warning-bg-color: rgba(255, 165, 0, 0.12);
+  --info-message-color: #CDE8F6;
+  --info-message-bg-color: #0D2C3D;
+}
+.info-message-box.component {
+  display: flex;
+  background-color: var(--info-message-bg-color);
+  color: var(--info-message-color);
+  padding: 12px 16px;
+  border-radius: 12px;
+  gap: 12px;
+}
+.info-message-box.component > i {
+  font-size: 24px;
+}
+.info-message-box.component > p > a {
+  text-decoration: underline;
+}
+.info-message-box.component > p > b {
+  font-weight: bold;
+}
+:root {
+  --warning-message-color: #FFA500;
+  --warning-message-bg-color: rgba(255, 165, 0, 0.12);
 }
 .warning-message-box.component {
   display: flex;
-  background-color: var(--warning-bg-color);
-  color: var(--warning-color);
+  background-color: var(--warning-message-bg-color);
+  color: var(--warning-message-color);
   padding: 12px 16px;
   border-radius: 12px;
   gap: 12px;
@@ -1032,11 +1060,11 @@ button.component.disabled {
 .warning-message-box.component > i {
   font-size: 24px;
 }
-.warning-message-box.component > p {
-  word-break: break-all;
-}
 .warning-message-box.component > p > a {
   text-decoration: underline;
+}
+.warning-message-box.component > p > b {
+  font-weight: bold;
 }
 .x-account-email-required-popup > header {
   padding: 0 12px !important;
@@ -2269,6 +2297,7 @@ button.component.disabled {
   --message-color: #fff;
   --waiting-message-color: rgba(255, 255, 255, 0.5);
   --phone-message-bg-color: rgba(128, 128, 128, 0.2);
+  --waiting-phone-message-bg-color: rgba(128, 128, 128, 0.1);
   --phone-authored-message-bg-color: rgba(193, 168, 125, 0.2);
   --phone-message-hover-color: rgba(193, 168, 125, 0.4);
 }
@@ -2280,6 +2309,11 @@ button.component.disabled {
 }
 .hashtag-message-display.waiting > .message {
   color: var(--waiting-message-color);
+}
+@container (width < 520px) {
+  .hashtag-message-display.waiting > .message {
+    background-color: var(--waiting-phone-message-bg-color);
+  }
 }
 .hashtag-message-display.new {
   animation: new-hashtag-message-display 0.3s ease-out;
@@ -2790,6 +2824,34 @@ button.component.disabled {
 .wallet-settings-modal > main > .chain-info-display > .balance > .value {
   font-weight: bold;
   color: var(--primary-color);
+}
+.coinbase-pay-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 16px;
+  border-radius: 6px;
+  line-height: 1em;
+  gap: 8px;
+  text-transform: capitalize;
+  background-color: #0052ff;
+  color: #fff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  white-space: nowrap;
+  font-weight: bold;
+}
+@media (pointer: fine) {
+  .coinbase-pay-button:hover:not(.disabled) {
+    background-color: #1f66ff;
+  }
+}
+.coinbase-pay-button:active:not(.disabled) {
+  background-color: #1f66ff;
+}
+.coinbase-pay-button.disabled {
+  cursor: not-allowed;
+  filter: grayscale(1);
 }
 @font-face {
   font-family: 'gg sans';

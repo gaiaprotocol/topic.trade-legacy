@@ -11,6 +11,7 @@ import {
 import { PWAInstallOverlay } from "@common-module/social";
 import {
   BlockTimeManager,
+  CoinbasePay,
   HashtagSubscribeManager,
   inject_fsesf_msg,
   LinkWalletPopup,
@@ -50,10 +51,12 @@ export default async function initialize(config: AppConfig) {
   });
 
   AppInitializer.initialize(
+    config.dev,
     config.supabaseUrl,
     config.supabaseAnonKey,
-    config.dev,
   );
+
+  CoinbasePay.init(config.coinbasePayAppId);
 
   if (
     BrowserInfo.isMobileDevice && !BrowserInfo.installed &&
