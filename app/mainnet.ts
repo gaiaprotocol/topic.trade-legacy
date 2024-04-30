@@ -9,9 +9,8 @@ await initialize({
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpeG1oaGxtaHlueGFydWJ6bmp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTEyODE0ODYsImV4cCI6MjAyNjg1NzQ4Nn0.R6P0m5AoeYOTnat0mZHBm2oFzYM9IXW_pDDLwW4mKVs",
 
   chains: {
-    8453: {
-      name: "base",
-      chainId: 8453,
+    base: {
+      id: 8453,
       rpc: "https://mainnet.base.org",
       blockTime: 2,
       symbol: "ETH",
@@ -21,9 +20,9 @@ await initialize({
       explorerUrl: "https://basescan.org",
     },
   },
-  defaultChain: 8453,
+  defaultChain: "base",
   contractAddresses: {
-    8453: { // base
+    base: { // base
       [ContractType.HashtagTrade]: "0x14a4D7e4E3DF2AEF1464D84Bac9d27605eC78725",
     },
   },

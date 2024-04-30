@@ -29,7 +29,7 @@ export default class App extends View {
   constructor(params: ViewParams, uri: string, hashtagInfo?: any) {
     super();
 
-    let settingsIcon = new MaterialIcon("settings");
+    let settingsIcon;
     if (SFSignedUserManager.user) {
       settingsIcon = el(".avatar");
       AvatarUtil.selectLoadable(settingsIcon, [

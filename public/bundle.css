@@ -1,3 +1,6 @@
+/*!***********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../app-module/style/reset.css ***!
+  \***********************************************************************************************************/
 /***
     The new CSS reset - version 1.8.4 (last updated 14.2.2023)
     GitHub page: https://github.com/elad2412/the-new-css-reset
@@ -98,6 +101,9 @@ meter {
 :where(dialog:modal) {
     all: revert;
 }
+/*!*********************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/less-loader/dist/cjs.js!./public/style/main.less ***!
+  \*********************************************************************************************************************************************/
 :root {
   --primary-color: #C1A87D;
   --line-color: #252527;
@@ -113,18 +119,18 @@ meter {
   --modal-bg-color: #1E1E1E;
 }
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Me5Q.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZg.ttf) format('truetype');
 }
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'Inter';
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlvAw.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fMZg.ttf) format('truetype');
 }
 :root {
   width: 100%;
@@ -145,7 +151,7 @@ body {
   overflow: hidden;
   container-type: inline-size;
   color: var(--paragraph-text-color);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: var(--page-font-size);
 }
 h1,
@@ -419,6 +425,9 @@ button.component.disabled {
 }
 .bottom-menu-tabs.component > .tab {
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .bottom-menu-tabs.component > .tab > .icon {
   font-size: 30px;
@@ -448,8 +457,8 @@ button.component.disabled {
     top: auto;
     bottom: 0;
     width: 100%;
-    height: calc(60px + env(safe-area-inset-bottom));
-    padding-bottom: calc(2px + env(safe-area-inset-bottom));
+    height: calc(50px + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
     flex-direction: row;
     gap: 0;
     border-top: 1px solid var(--line-color);
@@ -482,7 +491,7 @@ button.component.disabled {
   .app-nav-bar.component > ul::before,
   .app-nav-bar.component > ul::after {
     content: '';
-    margin: 0 -1%;
+    margin: 0 -4%;
   }
 }
 .app-nav-bar.component > ul > .app-nav-bar-menu {
@@ -490,13 +499,14 @@ button.component.disabled {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  font-size: 12px;
   cursor: pointer;
 }
+.app-nav-bar.component > ul > .app-nav-bar-menu > .title {
+  font-size: 12px;
+}
 @container (width < 1280px) {
-  .app-nav-bar.component > ul > .app-nav-bar-menu {
-    gap: 2px;
-    font-size: 11px;
+  .app-nav-bar.component > ul > .app-nav-bar-menu > .title {
+    display: none;
   }
 }
 .app-nav-bar.component > ul > .app-nav-bar-menu > img {

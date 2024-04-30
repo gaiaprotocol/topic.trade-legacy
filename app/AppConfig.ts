@@ -6,10 +6,10 @@ export default interface AppConfig {
   supabaseUrl: string;
   supabaseAnonKey: string;
 
-  chains: { [chainId: number]: ChainInfo };
-  defaultChain: number;
+  chains: { [chainName: string]: ChainInfo };
+  defaultChain: string;
   contractAddresses: {
-    [chainId: number]: { [contractType: number]: string };
+    [chainName: string]: { [contractType: number]: string };
   };
 
   walletConnectProjectId: string;
