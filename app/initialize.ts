@@ -8,7 +8,7 @@ import {
   Router,
   SplashLoader,
 } from "@common-module/app";
-import { PWAInstallOverlay } from "@common-module/social";
+import { FCM, PWAInstallOverlay } from "@common-module/social";
 import {
   BlockTimeManager,
   CoinbasePay,
@@ -22,8 +22,6 @@ import {
   SignedUserAssetManager,
   WalletConnectManager,
 } from "fsesf";
-import { base, baseSepolia } from "viem/chains";
-import { FCM } from "../../social-module/lib/index.js";
 import App from "./App.js";
 import AppConfig from "./AppConfig.js";
 import WelcomePopup from "./WelcomePopup.js";
@@ -69,10 +67,14 @@ export default async function initialize(config: AppConfig) {
     WelcomePopup.launch();
   }
 
-  WalletConnectManager.init(config.walletConnectProjectId, [
-    base,
-    baseSepolia,
-  ]);
+  WalletConnectManager.init({
+    projectId: config.walletConnectProjectId,
+    name: "topic.trade",
+    description:
+      "topic.trade is a social trading platform for the crypto world",
+    url: "https://topic.trade",
+    icon: "https://topic.trade/images/icon-192x192.png",
+  }, config.chains);
 
   FCM.init(
     {
