@@ -32,6 +32,7 @@ export default async function initialize(config: AppConfig) {
   SFEnv.init({
     dev: config.dev,
     serviceName: "topic.trade",
+    serviceUrl: "https://topic.trade",
     overviewUrl:
       "https://gaiaprotocol.notion.site/topic-trade-Leading-the-New-Trends-in-the-Crypto-World-8c67f745819946369b42ca371caec79d?pvs=4",
     socialUrls: {
@@ -45,6 +46,7 @@ export default async function initialize(config: AppConfig) {
     defaultChain: config.defaultChain,
     contractAddresses: config.contractAddresses,
 
+    assetName: "topic",
     hashtagOptions: { unit: "topic", baseUri: "" },
   });
 
@@ -72,7 +74,6 @@ export default async function initialize(config: AppConfig) {
     name: "topic.trade",
     description:
       "topic.trade is a social trading platform for the crypto world",
-    url: "https://topic.trade",
     icon: "https://topic.trade/images/icon-192x192.png",
   }, config.chains);
 
