@@ -3354,16 +3354,28 @@ body > div > .select-modal {
 .connect-wallet-popup > main {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 24px;
   padding: 10px 20px;
 }
-.connect-wallet-popup > main > button {
+.connect-wallet-popup > main > section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.connect-wallet-popup > main > section > h2 {
+  font-size: 16px;
+  font-weight: var(--bold-weight);
+  text-transform: capitalize;
+}
+.connect-wallet-popup > main > section > p {
+  font-size: 12px;
+}
+.connect-wallet-popup > main > section > button {
   display: flex;
   gap: 8px;
   justify-content: flex-start;
-  height: 58px;
 }
-.connect-wallet-popup > main > button > img {
+.connect-wallet-popup > main > section > button > img {
   height: 32px;
   border-radius: 4px;
 }
