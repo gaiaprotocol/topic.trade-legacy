@@ -13,10 +13,10 @@ export default class SettingsTab extends Activatable {
   }
 
   public activeHashtag(hashtag: string) {
-    this.mePanel.activeHashtag(hashtag);
+    this.mePanel.activeAsset(undefined, hashtag);
   }
 
   public deactiveHashtag() {
-    this.mePanel.deactiveHashtag();
+    this.mePanel.deactiveAsset();
   }
 }

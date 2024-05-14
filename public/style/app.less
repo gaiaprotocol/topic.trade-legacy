@@ -28,7 +28,7 @@ body {
                 display        : flex;
                 align-items    : center;
                 justify-content: center;
-                font-weight    : bold;
+                font-weight    : var(--bold-weight);
             }
 
             >.hashtag-search-bar {
@@ -90,7 +90,7 @@ body {
                 display: block;
                 content: attr(data-empty-message);
                 color  : var(--sub-text-color);
-                padding: 8px 12px;
+                padding: 24px 12px;
             }
 
             @container (width < @safe-width) {
