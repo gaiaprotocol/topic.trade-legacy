@@ -107,7 +107,7 @@ meter {
   --bold-weight: 500;
   --page-bg-color: #121212;
   --title-text-color: #f4f4f4;
-  --paragraph-text-color: #c2cedd;
+  --paragraph-text-color: #E7E9EA;
   --sub-text-color: #8e8e8e;
   --page-font-family: 'Inter', sans-serif;
   --page-font-size: 14px;
@@ -3369,10 +3369,11 @@ body > div > .select-modal {
 }
 .connect-wallet-popup > main > section > p {
   font-size: 12px;
+  color: var(--sub-text-color);
 }
 .connect-wallet-popup > main > section > button {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   justify-content: flex-start;
 }
 .connect-wallet-popup > main > section > button > img {
