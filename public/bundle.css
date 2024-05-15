@@ -1,3 +1,6 @@
+/*!***********************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!../app-module/style/reset.css ***!
+  \***********************************************************************************************************/
 /***
     The new CSS reset - version 1.8.4 (last updated 14.2.2023)
     GitHub page: https://github.com/elad2412/the-new-css-reset
@@ -98,6 +101,9 @@ meter {
 :where(dialog:modal) {
     all: revert;
 }
+/*!*********************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/less-loader/dist/cjs.js!./public/style/main.less ***!
+  \*********************************************************************************************************************************************/
 :root {
   --primary-color: #C1A87D;
   --line-color: #252527;
@@ -174,6 +180,11 @@ button {
 }
 ::placeholder {
   color: var(--placeholder-color);
+}
+[contenteditable="true"]:empty::before {
+  content: attr(placeholder);
+  color: var(--placeholder-color);
+  cursor: text;
 }
 .clearfix::after {
   content: '';
@@ -3177,6 +3188,23 @@ body > div > .select-modal {
   gap: 16px;
   padding: 20px 0 80px;
 }
+.user-info-modal > main > section.social:has(.tabs) {
+  position: relative;
+}
+.user-info-modal > main > section.social:has(.tabs) > .x-section {
+  padding: 16px 16px 0;
+}
+.user-info-modal > main > section.social:has(.tabs) > .x-section > .link-container > button.open-in-new {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  border-left: 1px solid var(--line-color);
+  border-bottom: 1px solid var(--line-color);
+  border-radius: 0 0 0 6px;
+}
+.user-info-modal > main > section.social:not(:has(.tabs)) > .x-section {
+  padding: 0 16px;
+}
 .profile-section {
   display: flex;
   flex-direction: column;
@@ -3300,7 +3328,7 @@ body > div > .select-modal {
   font-size: 12px;
 }
 .x-section {
-  padding: 0 16px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -3335,6 +3363,38 @@ body > div > .select-modal {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.x-section > .link-container > button.open-in-new {
+  margin-left: auto;
+}
+.user-list-item {
+  cursor: pointer;
+  height: 58px;
+  border-bottom: 1px solid var(--line-color);
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+@media (pointer: fine) {
+  .user-list-item:hover {
+    background-color: var(--button-hover-color);
+  }
+}
+.user-list-item:active {
+  background-color: var(--button-hover-color);
+}
+.user-list-item > .user-avatar {
+  width: 36px;
+  height: 36px;
+}
+.user-list-item > .name {
+  flex-grow: 1;
+}
+.user-list-item > .created-at {
+  font-size: 12px;
+  color: var(--sub-text-color);
 }
 .connect-wallet-popup {
   max-width: 420px !important;
@@ -4240,6 +4300,56 @@ body > div > .select-modal {
 .signed-user-chat-room-list-item > .info-container > .last-message > .sent-at {
   font-size: 12px;
   color: var(--sub-text-color);
+}
+.following-list:empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.following-list:empty::before {
+  display: block;
+  content: attr(data-empty-message);
+  color: var(--sub-text-color);
+  padding: 24px 12px;
+}
+.following-list.hidden {
+  display: none;
+}
+.follower-list:empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.follower-list:empty::before {
+  display: block;
+  content: attr(data-empty-message);
+  color: var(--sub-text-color);
+  padding: 24px 12px;
+}
+.follower-list.hidden {
+  display: none;
+}
+.post-form {
+  padding: 16px 16px 12px;
+  display: flex;
+  gap: 8px;
+}
+.post-form > main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.post-form > main > .message-input {
+  font-size: 18px;
+  min-height: 50px;
+  padding: 8px;
+}
+.post-form > main > footer {
+  display: flex;
+  justify-content: space-between;
+}
+.post-form > main > footer > button.post {
+  border-radius: 20px;
 }
 body {
   width: 100%;

@@ -109,7 +109,10 @@ export default async function initialize(config: AppConfig) {
 
   AuthUtil.checkEmailAccess();
 
-  if (SFSignedUserManager.signed && !SFSignedUserManager.walletLinked) {
+  if (
+    !SFEnv.dev && SFSignedUserManager.signed &&
+    !SFSignedUserManager.walletLinked
+  ) {
     new LinkWalletPopup();
   }
 
