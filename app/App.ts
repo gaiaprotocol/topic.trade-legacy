@@ -26,7 +26,7 @@ export default class App extends View {
   private roomSection: DomNode;
   private room: HashtagRoom | undefined;
 
-  constructor(params: ViewParams, uri: string, hashtagInfo?: any) {
+  constructor() {
     super();
 
     let settingsIcon;
@@ -78,16 +78,6 @@ export default class App extends View {
       else if (id === "activity") this.activityTab.activate();
       else if (id === "settings") this.settingsTab.activate();
     }).init();
-
-    if (params.topic) {
-      this.room = new HashtagRoom(params.topic, hashtagInfo).appendTo(
-        this.roomSection,
-      );
-      [this.chatsTab, this.leaderboardTab, this.settingsTab].forEach((list) =>
-        list.activeHashtag(params.topic!)
-      );
-      this.checkAvailableTopic(params.topic);
-    }
   }
 
   public changeParams(

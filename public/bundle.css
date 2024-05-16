@@ -4334,6 +4334,10 @@ body > div > .select-modal {
   display: flex;
   gap: 8px;
 }
+.post-form > .avatar {
+  width: 40px;
+  height: 40px;
+}
 .post-form > main {
   flex-grow: 1;
   display: flex;
@@ -4344,12 +4348,90 @@ body > div > .select-modal {
   min-height: 50px;
   padding: 8px;
 }
+.post-form > main > .upload-preview-area {
+  background-color: var(--content-bg-color);
+}
+.post-form > main > .upload-preview-area:empty {
+  display: none;
+}
+.post-form > main > .upload-preview-area::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.post-form > main > .upload-preview-area > .preview {
+  float: left;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.post-form > main > .upload-preview-area > .preview.image {
+  background-size: cover;
+  background-position: center;
+}
+.post-form > main > .upload-preview-area > .preview.file {
+  padding: 10px;
+  display: flex;
+  align-items: end;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.post-form > main > .upload-preview-area > .preview > button.x {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  padding: 5px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+}
 .post-form > main > footer {
   display: flex;
-  justify-content: space-between;
 }
 .post-form > main > footer > button.post {
+  margin-left: auto;
   border-radius: 20px;
+}
+.post-list-for-you:empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-list-for-you:empty::before {
+  display: block;
+  content: attr(data-empty-message);
+  color: var(--sub-text-color);
+  padding: 24px 12px;
+}
+.post-list-following:empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-list-following:empty::before {
+  display: block;
+  content: attr(data-empty-message);
+  color: var(--sub-text-color);
+  padding: 24px 12px;
+}
+.user-post-list:empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-post-list:empty::before {
+  display: block;
+  content: attr(data-empty-message);
+  color: var(--sub-text-color);
+  padding: 24px 12px;
 }
 body {
   width: 100%;
