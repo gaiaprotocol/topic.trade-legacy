@@ -2506,7 +2506,7 @@ body > div > .select-modal {
 .hashtag-list-item > .info-container > .last-message > .new-message-count {
   background-color: var(--contained-button-bg-color);
   color: var(--contained-button-text-color);
-  padding: 2px 4px;
+  padding: 2px 6px;
   border-radius: 12px;
   font-size: 12px;
 }
@@ -2627,7 +2627,7 @@ body > div > .select-modal {
 .hashtag-leaderboard-item > .info-container > .last-message > .new-message-count {
   background-color: var(--contained-button-bg-color);
   color: var(--contained-button-text-color);
-  padding: 2px 4px;
+  padding: 2px 6px;
   border-radius: 12px;
   font-size: 12px;
 }
@@ -4428,7 +4428,7 @@ body > div > .select-modal {
 .signed-user-chat-room-list-item > .info-container > .last-message > .new-message-count {
   background-color: var(--contained-button-bg-color);
   color: var(--contained-button-text-color);
-  padding: 2px 4px;
+  padding: 2px 6px;
   border-radius: 12px;
   font-size: 12px;
 }
