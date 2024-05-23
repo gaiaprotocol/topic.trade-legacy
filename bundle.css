@@ -2838,6 +2838,7 @@ body > div > .select-modal {
 .hashtag-message-form > main > form > .input-container > .message-input {
   word-break: break-word;
   color: var(--message-color);
+  min-height: 20px;
 }
 .hashtag-message-list {
   display: flex;
@@ -4128,6 +4129,7 @@ body > div > .select-modal {
 .creator-message-form > main > form > .input-container > .message-input {
   word-break: break-word;
   color: var(--message-color);
+  min-height: 20px;
 }
 .creator-message-list {
   display: flex;
