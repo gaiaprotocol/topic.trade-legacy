@@ -16,8 +16,10 @@ import {
 import {
   BlockTimeManager,
   CoinbasePay,
+  CoinbaseWalletManager,
   inject_fsesf_msg,
   LinkWalletPopup,
+  MetaMaskManager,
   RealtimeActivityManager,
   SFEnv,
   SFOnlineUserManager,
@@ -71,6 +73,16 @@ export default async function initialize(config: AppConfig) {
   } else {
     WelcomePopup.launch();
   }
+
+  MetaMaskManager.init({
+    name: "topic.trade",
+    icon: "https://topic.trade/images/icon-192x192.png",
+  }, config.chains);
+
+  CoinbaseWalletManager.init({
+    name: "topic.trade",
+    icon: "https://topic.trade/images/icon-192x192.png",
+  }, config.chains);
 
   WalletConnectManager.init({
     projectId: config.walletConnectProjectId,
