@@ -12,6 +12,7 @@ import {
   AndroidFcmNotification,
   FCM,
   PWAInstallOverlay,
+  SEnv,
 } from "@common-module/social";
 import {
   BlockTimeManager,
@@ -33,6 +34,10 @@ import WelcomePopup from "./WelcomePopup.js";
 
 export default async function initialize(config: AppConfig) {
   inject_fsesf_msg();
+
+  SEnv.init({
+    giphyKey: "skmZYviLNai4c6lAlHINFV4xGUFEp65w",
+  });
 
   SFEnv.init({
     dev: config.dev,

@@ -31,7 +31,17 @@ self.addEventListener("notificationclick", (event: any) => {
         }
         if ((self as any).clients.openWindow) {
           const fcmData = event.notification.data?.FCM_MSG?.data;
-          return (self as any).clients.openWindow(fcmData.redirectTo);
+          if (/Android/i.test(navigator.userAgent)) {
+            return (self as any).clients.openWindow(
+              "/?fcm_data=" + encodeURIComponent(JSON.stringify({
+                title: event.notification.title,
+                body: event.notification.body,
+                redirectTo: fcmData.redirectTo,
+              })),
+            );
+          } else {
+            return (self as any).clients.openWindow(fcmData.redirectTo);
+          }
         }
       }),
   );
