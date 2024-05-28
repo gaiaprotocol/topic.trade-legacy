@@ -12,7 +12,7 @@ supabase secrets set --env-file ./supabase/.env.development
 
 ## Edge Function 배포
 ```
-supabase functions deploy store-user-avatar
+supabase functions deploy analyze-user-additional-data
 supabase functions deploy new-wallet-linking-nonce
 supabase functions deploy link-wallet-to-user
 supabase functions deploy store-fcm-token
