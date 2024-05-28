@@ -2139,14 +2139,6 @@ body > div > .select-modal {
 .hashtag-room > .message-list {
   height: 0px;
   flex-grow: 1;
-  overflow-y: scroll;
-  overscroll-behavior: contain;
-  padding: 20px;
-}
-@container (width < 520px) {
-  .hashtag-room > .message-list {
-    padding: 10px;
-  }
 }
 .hashtag-room-title-bar {
   height: 50px;
@@ -3640,14 +3632,6 @@ body > div > .select-modal {
 .creator-room > .message-list {
   height: 0px;
   flex-grow: 1;
-  overflow-y: scroll;
-  overscroll-behavior: contain;
-  padding: 20px;
-}
-@container (width < 520px) {
-  .creator-room > .message-list {
-    padding: 10px;
-  }
 }
 .creator-room-title-bar {
   height: 50px;
@@ -3902,18 +3886,31 @@ body > div > .select-modal {
   height: 32px;
   border-radius: 16px;
 }
+.message-form:has(>.gif-preview-area:empty):has(>main>form>.input-container>.message-input:empty) > main > section.actions > button.send {
+  display: none;
+}
+.message-form:has( > .gif-preview-area:not(:empty)) > main > section.actions > button.gif,
+.message-form:has( > main > form > .input-container > .message-input:not(:empty)) > main > section.actions > button.gif {
+  display: none;
+}
+.message-form:has( > .gif-preview-area:not(:empty)) > main > section.actions > button.send,
+.message-form:has( > main > form > .input-container > .message-input:not(:empty)) > main > section.actions > button.send {
+  display: flex;
+}
 .message-form > main {
   border-top: 1px solid var(--line-color);
   min-height: 50px;
   display: flex;
 }
-.message-form > main > section.rich {
+.message-form > main > section.rich,
+.message-form > main > section.actions {
   display: flex;
   padding: 0 8px;
   gap: 8px;
   align-items: center;
 }
-.message-form > main > section.rich > button {
+.message-form > main > section.rich > button,
+.message-form > main > section.actions > button {
   cursor: pointer;
 }
 .message-form > main > form {
@@ -3937,24 +3934,46 @@ body > div > .select-modal {
   min-height: 20px;
 }
 .message-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.message-list > .scroll-to-bottom {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background-color: var(--page-bg-color);
+  border: 1px solid var(--outlined-button-line-color);
+  display: none;
+}
+.message-list.show-scroll-to-bottom > .scroll-to-bottom {
+  display: flex;
+}
+.message-list > ul {
+  height: 0px;
+  flex-grow: 1;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 @container (width < 520px) {
-  .message-list {
+  .message-list > ul {
+    padding: 10px;
     gap: 12px;
   }
 }
-.message-list > .loading-spinner {
+.message-list > ul > .loading-spinner {
   margin: 0 auto;
 }
-.message-list:empty {
+.message-list > ul:empty {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.message-list:empty::before {
+.message-list > ul:empty::before {
   display: block;
   content: attr(data-empty-message);
   color: var(--sub-text-color);
@@ -4372,18 +4391,22 @@ body > div > .select-modal {
   min-height: 50px;
   padding: 8px;
 }
-.post-form > main > .upload-preview-area {
+.post-form > main > .upload-preview-area,
+.post-form > main > .gif-preview-area {
   background-color: var(--content-bg-color);
 }
-.post-form > main > .upload-preview-area:empty {
+.post-form > main > .upload-preview-area:empty,
+.post-form > main > .gif-preview-area:empty {
   display: none;
 }
-.post-form > main > .upload-preview-area::after {
+.post-form > main > .upload-preview-area::after,
+.post-form > main > .gif-preview-area::after {
   content: '';
   display: table;
   clear: both;
 }
-.post-form > main > .upload-preview-area > .preview {
+.post-form > main > .upload-preview-area > .preview,
+.post-form > main > .gif-preview-area > .preview {
   float: left;
   position: relative;
   width: 150px;
@@ -4392,17 +4415,20 @@ body > div > .select-modal {
   margin-right: 10px;
   margin-bottom: 10px;
 }
-.post-form > main > .upload-preview-area > .preview.image {
+.post-form > main > .upload-preview-area > .preview.image,
+.post-form > main > .gif-preview-area > .preview.image {
   background-size: cover;
   background-position: center;
 }
-.post-form > main > .upload-preview-area > .preview.file {
+.post-form > main > .upload-preview-area > .preview.file,
+.post-form > main > .gif-preview-area > .preview.file {
   padding: 10px;
   display: flex;
   align-items: end;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.post-form > main > .upload-preview-area > .preview > button.x {
+.post-form > main > .upload-preview-area > .preview > button.x,
+.post-form > main > .gif-preview-area > .preview > button.x {
   position: absolute;
   top: 4px;
   right: 4px;
@@ -4424,6 +4450,10 @@ body > div > .select-modal {
 }
 .post-form > main > footer {
   display: flex;
+}
+.post-form > main > footer > section.rich {
+  display: flex;
+  gap: 4px;
 }
 .post-form > main > footer > button.post {
   margin-left: auto;
