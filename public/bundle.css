@@ -3886,15 +3886,16 @@ body > div > .select-modal {
   height: 32px;
   border-radius: 16px;
 }
-.message-form:has(>.gif-preview-area:empty):has(>main>form>.input-container>.message-input:empty) > main > section.actions > button.send {
+.message-form:not(.show-send) > main > section.actions > button.gif {
+  display: flex;
+}
+.message-form:not(.show-send) > main > section.actions > button.send {
   display: none;
 }
-.message-form:has( > .gif-preview-area:not(:empty)) > main > section.actions > button.gif,
-.message-form:has( > main > form > .input-container > .message-input:not(:empty)) > main > section.actions > button.gif {
+.message-form.show-send > main > section.actions > button.gif {
   display: none;
 }
-.message-form:has( > .gif-preview-area:not(:empty)) > main > section.actions > button.send,
-.message-form:has( > main > form > .input-container > .message-input:not(:empty)) > main > section.actions > button.send {
+.message-form.show-send > main > section.actions > button.send {
   display: flex;
 }
 .message-form > main {
