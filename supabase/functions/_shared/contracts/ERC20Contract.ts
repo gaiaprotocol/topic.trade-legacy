@@ -17,4 +17,8 @@ export default class ERC20Contract extends Contract<ERC20> {
   public async balanceOf(address: string): Promise<bigint> {
     return await this.ethersContract.balanceOf(address);
   }
+
+  public async decimals(): Promise<bigint> {
+    return await this.ethersContract.decimals();
+  }
 }
